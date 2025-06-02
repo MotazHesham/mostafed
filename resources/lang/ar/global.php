@@ -322,5 +322,5 @@ return [
     'leave'                          => 'مغادرة',
     'calendar'                       => 'التقويم',
     'messenger'                      => 'مراسل',
-
+    'main'                           => 'رئيسي',
 ];
