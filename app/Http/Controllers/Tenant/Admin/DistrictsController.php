@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyDistrictRequest;
@@ -31,7 +31,7 @@ class DistrictsController extends Controller
                 $deleteGate    = 'district_delete';
                 $crudRoutePart = 'districts';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -52,14 +52,14 @@ class DistrictsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.districts.index');
+        return view('tenant.admin.districts.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('district_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.districts.create');
+        return view('tenant.admin.districts.create');
     }
 
     public function store(StoreDistrictRequest $request)
@@ -73,7 +73,7 @@ class DistrictsController extends Controller
     {
         abort_if(Gate::denies('district_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.districts.edit', compact('district'));
+        return view('tenant.admin.districts.edit', compact('district'));
     }
 
     public function update(UpdateDistrictRequest $request, District $district)
@@ -87,7 +87,7 @@ class DistrictsController extends Controller
     {
         abort_if(Gate::denies('district_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.districts.show', compact('district'));
+        return view('tenant.admin.districts.show', compact('district'));
     }
 
     public function destroy(District $district)

@@ -52,7 +52,7 @@
                         <!-- Start::slide -->
                         <li class="slide">
                             <a href="{{ route('admin.roles.index') }}" class="side-menu__item">
-                                @include('svgs.briefcase')
+                                @include('utilities.svgs.briefcase')
                                 <span class="side-menu__label">{{ trans('cruds.role.title') }}</span>
                             </a>
                         </li>
@@ -63,7 +63,7 @@
                         <!-- Start::slide -->
                         <li class="slide">
                             <a href="{{ route('admin.users.index') }}" class="side-menu__item">
-                                @include('svgs.users')
+                                @include('utilities.svgs.users')
                                 <span class="side-menu__label">{{ trans('cruds.user.title') }}</span>
                             </a>
                         </li>
@@ -82,7 +82,7 @@
                         <!-- Start::slide -->
                         <li class="slide">
                             <a href="{{ route('admin.charities.index') }}" class="side-menu__item">
-                                @include('svgs.buildings')
+                                @include('utilities.svgs.buildings')
                                 <span class="side-menu__label">{{ trans('cruds.charity.title') }}</span>
                             </a>
                         </li>
@@ -102,7 +102,7 @@
                         <!-- Start::slide -->
                         <li class="slide">
                             <a href="{{ route('admin.sliders.index') }}" class="side-menu__item">
-                                @include('svgs.sliders')
+                                @include('utilities.svgs.sliders')
                                 <span class="side-menu__label">{{ trans('cruds.slider.title') }}</span>
                             </a>
                         </li>
@@ -112,7 +112,7 @@
                         <!-- Start::slide -->
                         <li class="slide">
                             <a href="{{ route('admin.front-projects.index') }}" class="side-menu__item">
-                                @include('svgs.projects')
+                                @include('utilities.svgs.projects')
                                 <span class="side-menu__label">{{ trans('cruds.frontProject.title') }}</span>
                             </a>
                         </li>
@@ -122,7 +122,7 @@
                         <!-- Start::slide -->
                         <li class="slide">
                             <a href="{{ route('admin.front-achievements.index') }}" class="side-menu__item">
-                                @include('svgs.medal')
+                                @include('utilities.svgs.medal')
                                 <span class="side-menu__label">{{ trans('cruds.frontAchievement.title') }}</span>
                             </a>
                         </li>
@@ -132,7 +132,7 @@
                         <!-- Start::slide -->
                         <li class="slide">
                             <a href="{{ route('admin.front-partners.index') }}" class="side-menu__item">
-                                @include('svgs.partners')
+                                @include('utilities.svgs.partners')
                                 <span class="side-menu__label">{{ trans('cruds.frontPartner.title') }}</span>
                             </a>
                         </li>
@@ -142,7 +142,7 @@
                         <!-- Start::slide -->
                         <li class="slide">
                             <a href="{{ route('admin.front-reviews.index') }}" class="side-menu__item">
-                                @include('svgs.stars')
+                                @include('utilities.svgs.stars')
                                 <span class="side-menu__label">{{ trans('cruds.frontReview.title') }}</span>
                             </a>
                         </li>
@@ -152,7 +152,7 @@
                         <!-- Start::slide -->
                         <li class="slide">
                             <a href="{{ route('admin.front-links.index') }}" class="side-menu__item">
-                                @include('svgs.links')
+                                @include('utilities.svgs.links')
                                 <span class="side-menu__label">{{ trans('cruds.frontLink.title') }}</span>
                             </a>
                         </li>
@@ -162,7 +162,7 @@
                         <!-- Start::slide -->
                         <li class="slide">
                             <a href="{{ route('admin.subscriptions.index') }}" class="side-menu__item">
-                                @include('svgs.mail')
+                                @include('utilities.svgs.mail')
                                 <span class="side-menu__label">{{ trans('cruds.subscription.title') }}</span>
                             </a>
                         </li>
@@ -180,7 +180,7 @@
                         <!-- Start::slide -->
                         <li class="slide">
                             <a href="{{ route('admin.settings.index') }}" class="side-menu__item">
-                                @include('svgs.settings')
+                                @include('utilities.svgs.settings')
                                 <span class="side-menu__label">{{ trans('cruds.setting.title') }}</span>
                             </a>
                         </li>

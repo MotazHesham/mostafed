@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTaskBoardRequest;
@@ -19,14 +19,14 @@ class TaskBoardsController extends Controller
 
         $taskBoards = TaskBoard::all();
 
-        return view('admin.taskBoards.index', compact('taskBoards'));
+        return view('tenant.admin.taskBoards.index', compact('taskBoards'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('task_board_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskBoards.create');
+        return view('tenant.admin.taskBoards.create');
     }
 
     public function store(StoreTaskBoardRequest $request)
@@ -40,7 +40,7 @@ class TaskBoardsController extends Controller
     {
         abort_if(Gate::denies('task_board_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskBoards.edit', compact('taskBoard'));
+        return view('tenant.admin.taskBoards.edit', compact('taskBoard'));
     }
 
     public function update(UpdateTaskBoardRequest $request, TaskBoard $taskBoard)
@@ -56,7 +56,7 @@ class TaskBoardsController extends Controller
 
         $taskBoard->load('taskBoardTasks');
 
-        return view('admin.taskBoards.show', compact('taskBoard'));
+        return view('tenant.admin.taskBoards.show', compact('taskBoard'));
     }
 
     public function destroy(TaskBoard $taskBoard)

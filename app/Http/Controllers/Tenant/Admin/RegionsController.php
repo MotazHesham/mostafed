@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyRegionRequest;
@@ -32,7 +32,7 @@ class RegionsController extends Controller
                 $deleteGate    = 'region_delete';
                 $crudRoutePart = 'regions';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -61,7 +61,7 @@ class RegionsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.regions.index');
+        return view('tenant.admin.regions.index');
     }
 
     public function create()
@@ -70,7 +70,7 @@ class RegionsController extends Controller
 
         $cities = City::pluck('name', 'id');
 
-        return view('admin.regions.create', compact('cities'));
+        return view('tenant.admin.regions.create', compact('cities'));
     }
 
     public function store(StoreRegionRequest $request)
@@ -89,7 +89,7 @@ class RegionsController extends Controller
 
         $region->load('cities');
 
-        return view('admin.regions.edit', compact('cities', 'region'));
+        return view('tenant.admin.regions.edit', compact('cities', 'region'));
     }
 
     public function update(UpdateRegionRequest $request, Region $region)
@@ -106,7 +106,7 @@ class RegionsController extends Controller
 
         $region->load('cities');
 
-        return view('admin.regions.show', compact('region'));
+        return view('tenant.admin.regions.show', compact('region'));
     }
 
     public function destroy(Region $region)

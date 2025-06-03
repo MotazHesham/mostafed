@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyEconomicStatusRequest;
@@ -31,7 +31,7 @@ class EconomicStatusController extends Controller
                 $deleteGate    = 'economic_status_delete';
                 $crudRoutePart = 'economic-statuses';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -55,14 +55,14 @@ class EconomicStatusController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.economicStatuses.index');
+        return view('tenant.admin.economicStatuses.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('economic_status_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.economicStatuses.create');
+        return view('tenant.admin.economicStatuses.create');
     }
 
     public function store(StoreEconomicStatusRequest $request)
@@ -76,7 +76,7 @@ class EconomicStatusController extends Controller
     {
         abort_if(Gate::denies('economic_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.economicStatuses.edit', compact('economicStatus'));
+        return view('tenant.admin.economicStatuses.edit', compact('economicStatus'));
     }
 
     public function update(UpdateEconomicStatusRequest $request, EconomicStatus $economicStatus)
@@ -90,7 +90,7 @@ class EconomicStatusController extends Controller
     {
         abort_if(Gate::denies('economic_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.economicStatuses.show', compact('economicStatus'));
+        return view('tenant.admin.economicStatuses.show', compact('economicStatus'));
     }
 
     public function destroy(EconomicStatus $economicStatus)

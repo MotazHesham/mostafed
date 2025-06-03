@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyNationalityRequest;
@@ -19,14 +19,14 @@ class NationalitiesController extends Controller
 
         $nationalities = Nationality::all();
 
-        return view('admin.nationalities.index', compact('nationalities'));
+        return view('tenant.admin.nationalities.index', compact('nationalities'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('nationality_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.nationalities.create');
+        return view('tenant.admin.nationalities.create');
     }
 
     public function store(StoreNationalityRequest $request)
@@ -40,7 +40,7 @@ class NationalitiesController extends Controller
     {
         abort_if(Gate::denies('nationality_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.nationalities.edit', compact('nationality'));
+        return view('tenant.admin.nationalities.edit', compact('nationality'));
     }
 
     public function update(UpdateNationalityRequest $request, Nationality $nationality)
@@ -54,7 +54,7 @@ class NationalitiesController extends Controller
     {
         abort_if(Gate::denies('nationality_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.nationalities.show', compact('nationality'));
+        return view('tenant.admin.nationalities.show', compact('nationality'));
     }
 
     public function destroy(Nationality $nationality)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyServiceStatusRequest;
@@ -31,7 +31,7 @@ class ServiceStatusesController extends Controller
                 $deleteGate    = 'service_status_delete';
                 $crudRoutePart = 'service-statuses';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -58,14 +58,14 @@ class ServiceStatusesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.serviceStatuses.index');
+        return view('tenant.admin.serviceStatuses.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('service_status_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.serviceStatuses.create');
+        return view('tenant.admin.serviceStatuses.create');
     }
 
     public function store(StoreServiceStatusRequest $request)
@@ -79,7 +79,7 @@ class ServiceStatusesController extends Controller
     {
         abort_if(Gate::denies('service_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.serviceStatuses.edit', compact('serviceStatus'));
+        return view('tenant.admin.serviceStatuses.edit', compact('serviceStatus'));
     }
 
     public function update(UpdateServiceStatusRequest $request, ServiceStatus $serviceStatus)
@@ -93,7 +93,7 @@ class ServiceStatusesController extends Controller
     {
         abort_if(Gate::denies('service_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.serviceStatuses.show', compact('serviceStatus'));
+        return view('tenant.admin.serviceStatuses.show', compact('serviceStatus'));
     }
 
     public function destroy(ServiceStatus $serviceStatus)

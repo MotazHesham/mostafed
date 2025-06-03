@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTaskTagRequest;
@@ -19,14 +19,14 @@ class TaskTagController extends Controller
 
         $taskTags = TaskTag::all();
 
-        return view('admin.taskTags.index', compact('taskTags'));
+        return view('tenant.admin.taskTags.index', compact('taskTags'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('task_tag_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskTags.create');
+        return view('tenant.admin.taskTags.create');
     }
 
     public function store(StoreTaskTagRequest $request)
@@ -40,7 +40,7 @@ class TaskTagController extends Controller
     {
         abort_if(Gate::denies('task_tag_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskTags.edit', compact('taskTag'));
+        return view('tenant.admin.taskTags.edit', compact('taskTag'));
     }
 
     public function update(UpdateTaskTagRequest $request, TaskTag $taskTag)
@@ -54,7 +54,7 @@ class TaskTagController extends Controller
     {
         abort_if(Gate::denies('task_tag_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskTags.show', compact('taskTag'));
+        return view('tenant.admin.taskTags.show', compact('taskTag'));
     }
 
     public function destroy(TaskTag $taskTag)

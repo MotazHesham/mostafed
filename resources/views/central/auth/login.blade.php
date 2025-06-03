@@ -65,13 +65,13 @@
             <div class="authentication-cover overflow-hidden">
                 <div class="authentication-cover-logo">
                     <a href="{{ url('index') }}">
-                        <img src="{{ asset('logo-dark.png') }}" alt="" class="authentication-brand desktop-white"
+                        <img src="{{ asset('assets/logo-dark.png') }}" alt="" class="authentication-brand desktop-white"
                             style="height: 3.75rem !important">
                     </a>
                 </div>
                 <div class="aunthentication-cover-content d-flex align-items-center justify-content-center">
                     <div>
-                        <img src="{{ asset('login_cover3.svg') }}" alt="">
+                        <img src="{{ asset('assets/login-cover2.svg') }}" alt="">
                     </div>
                 </div>
             </div>

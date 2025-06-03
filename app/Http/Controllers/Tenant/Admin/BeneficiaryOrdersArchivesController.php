@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBeneficiaryOrdersArchiveRequest;
@@ -16,14 +16,14 @@ class BeneficiaryOrdersArchivesController extends Controller
     {
         abort_if(Gate::denies('beneficiary_orders_archive_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryOrdersArchives.index');
+        return view('tenant.admin.beneficiaryOrdersArchives.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('beneficiary_orders_archive_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryOrdersArchives.create');
+        return view('tenant.admin.beneficiaryOrdersArchives.create');
     }
 
     public function store(StoreBeneficiaryOrdersArchiveRequest $request)
@@ -37,7 +37,7 @@ class BeneficiaryOrdersArchivesController extends Controller
     {
         abort_if(Gate::denies('beneficiary_orders_archive_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryOrdersArchives.edit', compact('beneficiaryOrdersArchive'));
+        return view('tenant.admin.beneficiaryOrdersArchives.edit', compact('beneficiaryOrdersArchive'));
     }
 
     public function update(UpdateBeneficiaryOrdersArchiveRequest $request, BeneficiaryOrdersArchive $beneficiaryOrdersArchive)
@@ -51,7 +51,7 @@ class BeneficiaryOrdersArchivesController extends Controller
     {
         abort_if(Gate::denies('beneficiary_orders_archive_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryOrdersArchives.show', compact('beneficiaryOrdersArchive'));
+        return view('tenant.admin.beneficiaryOrdersArchives.show', compact('beneficiaryOrdersArchive'));
     }
 
     public function destroy(BeneficiaryOrdersArchive $beneficiaryOrdersArchive)

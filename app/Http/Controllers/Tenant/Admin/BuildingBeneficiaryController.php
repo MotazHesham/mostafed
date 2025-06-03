@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBuildingBeneficiaryRequest;
@@ -33,7 +33,7 @@ class BuildingBeneficiaryController extends Controller
                 $deleteGate    = 'building_beneficiary_delete';
                 $crudRoutePart = 'building-beneficiaries';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -62,7 +62,7 @@ class BuildingBeneficiaryController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.buildingBeneficiaries.index');
+        return view('tenant.admin.buildingBeneficiaries.index');
     }
 
     public function create()
@@ -73,7 +73,7 @@ class BuildingBeneficiaryController extends Controller
 
         $beneficiaries = Beneficiary::pluck('dob', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.buildingBeneficiaries.create', compact('beneficiaries', 'buildings'));
+        return view('tenant.admin.buildingBeneficiaries.create', compact('beneficiaries', 'buildings'));
     }
 
     public function store(StoreBuildingBeneficiaryRequest $request)
@@ -93,7 +93,7 @@ class BuildingBeneficiaryController extends Controller
 
         $buildingBeneficiary->load('building', 'beneficiary');
 
-        return view('admin.buildingBeneficiaries.edit', compact('beneficiaries', 'buildingBeneficiary', 'buildings'));
+        return view('tenant.admin.buildingBeneficiaries.edit', compact('beneficiaries', 'buildingBeneficiary', 'buildings'));
     }
 
     public function update(UpdateBuildingBeneficiaryRequest $request, BuildingBeneficiary $buildingBeneficiary)
@@ -109,7 +109,7 @@ class BuildingBeneficiaryController extends Controller
 
         $buildingBeneficiary->load('building', 'beneficiary');
 
-        return view('admin.buildingBeneficiaries.show', compact('buildingBeneficiary'));
+        return view('tenant.admin.buildingBeneficiaries.show', compact('buildingBeneficiary'));
     }
 
     public function destroy(BuildingBeneficiary $buildingBeneficiary)

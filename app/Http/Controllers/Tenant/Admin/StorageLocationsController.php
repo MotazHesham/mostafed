@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyStorageLocationRequest;
@@ -31,7 +31,7 @@ class StorageLocationsController extends Controller
                 $deleteGate    = 'storage_location_delete';
                 $crudRoutePart = 'storage-locations';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -65,7 +65,7 @@ class StorageLocationsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.storageLocations.index');
+        return view('tenant.admin.storageLocations.index');
     }
 
     public function create()
@@ -74,7 +74,7 @@ class StorageLocationsController extends Controller
 
         $parents = StorageLocation::pluck('code', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.storageLocations.create', compact('parents'));
+        return view('tenant.admin.storageLocations.create', compact('parents'));
     }
 
     public function store(StoreStorageLocationRequest $request)
@@ -92,7 +92,7 @@ class StorageLocationsController extends Controller
 
         $storageLocation->load('parent');
 
-        return view('admin.storageLocations.edit', compact('parents', 'storageLocation'));
+        return view('tenant.admin.storageLocations.edit', compact('parents', 'storageLocation'));
     }
 
     public function update(UpdateStorageLocationRequest $request, StorageLocation $storageLocation)
@@ -108,7 +108,7 @@ class StorageLocationsController extends Controller
 
         $storageLocation->load('parent', 'parentStorageLocations', 'storageLocationArchives');
 
-        return view('admin.storageLocations.show', compact('storageLocation'));
+        return view('tenant.admin.storageLocations.show', compact('storageLocation'));
     }
 
     public function destroy(StorageLocation $storageLocation)

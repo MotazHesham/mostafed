@@ -11,12 +11,12 @@
 						<div class="header-element">
 							<div class="horizontal-logo">
 								<a href="{{url('index')}}" class="header-logo">
-									<img src="{{asset('assets/images/brand-logos/desktop-logo.png')}}" alt="logo" class="desktop-logo">
-									<img src="{{asset('assets/images/brand-logos/toggle-dark.png')}}" alt="logo" class="toggle-dark">
-									<img src="{{asset('assets/images/brand-logos/desktop-dark.png')}}" alt="logo" class="desktop-dark">
-									<img src="{{asset('assets/images/brand-logos/toggle-logo.png')}}" alt="logo" class="toggle-logo">
-									<img src="{{asset('assets/images/brand-logos/toggle-white.png')}}" alt="logo" class="toggle-white">
-									<img src="{{asset('assets/images/brand-logos/desktop-white.png')}}" alt="logo" class="desktop-white">
+									<img src="{{global_asset('assets/images/brand-logos/desktop-logo.png')}}" alt="logo" class="desktop-logo">
+									<img src="{{global_asset('assets/images/brand-logos/toggle-dark.png')}}" alt="logo" class="toggle-dark">
+									<img src="{{global_asset('assets/images/brand-logos/desktop-dark.png')}}" alt="logo" class="desktop-dark">
+									<img src="{{global_asset('assets/images/brand-logos/toggle-logo.png')}}" alt="logo" class="toggle-logo">
+									<img src="{{global_asset('assets/images/brand-logos/toggle-white.png')}}" alt="logo" class="toggle-white">
+									<img src="{{global_asset('assets/images/brand-logos/desktop-white.png')}}" alt="logo" class="desktop-white">
 								</a>
 							</div>
 						</div>
@@ -71,7 +71,7 @@
 										<div class="d-flex align-items-center justify-content-between">
 											<div class="d-flex align-items-center">
 												<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-													<img src="{{asset('assets/images/flags/us_flag.jpg')}}" alt="img">
+													<img src="{{global_asset('assets/images/flags/us_flag.jpg')}}" alt="img">
 												</span>
 												English
 											</div>
@@ -81,7 +81,7 @@
 								<li>
 									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
 										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{asset('assets/images/flags/spain_flag.jpg')}}" alt="img" >
+											<img src="{{global_asset('assets/images/flags/spain_flag.jpg')}}" alt="img" >
 										</span>
 										español
 									</a>
@@ -89,7 +89,7 @@
 								<li>
 									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
 										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{asset('assets/images/flags/french_flag.jpg')}}" alt="img" >
+											<img src="{{global_asset('assets/images/flags/french_flag.jpg')}}" alt="img" >
 										</span>
 										français
 									</a>
@@ -97,7 +97,7 @@
 								<li>
 									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
 										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{asset('assets/images/flags/uae_flag.jpg')}}" alt="img" >
+											<img src="{{global_asset('assets/images/flags/uae_flag.jpg')}}" alt="img" >
 										</span>
 										عربي
 									</a>
@@ -105,7 +105,7 @@
 								<li>
 									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
 										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{asset('assets/images/flags/germany_flag.jpg')}}" alt="img" >
+											<img src="{{global_asset('assets/images/flags/germany_flag.jpg')}}" alt="img" >
 										</span>
 										Deutsch
 									</a>
@@ -113,7 +113,7 @@
 								<li>
 									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
 										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{asset('assets/images/flags/china_flag.jpg')}}" alt="img" >
+											<img src="{{global_asset('assets/images/flags/china_flag.jpg')}}" alt="img" >
 										</span>
 										中国人
 									</a>
@@ -121,7 +121,7 @@
 								<li>
 									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
 										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{asset('assets/images/flags/italy_flag.jpg')}}" alt="img" >
+											<img src="{{global_asset('assets/images/flags/italy_flag.jpg')}}" alt="img" >
 										</span>
 										Italiano
 									</a>
@@ -129,7 +129,7 @@
 								<li>
 									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
 										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{asset('assets/images/flags/russia_flag.jpg')}}" alt="img" >
+											<img src="{{global_asset('assets/images/flags/russia_flag.jpg')}}" alt="img" >
 										</span>
 										Русский
 									</a>
@@ -188,7 +188,7 @@
 										<div class="d-flex align-items-center cart-dropdown-item gap-3">
 											<div class="lh-1">
 												<span class="avatar avatar-md avatar-rounded">
-													<img src="{{asset('assets/images/ecommerce/jpg/1.jpg')}}" alt="Elegance Wall Clock">
+													<img src="{{global_asset('assets/images/ecommerce/jpg/1.jpg')}}" alt="Elegance Wall Clock">
 												</span>
 											</div>
 											<div class="flex-fill">
@@ -213,7 +213,7 @@
 										<div class="d-flex align-items-center cart-dropdown-item gap-3">
 											<div class="lh-1">
 												<span class="avatar avatar-md avatar-rounded">
-													<img src="{{asset('assets/images/ecommerce/jpg/2.jpg')}}" alt="Sports Shoe">
+													<img src="{{global_asset('assets/images/ecommerce/jpg/2.jpg')}}" alt="Sports Shoe">
 												</span>
 											</div>
 											<div class="flex-fill">
@@ -238,7 +238,7 @@
 										<div class="d-flex align-items-center cart-dropdown-item gap-3">
 											<div class="lh-1">
 												<span class="avatar avatar-md avatar-rounded">
-													<img src="{{asset('assets/images/ecommerce/jpg/3.jpg')}}" alt="Medium Back Pack">
+													<img src="{{global_asset('assets/images/ecommerce/jpg/3.jpg')}}" alt="Medium Back Pack">
 												</span>
 											</div>
 											<div class="flex-fill">
@@ -263,7 +263,7 @@
 										<div class="d-flex align-items-center cart-dropdown-item gap-3">
 											<div class="lh-1">
 												<span class="avatar avatar-md avatar-rounded">
-													<img src="{{asset('assets/images/ecommerce/jpg/4.jpg')}}" alt="BloomCraft Pot">
+													<img src="{{global_asset('assets/images/ecommerce/jpg/4.jpg')}}" alt="BloomCraft Pot">
 												</span>
 											</div>
 											<div class="flex-fill">
@@ -288,7 +288,7 @@
 										<div class="d-flex align-items-center cart-dropdown-item gap-3">
 											<div class="lh-1">
 												<span class="avatar avatar-md avatar-rounded">
-													<img src="{{asset('assets/images/ecommerce/jpg/5.jpg')}}" alt="Ceramic Cup">
+													<img src="{{global_asset('assets/images/ecommerce/jpg/5.jpg')}}" alt="Ceramic Cup">
 												</span>
 											</div>
 											<div class="flex-fill">
@@ -352,7 +352,7 @@
 										<div class="d-flex align-items-start">
 											<div class="pe-2 lh-1">
 												<span class="avatar avatar-md avatar-rounded bg-primary">
-													<img src="{{asset('assets/images/faces/1.jpg')}}" alt="user1">
+													<img src="{{global_asset('assets/images/faces/1.jpg')}}" alt="user1">
 												</span>
 											</div>
 											<div class="flex-grow-1 d-flex align-items-start justify-content-between">
@@ -394,7 +394,7 @@
 										<div class="d-flex align-items-start">
 											<div class="pe-2 lh-1">
 												<span class="avatar avatar-md bg-orange avatar-rounded">
-													<img src="{{asset('assets/images/faces/13.jpg')}}" alt="user1">
+													<img src="{{global_asset('assets/images/faces/13.jpg')}}" alt="user1">
 												</span>
 											</div>
 											<div class="flex-grow-1 d-flex align-items-start justify-content-between">
@@ -415,7 +415,7 @@
 										<div class="d-flex align-items-start">
 											<div class="pe-2 lh-1">
 												<span class="avatar avatar-md bg-success avatar-rounded">
-													<img src="{{asset('assets/images/faces/11.jpg')}}" alt="user1">
+													<img src="{{global_asset('assets/images/faces/11.jpg')}}" alt="user1">
 												</span>
 											</div>
 											<div class="flex-grow-1 d-flex align-items-start justify-content-between">
@@ -494,7 +494,7 @@
 							<a href="javascript:void(0);" class="header-link dropdown-toggle" id="mainHeaderProfile" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
 								<div class="d-flex align-items-center">
 									<div>
-										<img src="{{asset('assets/images/faces/15.jpg')}}" alt="img" class="avatar custom-header-avatar avatar-rounded">
+										<img src="{{global_asset('assets/images/faces/15.jpg')}}" alt="img" class="avatar custom-header-avatar avatar-rounded">
 									</div>
 								</div>
 							</a>

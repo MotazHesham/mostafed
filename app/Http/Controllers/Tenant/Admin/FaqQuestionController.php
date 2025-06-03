@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyFaqQuestionRequest;
@@ -20,7 +20,7 @@ class FaqQuestionController extends Controller
 
         $faqQuestions = FaqQuestion::with(['category'])->get();
 
-        return view('admin.faqQuestions.index', compact('faqQuestions'));
+        return view('tenant.admin.faqQuestions.index', compact('faqQuestions'));
     }
 
     public function create()
@@ -29,7 +29,7 @@ class FaqQuestionController extends Controller
 
         $categories = FaqCategory::pluck('category', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.faqQuestions.create', compact('categories'));
+        return view('tenant.admin.faqQuestions.create', compact('categories'));
     }
 
     public function store(StoreFaqQuestionRequest $request)
@@ -47,7 +47,7 @@ class FaqQuestionController extends Controller
 
         $faqQuestion->load('category');
 
-        return view('admin.faqQuestions.edit', compact('categories', 'faqQuestion'));
+        return view('tenant.admin.faqQuestions.edit', compact('categories', 'faqQuestion'));
     }
 
     public function update(UpdateFaqQuestionRequest $request, FaqQuestion $faqQuestion)
@@ -63,7 +63,7 @@ class FaqQuestionController extends Controller
 
         $faqQuestion->load('category');
 
-        return view('admin.faqQuestions.show', compact('faqQuestion'));
+        return view('tenant.admin.faqQuestions.show', compact('faqQuestion'));
     }
 
     public function destroy(FaqQuestion $faqQuestion)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyLettersOrganizationRequest;
@@ -31,7 +31,7 @@ class LettersOrganizationsController extends Controller
                 $deleteGate    = 'letters_organization_delete';
                 $crudRoutePart = 'letters-organizations';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -64,14 +64,14 @@ class LettersOrganizationsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.lettersOrganizations.index');
+        return view('tenant.admin.lettersOrganizations.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('letters_organization_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.lettersOrganizations.create');
+        return view('tenant.admin.lettersOrganizations.create');
     }
 
     public function store(StoreLettersOrganizationRequest $request)
@@ -85,7 +85,7 @@ class LettersOrganizationsController extends Controller
     {
         abort_if(Gate::denies('letters_organization_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.lettersOrganizations.edit', compact('lettersOrganization'));
+        return view('tenant.admin.lettersOrganizations.edit', compact('lettersOrganization'));
     }
 
     public function update(UpdateLettersOrganizationRequest $request, LettersOrganization $lettersOrganization)
@@ -99,7 +99,7 @@ class LettersOrganizationsController extends Controller
     {
         abort_if(Gate::denies('letters_organization_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.lettersOrganizations.show', compact('lettersOrganization'));
+        return view('tenant.admin.lettersOrganizations.show', compact('lettersOrganization'));
     }
 
     public function destroy(LettersOrganization $lettersOrganization)

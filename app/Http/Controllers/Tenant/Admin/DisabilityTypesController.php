@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyDisabilityTypeRequest;
@@ -31,7 +31,7 @@ class DisabilityTypesController extends Controller
                 $deleteGate    = 'disability_type_delete';
                 $crudRoutePart = 'disability-types';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -52,14 +52,14 @@ class DisabilityTypesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.disabilityTypes.index');
+        return view('tenant.admin.disabilityTypes.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('disability_type_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.disabilityTypes.create');
+        return view('tenant.admin.disabilityTypes.create');
     }
 
     public function store(StoreDisabilityTypeRequest $request)
@@ -73,7 +73,7 @@ class DisabilityTypesController extends Controller
     {
         abort_if(Gate::denies('disability_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.disabilityTypes.edit', compact('disabilityType'));
+        return view('tenant.admin.disabilityTypes.edit', compact('disabilityType'));
     }
 
     public function update(UpdateDisabilityTypeRequest $request, DisabilityType $disabilityType)
@@ -87,7 +87,7 @@ class DisabilityTypesController extends Controller
     {
         abort_if(Gate::denies('disability_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.disabilityTypes.show', compact('disabilityType'));
+        return view('tenant.admin.disabilityTypes.show', compact('disabilityType'));
     }
 
     public function destroy(DisabilityType $disabilityType)

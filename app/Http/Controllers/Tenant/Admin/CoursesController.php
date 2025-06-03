@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
@@ -35,7 +35,7 @@ class CoursesController extends Controller
                 $deleteGate    = 'course_delete';
                 $crudRoutePart = 'courses';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -83,14 +83,14 @@ class CoursesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.courses.index');
+        return view('tenant.admin.courses.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('course_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.courses.create');
+        return view('tenant.admin.courses.create');
     }
 
     public function store(StoreCourseRequest $request)
@@ -112,7 +112,7 @@ class CoursesController extends Controller
     {
         abort_if(Gate::denies('course_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.courses.edit', compact('course'));
+        return view('tenant.admin.courses.edit', compact('course'));
     }
 
     public function update(UpdateCourseRequest $request, Course $course)
@@ -139,7 +139,7 @@ class CoursesController extends Controller
 
         $course->load('courseCourseStudents');
 
-        return view('admin.courses.show', compact('course'));
+        return view('tenant.admin.courses.show', compact('course'));
     }
 
     public function destroy(Course $course)

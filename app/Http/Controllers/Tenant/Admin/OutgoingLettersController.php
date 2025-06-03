@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
@@ -37,7 +37,7 @@ class OutgoingLettersController extends Controller
                 $deleteGate    = 'outgoing_letter_delete';
                 $crudRoutePart = 'outgoing-letters';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -93,7 +93,7 @@ class OutgoingLettersController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.outgoingLetters.index');
+        return view('tenant.admin.outgoingLetters.index');
     }
 
     public function create()
@@ -104,7 +104,7 @@ class OutgoingLettersController extends Controller
 
         $incoming_letters = IncomingLetter::pluck('letter_number', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.outgoingLetters.create', compact('incoming_letters', 'receviers'));
+        return view('tenant.admin.outgoingLetters.create', compact('incoming_letters', 'receviers'));
     }
 
     public function store(StoreOutgoingLetterRequest $request)
@@ -132,7 +132,7 @@ class OutgoingLettersController extends Controller
 
         $outgoingLetter->load('recevier', 'incoming_letter', 'created_by');
 
-        return view('admin.outgoingLetters.edit', compact('incoming_letters', 'outgoingLetter', 'receviers'));
+        return view('tenant.admin.outgoingLetters.edit', compact('incoming_letters', 'outgoingLetter', 'receviers'));
     }
 
     public function update(UpdateOutgoingLetterRequest $request, OutgoingLetter $outgoingLetter)
@@ -162,7 +162,7 @@ class OutgoingLettersController extends Controller
 
         $outgoingLetter->load('recevier', 'incoming_letter', 'created_by');
 
-        return view('admin.outgoingLetters.show', compact('outgoingLetter'));
+        return view('tenant.admin.outgoingLetters.show', compact('outgoingLetter'));
     }
 
     public function destroy(OutgoingLetter $outgoingLetter)

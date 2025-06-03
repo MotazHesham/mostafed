@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyMaritalStatusRequest;
@@ -31,7 +31,7 @@ class MaritalStatusController extends Controller
                 $deleteGate    = 'marital_status_delete';
                 $crudRoutePart = 'marital-statuses';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -52,14 +52,14 @@ class MaritalStatusController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.maritalStatuses.index');
+        return view('tenant.admin.maritalStatuses.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('marital_status_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.maritalStatuses.create');
+        return view('tenant.admin.maritalStatuses.create');
     }
 
     public function store(StoreMaritalStatusRequest $request)
@@ -73,7 +73,7 @@ class MaritalStatusController extends Controller
     {
         abort_if(Gate::denies('marital_status_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.maritalStatuses.edit', compact('maritalStatus'));
+        return view('tenant.admin.maritalStatuses.edit', compact('maritalStatus'));
     }
 
     public function update(UpdateMaritalStatusRequest $request, MaritalStatus $maritalStatus)
@@ -87,7 +87,7 @@ class MaritalStatusController extends Controller
     {
         abort_if(Gate::denies('marital_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.maritalStatuses.show', compact('maritalStatus'));
+        return view('tenant.admin.maritalStatuses.show', compact('maritalStatus'));
     }
 
     public function destroy(MaritalStatus $maritalStatus)

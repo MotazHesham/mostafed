@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyHealthConditionRequest;
@@ -31,7 +31,7 @@ class HealthConditionsController extends Controller
                 $deleteGate    = 'health_condition_delete';
                 $crudRoutePart = 'health-conditions';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -52,14 +52,14 @@ class HealthConditionsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.healthConditions.index');
+        return view('tenant.admin.healthConditions.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('health_condition_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.healthConditions.create');
+        return view('tenant.admin.healthConditions.create');
     }
 
     public function store(StoreHealthConditionRequest $request)
@@ -73,7 +73,7 @@ class HealthConditionsController extends Controller
     {
         abort_if(Gate::denies('health_condition_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.healthConditions.edit', compact('healthCondition'));
+        return view('tenant.admin.healthConditions.edit', compact('healthCondition'));
     }
 
     public function update(UpdateHealthConditionRequest $request, HealthCondition $healthCondition)
@@ -87,7 +87,7 @@ class HealthConditionsController extends Controller
     {
         abort_if(Gate::denies('health_condition_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.healthConditions.show', compact('healthCondition'));
+        return view('tenant.admin.healthConditions.show', compact('healthCondition'));
     }
 
     public function destroy(HealthCondition $healthCondition)

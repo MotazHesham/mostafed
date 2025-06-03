@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyDepartmentRequest;
@@ -31,7 +31,7 @@ class DepartmentsController extends Controller
                 $deleteGate    = 'department_delete';
                 $crudRoutePart = 'departments';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -52,14 +52,14 @@ class DepartmentsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.departments.index');
+        return view('tenant.admin.departments.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('department_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.departments.create');
+        return view('tenant.admin.departments.create');
     }
 
     public function store(StoreDepartmentRequest $request)
@@ -73,7 +73,7 @@ class DepartmentsController extends Controller
     {
         abort_if(Gate::denies('department_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.departments.edit', compact('department'));
+        return view('tenant.admin.departments.edit', compact('department'));
     }
 
     public function update(UpdateDepartmentRequest $request, Department $department)
@@ -87,7 +87,7 @@ class DepartmentsController extends Controller
     {
         abort_if(Gate::denies('department_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.departments.show', compact('department'));
+        return view('tenant.admin.departments.show', compact('department'));
     }
 
     public function destroy(Department $department)

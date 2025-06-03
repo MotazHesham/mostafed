@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBuildingRequest;
@@ -31,7 +31,7 @@ class BuildingsController extends Controller
                 $deleteGate    = 'building_delete';
                 $crudRoutePart = 'buildings';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -61,14 +61,14 @@ class BuildingsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.buildings.index');
+        return view('tenant.admin.buildings.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('building_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.buildings.create');
+        return view('tenant.admin.buildings.create');
     }
 
     public function store(StoreBuildingRequest $request)
@@ -82,7 +82,7 @@ class BuildingsController extends Controller
     {
         abort_if(Gate::denies('building_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.buildings.edit', compact('building'));
+        return view('tenant.admin.buildings.edit', compact('building'));
     }
 
     public function update(UpdateBuildingRequest $request, Building $building)
@@ -96,7 +96,7 @@ class BuildingsController extends Controller
     {
         abort_if(Gate::denies('building_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.buildings.show', compact('building'));
+        return view('tenant.admin.buildings.show', compact('building'));
     }
 
     public function destroy(Building $building)

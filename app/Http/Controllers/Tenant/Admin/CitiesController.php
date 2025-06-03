@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyCityRequest;
@@ -32,7 +32,7 @@ class CitiesController extends Controller
                 $deleteGate    = 'city_delete';
                 $crudRoutePart = 'cities';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -61,7 +61,7 @@ class CitiesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.cities.index');
+        return view('tenant.admin.cities.index');
     }
 
     public function create()
@@ -70,7 +70,7 @@ class CitiesController extends Controller
 
         $districts = District::pluck('name', 'id');
 
-        return view('admin.cities.create', compact('districts'));
+        return view('tenant.admin.cities.create', compact('districts'));
     }
 
     public function store(StoreCityRequest $request)
@@ -89,7 +89,7 @@ class CitiesController extends Controller
 
         $city->load('districts');
 
-        return view('admin.cities.edit', compact('city', 'districts'));
+        return view('tenant.admin.cities.edit', compact('city', 'districts'));
     }
 
     public function update(UpdateCityRequest $request, City $city)
@@ -106,7 +106,7 @@ class CitiesController extends Controller
 
         $city->load('districts');
 
-        return view('admin.cities.show', compact('city'));
+        return view('tenant.admin.cities.show', compact('city'));
     }
 
     public function destroy(City $city)

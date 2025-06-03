@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
@@ -39,7 +39,7 @@ class BeneficiaryOrdersController extends Controller
                 $deleteGate    = 'beneficiary_order_delete';
                 $crudRoutePart = 'beneficiary-orders';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -90,7 +90,7 @@ class BeneficiaryOrdersController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.beneficiaryOrders.index');
+        return view('tenant.admin.beneficiaryOrders.index');
     }
 
     public function create()
@@ -105,7 +105,7 @@ class BeneficiaryOrdersController extends Controller
 
         $specialists = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.beneficiaryOrders.create', compact('beneficiaries', 'services', 'specialists', 'statuses'));
+        return view('tenant.admin.beneficiaryOrders.create', compact('beneficiaries', 'services', 'specialists', 'statuses'));
     }
 
     public function store(StoreBeneficiaryOrderRequest $request)
@@ -137,7 +137,7 @@ class BeneficiaryOrdersController extends Controller
 
         $beneficiaryOrder->load('beneficiary', 'service', 'status', 'specialist');
 
-        return view('admin.beneficiaryOrders.edit', compact('beneficiaries', 'beneficiaryOrder', 'services', 'specialists', 'statuses'));
+        return view('tenant.admin.beneficiaryOrders.edit', compact('beneficiaries', 'beneficiaryOrder', 'services', 'specialists', 'statuses'));
     }
 
     public function update(UpdateBeneficiaryOrderRequest $request, BeneficiaryOrder $beneficiaryOrder)
@@ -164,7 +164,7 @@ class BeneficiaryOrdersController extends Controller
 
         $beneficiaryOrder->load('beneficiary', 'service', 'status', 'specialist', 'beneficiaryFollowupBeneficiaryOrderFollowups');
 
-        return view('admin.beneficiaryOrders.show', compact('beneficiaryOrder'));
+        return view('tenant.admin.beneficiaryOrders.show', compact('beneficiaryOrder'));
     }
 
     public function destroy(BeneficiaryOrder $beneficiaryOrder)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBeneficiaryRefusedRequest;
@@ -16,14 +16,14 @@ class BeneficiaryRefusedController extends Controller
     {
         abort_if(Gate::denies('beneficiary_refused_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryRefuseds.index');
+        return view('tenant.admin.beneficiaryRefuseds.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('beneficiary_refused_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryRefuseds.create');
+        return view('tenant.admin.beneficiaryRefuseds.create');
     }
 
     public function store(StoreBeneficiaryRefusedRequest $request)
@@ -37,7 +37,7 @@ class BeneficiaryRefusedController extends Controller
     {
         abort_if(Gate::denies('beneficiary_refused_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryRefuseds.edit', compact('beneficiaryRefused'));
+        return view('tenant.admin.beneficiaryRefuseds.edit', compact('beneficiaryRefused'));
     }
 
     public function update(UpdateBeneficiaryRefusedRequest $request, BeneficiaryRefused $beneficiaryRefused)
@@ -51,7 +51,7 @@ class BeneficiaryRefusedController extends Controller
     {
         abort_if(Gate::denies('beneficiary_refused_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryRefuseds.show', compact('beneficiaryRefused'));
+        return view('tenant.admin.beneficiaryRefuseds.show', compact('beneficiaryRefused'));
     }
 
     public function destroy(BeneficiaryRefused $beneficiaryRefused)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTaskReportRequest;
@@ -16,14 +16,14 @@ class TaskReportsController extends Controller
     {
         abort_if(Gate::denies('task_report_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskReports.index');
+        return view('tenant.admin.taskReports.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('task_report_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskReports.create');
+        return view('tenant.admin.taskReports.create');
     }
 
     public function store(StoreTaskReportRequest $request)
@@ -37,7 +37,7 @@ class TaskReportsController extends Controller
     {
         abort_if(Gate::denies('task_report_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskReports.edit', compact('taskReport'));
+        return view('tenant.admin.taskReports.edit', compact('taskReport'));
     }
 
     public function update(UpdateTaskReportRequest $request, TaskReport $taskReport)
@@ -51,7 +51,7 @@ class TaskReportsController extends Controller
     {
         abort_if(Gate::denies('task_report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskReports.show', compact('taskReport'));
+        return view('tenant.admin.taskReports.show', compact('taskReport'));
     }
 
     public function destroy(TaskReport $taskReport)

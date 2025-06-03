@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
@@ -38,7 +38,7 @@ class IncomingLettersController extends Controller
                 $deleteGate    = 'incoming_letter_delete';
                 $crudRoutePart = 'incoming-letters';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -101,7 +101,7 @@ class IncomingLettersController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.incomingLetters.index');
+        return view('tenant.admin.incomingLetters.index');
     }
 
     public function create()
@@ -114,7 +114,7 @@ class IncomingLettersController extends Controller
 
         $outgoing_letters = OutgoingLetter::pluck('letter_number', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.incomingLetters.create', compact('letter_organizations', 'outgoing_letters', 'receviers'));
+        return view('tenant.admin.incomingLetters.create', compact('letter_organizations', 'outgoing_letters', 'receviers'));
     }
 
     public function store(StoreIncomingLetterRequest $request)
@@ -144,7 +144,7 @@ class IncomingLettersController extends Controller
 
         $incomingLetter->load('recevier', 'letter_organization', 'outgoing_letter', 'created_by');
 
-        return view('admin.incomingLetters.edit', compact('incomingLetter', 'letter_organizations', 'outgoing_letters', 'receviers'));
+        return view('tenant.admin.incomingLetters.edit', compact('incomingLetter', 'letter_organizations', 'outgoing_letters', 'receviers'));
     }
 
     public function update(UpdateIncomingLetterRequest $request, IncomingLetter $incomingLetter)
@@ -174,7 +174,7 @@ class IncomingLettersController extends Controller
 
         $incomingLetter->load('recevier', 'letter_organization', 'outgoing_letter', 'created_by');
 
-        return view('admin.incomingLetters.show', compact('incomingLetter'));
+        return view('tenant.admin.incomingLetters.show', compact('incomingLetter'));
     }
 
     public function destroy(IncomingLetter $incomingLetter)

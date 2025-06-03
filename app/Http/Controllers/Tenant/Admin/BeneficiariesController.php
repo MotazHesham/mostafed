@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBeneficiaryRequest;
@@ -39,7 +39,7 @@ class BeneficiariesController extends Controller
                 $deleteGate    = 'beneficiary_delete';
                 $crudRoutePart = 'beneficiaries';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -73,7 +73,7 @@ class BeneficiariesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.beneficiaries.index');
+        return view('tenant.admin.beneficiaries.index');
     }
 
     public function create()
@@ -98,7 +98,7 @@ class BeneficiariesController extends Controller
 
         $specialists = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.beneficiaries.create', compact('disability_types', 'districts', 'educational_qualifications', 'health_conditions', 'job_types', 'marital_statuses', 'nationalities', 'specialists', 'users'));
+        return view('tenant.admin.beneficiaries.create', compact('disability_types', 'districts', 'educational_qualifications', 'health_conditions', 'job_types', 'marital_statuses', 'nationalities', 'specialists', 'users'));
     }
 
     public function store(StoreBeneficiaryRequest $request)
@@ -132,7 +132,7 @@ class BeneficiariesController extends Controller
 
         $beneficiary->load('user', 'nationality', 'marital_status', 'job_type', 'educational_qualification', 'district', 'health_condition', 'disability_type', 'specialist');
 
-        return view('admin.beneficiaries.edit', compact('beneficiary', 'disability_types', 'districts', 'educational_qualifications', 'health_conditions', 'job_types', 'marital_statuses', 'nationalities', 'specialists', 'users'));
+        return view('tenant.admin.beneficiaries.edit', compact('beneficiary', 'disability_types', 'districts', 'educational_qualifications', 'health_conditions', 'job_types', 'marital_statuses', 'nationalities', 'specialists', 'users'));
     }
 
     public function update(UpdateBeneficiaryRequest $request, Beneficiary $beneficiary)
@@ -148,7 +148,7 @@ class BeneficiariesController extends Controller
 
         $beneficiary->load('user', 'nationality', 'marital_status', 'job_type', 'educational_qualification', 'district', 'health_condition', 'disability_type', 'specialist', 'beneficiaryBeneficiaryOrders');
 
-        return view('admin.beneficiaries.show', compact('beneficiary'));
+        return view('tenant.admin.beneficiaries.show', compact('beneficiary'));
     }
 
     public function destroy(Beneficiary $beneficiary)

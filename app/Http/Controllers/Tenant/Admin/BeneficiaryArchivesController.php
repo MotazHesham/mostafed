@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBeneficiaryArchiveRequest;
@@ -16,14 +16,14 @@ class BeneficiaryArchivesController extends Controller
     {
         abort_if(Gate::denies('beneficiary_archive_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryArchives.index');
+        return view('tenant.admin.beneficiaryArchives.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('beneficiary_archive_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryArchives.create');
+        return view('tenant.admin.beneficiaryArchives.create');
     }
 
     public function store(StoreBeneficiaryArchiveRequest $request)
@@ -37,7 +37,7 @@ class BeneficiaryArchivesController extends Controller
     {
         abort_if(Gate::denies('beneficiary_archive_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryArchives.edit', compact('beneficiaryArchive'));
+        return view('tenant.admin.beneficiaryArchives.edit', compact('beneficiaryArchive'));
     }
 
     public function update(UpdateBeneficiaryArchiveRequest $request, BeneficiaryArchive $beneficiaryArchive)
@@ -51,7 +51,7 @@ class BeneficiaryArchivesController extends Controller
     {
         abort_if(Gate::denies('beneficiary_archive_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryArchives.show', compact('beneficiaryArchive'));
+        return view('tenant.admin.beneficiaryArchives.show', compact('beneficiaryArchive'));
     }
 
     public function destroy(BeneficiaryArchive $beneficiaryArchive)

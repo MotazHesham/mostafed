@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBeneficiaryUnCompletedRequest;
@@ -16,14 +16,14 @@ class BeneficiaryUnCompletedController extends Controller
     {
         abort_if(Gate::denies('beneficiary_un_completed_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryUnCompleteds.index');
+        return view('tenant.admin.beneficiaryUnCompleteds.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('beneficiary_un_completed_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryUnCompleteds.create');
+        return view('tenant.admin.beneficiaryUnCompleteds.create');
     }
 
     public function store(StoreBeneficiaryUnCompletedRequest $request)
@@ -37,7 +37,7 @@ class BeneficiaryUnCompletedController extends Controller
     {
         abort_if(Gate::denies('beneficiary_un_completed_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryUnCompleteds.edit', compact('beneficiaryUnCompleted'));
+        return view('tenant.admin.beneficiaryUnCompleteds.edit', compact('beneficiaryUnCompleted'));
     }
 
     public function update(UpdateBeneficiaryUnCompletedRequest $request, BeneficiaryUnCompleted $beneficiaryUnCompleted)
@@ -51,7 +51,7 @@ class BeneficiaryUnCompletedController extends Controller
     {
         abort_if(Gate::denies('beneficiary_un_completed_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.beneficiaryUnCompleteds.show', compact('beneficiaryUnCompleted'));
+        return view('tenant.admin.beneficiaryUnCompleteds.show', compact('beneficiaryUnCompleted'));
     }
 
     public function destroy(BeneficiaryUnCompleted $beneficiaryUnCompleted)

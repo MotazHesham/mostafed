@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyFamilyRelationshipRequest;
@@ -31,7 +31,7 @@ class FamilyRelationshipController extends Controller
                 $deleteGate    = 'family_relationship_delete';
                 $crudRoutePart = 'family-relationships';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -55,14 +55,14 @@ class FamilyRelationshipController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.familyRelationships.index');
+        return view('tenant.admin.familyRelationships.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('family_relationship_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.familyRelationships.create');
+        return view('tenant.admin.familyRelationships.create');
     }
 
     public function store(StoreFamilyRelationshipRequest $request)
@@ -76,7 +76,7 @@ class FamilyRelationshipController extends Controller
     {
         abort_if(Gate::denies('family_relationship_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.familyRelationships.edit', compact('familyRelationship'));
+        return view('tenant.admin.familyRelationships.edit', compact('familyRelationship'));
     }
 
     public function update(UpdateFamilyRelationshipRequest $request, FamilyRelationship $familyRelationship)
@@ -90,7 +90,7 @@ class FamilyRelationshipController extends Controller
     {
         abort_if(Gate::denies('family_relationship_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.familyRelationships.show', compact('familyRelationship'));
+        return view('tenant.admin.familyRelationships.show', compact('familyRelationship'));
     }
 
     public function destroy(FamilyRelationship $familyRelationship)

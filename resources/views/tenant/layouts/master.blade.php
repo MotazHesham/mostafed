@@ -17,18 +17,18 @@
     <title> Zeno - Laravel Bootstrap 5 Premium Admin & Dashboard Template </title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ global_asset('assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
 
     <!-- Main Theme Js -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ global_asset('assets/js/main.js') }}"></script>
 
     <!-- ICONS CSS -->
-    <link href="{{ asset('assets/icon-fonts/icons.css') }}" rel="stylesheet">
+    <link href="{{ global_asset('assets/icon-fonts/icons.css') }}" rel="stylesheet">
 
     @include('tenant.layouts.components.styles')
 
     <!-- APP CSS & APP SCSS -->
-    <link href="{{ global_asset('assets/css/app.css') }}" rel="stylesheet">
+    <link href="{{ global_asset('assets/css/styles.css') }}" rel="stylesheet">
 
     @yield('styles')
     @if (app()->getLocale() == 'ar')
@@ -38,7 +38,7 @@
                 font-family: 'Droid Arabic Naskh', serif;
             }
             .main-menu i{
-                font-size: 1.5rem;
+                font-size: 1.1rem;
                 padding: 0 0 0 10px;
             }   
         </style>
@@ -54,7 +54,7 @@
 
     <!-- Loader -->
     <div id="loader">
-        <img src="{{ asset('assets/images/media/loader.svg') }}" alt="">
+        <img src="{{ global_asset('assets/images/media/loader.svg') }}" alt="">
     </div>
     <!-- Loader -->
 
@@ -94,13 +94,13 @@
     @include('tenant.layouts.components.scripts')
 
     <!-- Sticky JS -->
-    <script src="{{ asset('assets/sticky.js') }}"></script>
+    <script src="{{ global_asset('assets/js/sticky.js') }}"></script>
 
     <!-- Custom-Switcher JS -->
-    <script src="{{ asset('assets/js/custom-switcher.js') }}"></script>
+    <script type="module" src="{{ global_asset('assets/js/custom-switcher.js') }}"></script>
 
     <!-- App JS-->
-    <script src="{{ asset('assets/js/custom.js') }}"></script> 
+    <script src="{{ global_asset('assets/js/custom.js') }}"></script> 
 </body>
 
 </html>

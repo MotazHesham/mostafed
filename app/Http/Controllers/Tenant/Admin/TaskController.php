@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
@@ -28,7 +28,7 @@ class TaskController extends Controller
 
         $tasks = Task::with(['status', 'task_priority', 'tags', 'assigned_tos', 'task_board', 'assigned_by', 'media'])->get();
 
-        return view('admin.tasks.index', compact('tasks'));
+        return view('tenant.admin.tasks.index', compact('tasks'));
     }
 
     public function create()
@@ -47,7 +47,7 @@ class TaskController extends Controller
 
         $assigned_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.tasks.create', compact('assigned_bies', 'assigned_tos', 'statuses', 'tags', 'task_boards', 'task_priorities'));
+        return view('tenant.admin.tasks.create', compact('assigned_bies', 'assigned_tos', 'statuses', 'tags', 'task_boards', 'task_priorities'));
     }
 
     public function store(StoreTaskRequest $request)
@@ -84,7 +84,7 @@ class TaskController extends Controller
 
         $task->load('status', 'task_priority', 'tags', 'assigned_tos', 'task_board', 'assigned_by');
 
-        return view('admin.tasks.edit', compact('assigned_bies', 'assigned_tos', 'statuses', 'tags', 'task', 'task_boards', 'task_priorities'));
+        return view('tenant.admin.tasks.edit', compact('assigned_bies', 'assigned_tos', 'statuses', 'tags', 'task', 'task_boards', 'task_priorities'));
     }
 
     public function update(UpdateTaskRequest $request, Task $task)
@@ -115,7 +115,7 @@ class TaskController extends Controller
 
         $task->load('status', 'task_priority', 'tags', 'assigned_tos', 'task_board', 'assigned_by');
 
-        return view('admin.tasks.show', compact('task'));
+        return view('tenant.admin.tasks.show', compact('task'));
     }
 
     public function destroy(Task $task)

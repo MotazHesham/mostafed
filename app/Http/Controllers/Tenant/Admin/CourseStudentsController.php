@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyCourseStudentRequest;
@@ -34,7 +34,7 @@ class CourseStudentsController extends Controller
                 $deleteGate    = 'course_student_delete';
                 $crudRoutePart = 'course-students';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -82,7 +82,7 @@ class CourseStudentsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.courseStudents.index');
+        return view('tenant.admin.courseStudents.index');
     }
 
     public function create()
@@ -95,7 +95,7 @@ class CourseStudentsController extends Controller
 
         $beneficiary_families = BeneficiaryFamily::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.courseStudents.create', compact('beneficiaries', 'beneficiary_families', 'courses'));
+        return view('tenant.admin.courseStudents.create', compact('beneficiaries', 'beneficiary_families', 'courses'));
     }
 
     public function store(StoreCourseStudentRequest $request)
@@ -117,7 +117,7 @@ class CourseStudentsController extends Controller
 
         $courseStudent->load('course', 'beneficiary', 'beneficiary_family');
 
-        return view('admin.courseStudents.edit', compact('beneficiaries', 'beneficiary_families', 'courseStudent', 'courses'));
+        return view('tenant.admin.courseStudents.edit', compact('beneficiaries', 'beneficiary_families', 'courseStudent', 'courses'));
     }
 
     public function update(UpdateCourseStudentRequest $request, CourseStudent $courseStudent)
@@ -133,7 +133,7 @@ class CourseStudentsController extends Controller
 
         $courseStudent->load('course', 'beneficiary', 'beneficiary_family');
 
-        return view('admin.courseStudents.show', compact('courseStudent'));
+        return view('tenant.admin.courseStudents.show', compact('courseStudent'));
     }
 
     public function destroy(CourseStudent $courseStudent)

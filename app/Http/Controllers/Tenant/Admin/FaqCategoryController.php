@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyFaqCategoryRequest;
@@ -19,14 +19,14 @@ class FaqCategoryController extends Controller
 
         $faqCategories = FaqCategory::all();
 
-        return view('admin.faqCategories.index', compact('faqCategories'));
+        return view('tenant.admin.faqCategories.index', compact('faqCategories'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('faq_category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.faqCategories.create');
+        return view('tenant.admin.faqCategories.create');
     }
 
     public function store(StoreFaqCategoryRequest $request)
@@ -40,7 +40,7 @@ class FaqCategoryController extends Controller
     {
         abort_if(Gate::denies('faq_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.faqCategories.edit', compact('faqCategory'));
+        return view('tenant.admin.faqCategories.edit', compact('faqCategory'));
     }
 
     public function update(UpdateFaqCategoryRequest $request, FaqCategory $faqCategory)
@@ -54,7 +54,7 @@ class FaqCategoryController extends Controller
     {
         abort_if(Gate::denies('faq_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.faqCategories.show', compact('faqCategory'));
+        return view('tenant.admin.faqCategories.show', compact('faqCategory'));
     }
 
     public function destroy(FaqCategory $faqCategory)

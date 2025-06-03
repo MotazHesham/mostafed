@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyArchiveRequest;
@@ -33,7 +33,7 @@ class ArchivesController extends Controller
                 $deleteGate    = 'archive_delete';
                 $crudRoutePart = 'archives';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -75,7 +75,7 @@ class ArchivesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.archives.index');
+        return view('tenant.admin.archives.index');
     }
 
     public function create()
@@ -86,7 +86,7 @@ class ArchivesController extends Controller
 
         $storage_locations = StorageLocation::pluck('code', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.archives.create', compact('archived_bies', 'storage_locations'));
+        return view('tenant.admin.archives.create', compact('archived_bies', 'storage_locations'));
     }
 
     public function store(StoreArchiveRequest $request)
@@ -106,7 +106,7 @@ class ArchivesController extends Controller
 
         $archive->load('archived_by', 'storage_location');
 
-        return view('admin.archives.edit', compact('archive', 'archived_bies', 'storage_locations'));
+        return view('tenant.admin.archives.edit', compact('archive', 'archived_bies', 'storage_locations'));
     }
 
     public function update(UpdateArchiveRequest $request, Archive $archive)
@@ -122,7 +122,7 @@ class ArchivesController extends Controller
 
         $archive->load('archived_by', 'storage_location');
 
-        return view('admin.archives.show', compact('archive'));
+        return view('tenant.admin.archives.show', compact('archive'));
     }
 
     public function destroy(Archive $archive)

@@ -7,26 +7,26 @@
           <!-- Scroll To Top -->
 
           <!-- Popper JS -->
-          <script src="{{asset('assets/libs/@popperjs/core/umd/popper.min.js')}}"></script>
+          <script src="{{global_asset('assets/libs/@popperjs/core/umd/popper.min.js')}}"></script>
 
           <!-- Bootstrap JS -->
-          <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+          <script src="{{global_asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
           <!-- Node Waves JS-->
-          <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
+          <script src="{{global_asset('assets/libs/node-waves/waves.min.js')}}"></script>
 
           <!-- Simplebar JS -->
-          <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
-          <script src="{{asset('assets/js/simplebar.js')}}"></script>
+          <script src="{{global_asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
+          <script src="{{global_asset('assets/js/simplebar.js')}}"></script>
 
           <!-- Auto Complete JS -->
-          <script src="{{asset('assets/libs/@tarekraafat/autocomplete.js/autoComplete.min.js')}}"></script>
+          <script src="{{global_asset('assets/libs/@tarekraafat/autocomplete.js/autoComplete.min.js')}}"></script>
 
           <!-- Color Picker JS -->
-          <script src="{{asset('assets/libs/@simonwep/pickr/pickr.es5.min.js')}}"></script>
+          <script src="{{global_asset('assets/libs/@simonwep/pickr/pickr.es5.min.js')}}"></script>
 
           <!-- Date & Time Picker JS -->
-          <script src="{{asset('assets/libs/flatpickr/flatpickr.min.js')}}"></script>
+          <script src="{{global_asset('assets/libs/flatpickr/flatpickr.min.js')}}"></script>
 
           <!-- Jquery Cdn -->
           <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -44,8 +44,11 @@
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
           <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
 
+          <!-- Select2 Cdn -->
+          <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+          
           <!-- Dropzone JS -->
-          <script src="{{asset('assets/libs/dropzone/dropzone-min.js')}}"></script>
+          <script src="{{global_asset('assets/libs/dropzone/dropzone-min.js')}}"></script>
 
           <script>
                $(function() {
@@ -157,5 +160,19 @@
                          $('table[class*="datatable-"]').DataTable().columns.adjust();
                     }, 300);
                }); 
+               
+               $(document).ready(function() {
+                    $('.select2').select2();
+                    $('.select-all').click(function () {
+                         let $select2 = $(this).parent().siblings('.select2')
+                         $select2.find('option').prop('selected', 'selected')
+                         $select2.trigger('change')
+                    })
+                    $('.deselect-all').click(function () {
+                         let $select2 = $(this).parent().siblings('.select2')
+                         $select2.find('option').prop('selected', '')
+                         $select2.trigger('change')
+                    })
+               });
           </script>
           @yield('scripts')

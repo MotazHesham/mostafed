@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyServiceRequest;
@@ -31,7 +31,7 @@ class ServicesController extends Controller
                 $deleteGate    = 'service_delete';
                 $crudRoutePart = 'services';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -62,14 +62,14 @@ class ServicesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.services.index');
+        return view('tenant.admin.services.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('service_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.services.create');
+        return view('tenant.admin.services.create');
     }
 
     public function store(StoreServiceRequest $request)
@@ -83,7 +83,7 @@ class ServicesController extends Controller
     {
         abort_if(Gate::denies('service_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.services.edit', compact('service'));
+        return view('tenant.admin.services.edit', compact('service'));
     }
 
     public function update(UpdateServiceRequest $request, Service $service)
@@ -99,7 +99,7 @@ class ServicesController extends Controller
 
         $service->load('serviceBeneficiaryOrders');
 
-        return view('admin.services.show', compact('service'));
+        return view('tenant.admin.services.show', compact('service'));
     }
 
     public function destroy(Service $service)

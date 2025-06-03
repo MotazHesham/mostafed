@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserQueryRequest;
@@ -30,7 +30,7 @@ class UserQueriesController extends Controller
                 $deleteGate    = 'user_query_delete';
                 $crudRoutePart = 'user-queries';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -57,7 +57,7 @@ class UserQueriesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.userQueries.index');
+        return view('tenant.admin.userQueries.index');
     }
 
     public function edit(UserQuery $userQuery)
@@ -68,7 +68,7 @@ class UserQueriesController extends Controller
 
         $userQuery->load('user');
 
-        return view('admin.userQueries.edit', compact('userQuery', 'users'));
+        return view('tenant.admin.userQueries.edit', compact('userQuery', 'users'));
     }
 
     public function update(UpdateUserQueryRequest $request, UserQuery $userQuery)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyJobTypeRequest;
@@ -31,7 +31,7 @@ class JobTypesController extends Controller
                 $deleteGate    = 'job_type_delete';
                 $crudRoutePart = 'job-types';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -52,14 +52,14 @@ class JobTypesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.jobTypes.index');
+        return view('tenant.admin.jobTypes.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('job_type_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.jobTypes.create');
+        return view('tenant.admin.jobTypes.create');
     }
 
     public function store(StoreJobTypeRequest $request)
@@ -73,7 +73,7 @@ class JobTypesController extends Controller
     {
         abort_if(Gate::denies('job_type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.jobTypes.edit', compact('jobType'));
+        return view('tenant.admin.jobTypes.edit', compact('jobType'));
     }
 
     public function update(UpdateJobTypeRequest $request, JobType $jobType)
@@ -87,7 +87,7 @@ class JobTypesController extends Controller
     {
         abort_if(Gate::denies('job_type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.jobTypes.show', compact('jobType'));
+        return view('tenant.admin.jobTypes.show', compact('jobType'));
     }
 
     public function destroy(JobType $jobType)

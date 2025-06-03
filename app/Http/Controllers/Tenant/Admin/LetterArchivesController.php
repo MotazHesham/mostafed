@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyLetterArchiveRequest;
@@ -16,14 +16,14 @@ class LetterArchivesController extends Controller
     {
         abort_if(Gate::denies('letter_archive_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.letterArchives.index');
+        return view('tenant.admin.letterArchives.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('letter_archive_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.letterArchives.create');
+        return view('tenant.admin.letterArchives.create');
     }
 
     public function store(StoreLetterArchiveRequest $request)
@@ -37,7 +37,7 @@ class LetterArchivesController extends Controller
     {
         abort_if(Gate::denies('letter_archive_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.letterArchives.edit', compact('letterArchive'));
+        return view('tenant.admin.letterArchives.edit', compact('letterArchive'));
     }
 
     public function update(UpdateLetterArchiveRequest $request, LetterArchive $letterArchive)
@@ -51,7 +51,7 @@ class LetterArchivesController extends Controller
     {
         abort_if(Gate::denies('letter_archive_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.letterArchives.show', compact('letterArchive'));
+        return view('tenant.admin.letterArchives.show', compact('letterArchive'));
     }
 
     public function destroy(LetterArchive $letterArchive)

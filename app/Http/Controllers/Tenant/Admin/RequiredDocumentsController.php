@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyRequiredDocumentRequest;
@@ -31,7 +31,7 @@ class RequiredDocumentsController extends Controller
                 $deleteGate    = 'required_document_delete';
                 $crudRoutePart = 'required-documents';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -52,14 +52,14 @@ class RequiredDocumentsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.requiredDocuments.index');
+        return view('tenant.admin.requiredDocuments.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('required_document_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.requiredDocuments.create');
+        return view('tenant.admin.requiredDocuments.create');
     }
 
     public function store(StoreRequiredDocumentRequest $request)
@@ -73,7 +73,7 @@ class RequiredDocumentsController extends Controller
     {
         abort_if(Gate::denies('required_document_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.requiredDocuments.edit', compact('requiredDocument'));
+        return view('tenant.admin.requiredDocuments.edit', compact('requiredDocument'));
     }
 
     public function update(UpdateRequiredDocumentRequest $request, RequiredDocument $requiredDocument)
@@ -87,7 +87,7 @@ class RequiredDocumentsController extends Controller
     {
         abort_if(Gate::denies('required_document_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.requiredDocuments.show', compact('requiredDocument'));
+        return view('tenant.admin.requiredDocuments.show', compact('requiredDocument'));
     }
 
     public function destroy(RequiredDocument $requiredDocument)

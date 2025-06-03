@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
@@ -37,7 +37,7 @@ class BeneficiaryFilesController extends Controller
                 $deleteGate    = 'beneficiary_file_delete';
                 $crudRoutePart = 'beneficiary-files';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -68,7 +68,7 @@ class BeneficiaryFilesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.beneficiaryFiles.index');
+        return view('tenant.admin.beneficiaryFiles.index');
     }
 
     public function create()
@@ -79,7 +79,7 @@ class BeneficiaryFilesController extends Controller
 
         $required_documents = RequiredDocument::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.beneficiaryFiles.create', compact('beneficiaries', 'required_documents'));
+        return view('tenant.admin.beneficiaryFiles.create', compact('beneficiaries', 'required_documents'));
     }
 
     public function store(StoreBeneficiaryFileRequest $request)
@@ -107,7 +107,7 @@ class BeneficiaryFilesController extends Controller
 
         $beneficiaryFile->load('beneficiary', 'required_document');
 
-        return view('admin.beneficiaryFiles.edit', compact('beneficiaries', 'beneficiaryFile', 'required_documents'));
+        return view('tenant.admin.beneficiaryFiles.edit', compact('beneficiaries', 'beneficiaryFile', 'required_documents'));
     }
 
     public function update(UpdateBeneficiaryFileRequest $request, BeneficiaryFile $beneficiaryFile)
@@ -134,7 +134,7 @@ class BeneficiaryFilesController extends Controller
 
         $beneficiaryFile->load('beneficiary', 'required_document');
 
-        return view('admin.beneficiaryFiles.show', compact('beneficiaryFile'));
+        return view('tenant.admin.beneficiaryFiles.show', compact('beneficiaryFile'));
     }
 
     public function destroy(BeneficiaryFile $beneficiaryFile)

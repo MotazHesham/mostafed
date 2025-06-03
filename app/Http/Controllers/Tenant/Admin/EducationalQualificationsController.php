@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyEducationalQualificationRequest;
@@ -31,7 +31,7 @@ class EducationalQualificationsController extends Controller
                 $deleteGate    = 'educational_qualification_delete';
                 $crudRoutePart = 'educational-qualifications';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -52,14 +52,14 @@ class EducationalQualificationsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.educationalQualifications.index');
+        return view('tenant.admin.educationalQualifications.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('educational_qualification_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.educationalQualifications.create');
+        return view('tenant.admin.educationalQualifications.create');
     }
 
     public function store(StoreEducationalQualificationRequest $request)
@@ -73,7 +73,7 @@ class EducationalQualificationsController extends Controller
     {
         abort_if(Gate::denies('educational_qualification_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.educationalQualifications.edit', compact('educationalQualification'));
+        return view('tenant.admin.educationalQualifications.edit', compact('educationalQualification'));
     }
 
     public function update(UpdateEducationalQualificationRequest $request, EducationalQualification $educationalQualification)
@@ -87,7 +87,7 @@ class EducationalQualificationsController extends Controller
     {
         abort_if(Gate::denies('educational_qualification_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.educationalQualifications.show', compact('educationalQualification'));
+        return view('tenant.admin.educationalQualifications.show', compact('educationalQualification'));
     }
 
     public function destroy(EducationalQualification $educationalQualification)

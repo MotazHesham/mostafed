@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
@@ -40,7 +40,7 @@ class BeneficiaryFamilyController extends Controller
                 $deleteGate    = 'beneficiary_family_delete';
                 $crudRoutePart = 'beneficiary-families';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -85,7 +85,7 @@ class BeneficiaryFamilyController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.beneficiaryFamilies.index');
+        return view('tenant.admin.beneficiaryFamilies.index');
     }
 
     public function create()
@@ -102,7 +102,7 @@ class BeneficiaryFamilyController extends Controller
 
         $disability_types = DisabilityType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.beneficiaryFamilies.create', compact('beneficiaries', 'disability_types', 'family_relationships', 'health_conditions', 'marital_statuses'));
+        return view('tenant.admin.beneficiaryFamilies.create', compact('beneficiaries', 'disability_types', 'family_relationships', 'health_conditions', 'marital_statuses'));
     }
 
     public function store(StoreBeneficiaryFamilyRequest $request)
@@ -136,7 +136,7 @@ class BeneficiaryFamilyController extends Controller
 
         $beneficiaryFamily->load('beneficiary', 'family_relationship', 'marital_status', 'health_condition', 'disability_type');
 
-        return view('admin.beneficiaryFamilies.edit', compact('beneficiaries', 'beneficiaryFamily', 'disability_types', 'family_relationships', 'health_conditions', 'marital_statuses'));
+        return view('tenant.admin.beneficiaryFamilies.edit', compact('beneficiaries', 'beneficiaryFamily', 'disability_types', 'family_relationships', 'health_conditions', 'marital_statuses'));
     }
 
     public function update(UpdateBeneficiaryFamilyRequest $request, BeneficiaryFamily $beneficiaryFamily)
@@ -163,7 +163,7 @@ class BeneficiaryFamilyController extends Controller
 
         $beneficiaryFamily->load('beneficiary', 'family_relationship', 'marital_status', 'health_condition', 'disability_type');
 
-        return view('admin.beneficiaryFamilies.show', compact('beneficiaryFamily'));
+        return view('tenant.admin.beneficiaryFamilies.show', compact('beneficiaryFamily'));
     }
 
     public function destroy(BeneficiaryFamily $beneficiaryFamily)

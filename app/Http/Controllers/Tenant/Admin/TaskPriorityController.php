@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTaskPriorityRequest;
@@ -19,14 +19,14 @@ class TaskPriorityController extends Controller
 
         $taskPriorities = TaskPriority::all();
 
-        return view('admin.taskPriorities.index', compact('taskPriorities'));
+        return view('tenant.admin.taskPriorities.index', compact('taskPriorities'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('task_priority_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskPriorities.create');
+        return view('tenant.admin.taskPriorities.create');
     }
 
     public function store(StoreTaskPriorityRequest $request)
@@ -40,7 +40,7 @@ class TaskPriorityController extends Controller
     {
         abort_if(Gate::denies('task_priority_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskPriorities.edit', compact('taskPriority'));
+        return view('tenant.admin.taskPriorities.edit', compact('taskPriority'));
     }
 
     public function update(UpdateTaskPriorityRequest $request, TaskPriority $taskPriority)
@@ -54,7 +54,7 @@ class TaskPriorityController extends Controller
     {
         abort_if(Gate::denies('task_priority_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.taskPriorities.show', compact('taskPriority'));
+        return view('tenant.admin.taskPriorities.show', compact('taskPriority'));
     }
 
     public function destroy(TaskPriority $taskPriority)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroySectionRequest;
@@ -32,7 +32,7 @@ class SectionsController extends Controller
                 $deleteGate    = 'section_delete';
                 $crudRoutePart = 'sections';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -56,7 +56,7 @@ class SectionsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.sections.index');
+        return view('tenant.admin.sections.index');
     }
 
     public function create()
@@ -65,7 +65,7 @@ class SectionsController extends Controller
 
         $departments = Department::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.sections.create', compact('departments'));
+        return view('tenant.admin.sections.create', compact('departments'));
     }
 
     public function store(StoreSectionRequest $request)
@@ -83,7 +83,7 @@ class SectionsController extends Controller
 
         $section->load('department');
 
-        return view('admin.sections.edit', compact('departments', 'section'));
+        return view('tenant.admin.sections.edit', compact('departments', 'section'));
     }
 
     public function update(UpdateSectionRequest $request, Section $section)
@@ -99,7 +99,7 @@ class SectionsController extends Controller
 
         $section->load('department');
 
-        return view('admin.sections.show', compact('section'));
+        return view('tenant.admin.sections.show', compact('section'));
     }
 
     public function destroy(Section $section)

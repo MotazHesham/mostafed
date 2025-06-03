@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
@@ -37,7 +37,7 @@ class BeneficiaryOrderFollowupsController extends Controller
                 $deleteGate    = 'beneficiary_order_followup_delete';
                 $crudRoutePart = 'beneficiary-order-followups';
 
-                return view('partials.datatablesActions', compact(
+                return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -73,7 +73,7 @@ class BeneficiaryOrderFollowupsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.beneficiaryOrderFollowups.index');
+        return view('tenant.admin.beneficiaryOrderFollowups.index');
     }
 
     public function create()
@@ -84,7 +84,7 @@ class BeneficiaryOrderFollowupsController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.beneficiaryOrderFollowups.create', compact('beneficiary_followups', 'users'));
+        return view('tenant.admin.beneficiaryOrderFollowups.create', compact('beneficiary_followups', 'users'));
     }
 
     public function store(StoreBeneficiaryOrderFollowupRequest $request)
@@ -112,7 +112,7 @@ class BeneficiaryOrderFollowupsController extends Controller
 
         $beneficiaryOrderFollowup->load('beneficiary_followup', 'user');
 
-        return view('admin.beneficiaryOrderFollowups.edit', compact('beneficiaryOrderFollowup', 'beneficiary_followups', 'users'));
+        return view('tenant.admin.beneficiaryOrderFollowups.edit', compact('beneficiaryOrderFollowup', 'beneficiary_followups', 'users'));
     }
 
     public function update(UpdateBeneficiaryOrderFollowupRequest $request, BeneficiaryOrderFollowup $beneficiaryOrderFollowup)
@@ -142,7 +142,7 @@ class BeneficiaryOrderFollowupsController extends Controller
 
         $beneficiaryOrderFollowup->load('beneficiary_followup', 'user');
 
-        return view('admin.beneficiaryOrderFollowups.show', compact('beneficiaryOrderFollowup'));
+        return view('tenant.admin.beneficiaryOrderFollowups.show', compact('beneficiaryOrderFollowup'));
     }
 
     public function destroy(BeneficiaryOrderFollowup $beneficiaryOrderFollowup)

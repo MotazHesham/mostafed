@@ -2,8 +2,8 @@
 
 return [
     'userManagement' => [
-        'title'          => 'إدارة المستخدمين',
-        'title_singular' => 'إدارة المستخدمين',
+        'title'          => 'مستخدمين النظام',
+        'title_singular' => 'مستخدمين النظام',
     ],
     'charityManagement' => [
         'title'          => 'إدارة الجمعيات',
@@ -26,12 +26,12 @@ return [
         ],
     ],
     'role' => [
-        'title'          => 'المجموعات',
-        'title_singular' => 'مجموعة',
+        'title'          => 'الوظائف',
+        'title_singular' => 'وظيفة',
         'fields'         => [
             'id'                 => 'id',
             'id_helper'          => ' ',
-            'title'              => 'الدور',
+            'title'              => 'الوظيفة',
             'title_helper'       => ' ',
             'permissions'        => 'الصلاحيات',
             'permissions_helper' => ' ',
@@ -82,8 +82,8 @@ return [
         ],
     ],
     'userAlert' => [
-        'title'          => 'تنبيهات المستخدم',
-        'title_singular' => 'تنبيه المستخدم',
+        'title'          => 'الإشعارات',
+        'title_singular' => 'إشعار',
         'fields'         => [
             'id'                => 'id',
             'id_helper'         => ' ',
@@ -578,8 +578,8 @@ return [
         ],
     ],
     'faqManagement' => [
-        'title'          => 'إدارة الأسئلة الشائعة',
-        'title_singular' => 'إدارة الأسئلة الشائعة',
+        'title'          => 'الأسئلة الشائعة',
+        'title_singular' => 'الأسئلة الشائعة',
     ],
     'faqCategory' => [
         'title'          => 'فئات الأسئلة الشائعة',
@@ -638,8 +638,8 @@ return [
         ],
     ],
     'frontendSetting' => [
-        'title'          => 'إعدادات الواجهة الأمامية',
-        'title_singular' => 'إعداد الواجهة الأمامية',
+        'title'          => 'الواجهة الأمامية',
+        'title_singular' => 'الواجهة الأمامية',
     ],
     'slider' => [
         'title'          => 'النوافذ الإعلانية',
@@ -868,8 +868,8 @@ return [
         ],
     ],
     'lettersManagment' => [
-        'title'          => 'إدارة المراسلات',
-        'title_singular' => 'إدارة المراسلات',
+        'title'          => 'المراسلات الإدارية',
+        'title_singular' => 'المراسلات الإدارية',
     ],
     'beneficiaryOrder' => [
         'title'          => 'طلبات المستفيدين',
@@ -1170,8 +1170,8 @@ return [
         'title_singular' => 'طلب مستفيد مرفوض',
     ],
     'reportManagment' => [
-        'title'          => 'إدارة التقارير',
-        'title_singular' => 'إدارة التقارير',
+        'title'          => 'التقارير',
+        'title_singular' => 'التقارير',
     ],
     'beneficiaryReport' => [
         'title'          => 'تقارير المستفيدين',

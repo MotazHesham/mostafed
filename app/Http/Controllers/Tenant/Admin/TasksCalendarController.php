@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
@@ -11,6 +11,6 @@ class TasksCalendarController extends Controller
     {
         $events = Task::whereNotNull('due_date')->get();
 
-        return view('admin.tasksCalendars.index', compact('events'));
+        return view('tenant.admin.tasksCalendars.index', compact('events'));
     }
 }
