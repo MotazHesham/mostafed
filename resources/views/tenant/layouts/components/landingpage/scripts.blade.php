@@ -5,30 +5,30 @@
         <div id="responsive-overlay"></div>
 
         <!-- Popper JS -->
-        <script src="{{asset('build/assets/libs/@popperjs/core/umd/popper.min.js')}}"></script>
+        <script src="{{global_asset('assets/libs/@popperjs/core/umd/popper.min.js')}}"></script>
 
         <!-- Bootstrap JS -->
-        <script src="{{asset('build/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{global_asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
         <!-- Color Picker JS -->
-        <script src="{{asset('build/assets/libs/@simonwep/pickr/pickr.es5.min.js')}}"></script>
+        <script src="{{global_asset('assets/libs/@simonwep/pickr/pickr.es5.min.js')}}"></script>
 
         <!-- Choices JS -->
-        <script src="{{asset('build/assets/libs/choices.js/public/assets/scripts/choices.min.js')}}"></script>
+        <script src="{{global_asset('assets/libs/choices.js/public/assets/scripts/choices.min.js')}}"></script>
 
         <!-- Swiper JS -->
-        <script src="{{asset('build/assets/libs/swiper/swiper-bundle.min.js')}}"></script>
+        <script src="{{global_asset('assets/libs/swiper/swiper-bundle.min.js')}}"></script>
 
         @yield('scripts')
 
         <!-- Defaultmenu JS -->
-        @vite('resources/assets/js/defaultmenu.js')
+        <script type="module" src="{{global_asset('assets/js/defaultmenu.js')}}"></script>
 
         <!-- Internal Landing JS -->
-        @vite('resources/assets/js/landing.js')
+        <script src="{{global_asset('assets/js/landing.js')}}"></script>
 
         <!-- Node Waves JS-->
-        <script src="{{asset('build/assets/libs/node-waves/waves.min.js')}}"></script>
+        <script src="{{global_asset('assets/libs/node-waves/waves.min.js')}}"></script>
 
         <!-- Landing Sticky JS -->
-        @vite('resources/assets/js/landing-sticky.js')
+        <script src="{{global_asset('assets/js/landing-sticky.js')}}"></script>

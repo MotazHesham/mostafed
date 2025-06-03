@@ -10,9 +10,9 @@
                             <div class="landing-logo-container">
                                 <div class="horizontal-logo">
                                     <a href="{{url('index')}}" class="header-logo">
-                                        <img src="{{asset('build/assets/images/brand-logos/desktop-logo.png')}}" alt="logo"
+                                        <img src="{{asset('assets/images/brand-logos/desktop-logo.png')}}" alt="logo"
                                             class="desktop-logo">
-                                        <img src="{{asset('build/assets/images/brand-logos/desktop-white.png')}}" alt="logo"
+                                        <img src="{{asset('assets/images/brand-logos/desktop-white.png')}}" alt="logo"
                                             class="desktop-white">
                                     </a>
                                 </div>
@@ -112,8 +112,8 @@
                                 </svg></div>
                             <div class="d-lg-flex d-none">
                                 <div class="btn-list d-lg-flex d-none mt-lg-2 mt-xl-0 mt-0">
-                                    <a href="{{url('sign-up-basic')}}" class="btn btn-wave btn-success">
-                                        Sign Up
+                                    <a href="{{route('login')}}" class="btn btn-wave btn-success">
+                                        Sign In
                                     </a>
                                     <button class="btn btn-wave btn-icon btn-primary switcher-icon d-flex align-items-center justify-content-center" data-bs-toggle="offcanvas"
                                         data-bs-target="#switcher-canvas">

@@ -25,8 +25,8 @@
 
 @section('scripts')
     <!-- Apex Charts JS -->
-    <script src="{{ asset('build/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script> --}}
 
     <!-- Analytics Dashboard -->
-    @vite('resources/assets/js/analytics-dashboard.js')
+    {{-- <script src="{{ asset('assets/js/analytics-dashboard.js') }}"></script> --}}
 @endsection

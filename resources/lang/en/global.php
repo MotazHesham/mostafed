@@ -323,5 +323,6 @@ return [
     'calendar'                       => 'Calendar',
     'messenger'                      => 'Messenger',
     'main'                           => 'Main',
+    'dont_have_account'              => 'Dont have an account?',
 
 ];

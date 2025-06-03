@@ -14,18 +14,18 @@
         content="laravel template, laravel admin, admin, admin panel template, laravel dashboard, dashboard admin template, template admin, admin panel laravel, laravel, dashboard for laravel, laravel framework, admin, bootstrapdashboard, bootstrap template, dashboard, dashboard admin.">
 
     <!-- Title-->
-    <title> Zeno - Laravel Bootstrap 5 Premium Admin & Dashboard Template </title>
+    <title> {{ trans('panel.site_title')}} </title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('build/assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ global_asset('assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
 
     <!-- Icons CSS -->
-    <link href="{{ asset('build/assets/icon-fonts/icons.css') }}" rel="stylesheet">
+    <link href="{{ global_asset('assets/icon-fonts/icons.css') }}" rel="stylesheet">
 
     @include('central.layouts.components.landingpage.styles')
 
     <!-- APP CSS & APP SCSS -->
-    @vite(['resources/sass/app.scss'])
+    <link href="{{ global_asset('assets/css/styles.css') }}" rel="stylesheet">
 
     @yield('styles')
 

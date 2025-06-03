@@ -323,4 +323,5 @@ return [
     'calendar'                       => 'التقويم',
     'messenger'                      => 'مراسل',
     'main'                           => 'رئيسي',
+    'dont_have_account'              => 'ليس لديك حساب؟',
 ];

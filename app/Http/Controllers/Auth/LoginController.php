@@ -40,6 +40,9 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
+        if(tenant()){
+            return view('tenant.auth.login');
+        }
         return view('central.auth.login');
     }
 }

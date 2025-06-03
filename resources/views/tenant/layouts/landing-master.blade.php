@@ -17,15 +17,15 @@
     <title> Zeno - Laravel Bootstrap 5 Premium Admin & Dashboard Template </title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('build/assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ global_asset('assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
 
     <!-- Icons CSS -->
-    <link href="{{ asset('build/assets/icon-fonts/icons.css') }}" rel="stylesheet">
+    <link href="{{ global_asset('assets/icon-fonts/icons.css') }}" rel="stylesheet">
 
-    @include('central.layouts.components.landingpage.styles')
+    @include('tenant.layouts.components.landingpage.styles')
 
     <!-- APP CSS & APP SCSS -->
-    @vite(['resources/sass/app.scss'])
+    <link href="{{ global_asset('assets/css/styles.css') }}" rel="stylesheet">
 
     @yield('styles')
 
@@ -34,17 +34,17 @@
 <body class="landing-body">
 
     <!-- Start::main-switcher -->
-    @include('central.layouts.components.landingpage.switcher')
+    @include('tenant.layouts.components.landingpage.switcher')
     <!-- End::main-switcher -->
 
     <div class="landing-page-wrapper">
 
         <!-- Start::main-header -->
-        @include('central.layouts.components.landingpage.main-header')
+        @include('tenant.layouts.components.landingpage.main-header')
         <!-- End::main-header -->
 
         <!-- Start::main-sidebar -->
-        @include('central.layouts.components.landingpage.main-sidebar')
+        @include('tenant.layouts.components.landingpage.main-sidebar')
         <!-- End::main-sidebar -->
 
         <!-- Start::app-content -->
@@ -61,7 +61,7 @@
     @yield('modals')
 
     <!-- Scripts -->
-    @include('central.layouts.components.landingpage.scripts')
+    @include('tenant.layouts.components.landingpage.scripts')
 
 </body>
 

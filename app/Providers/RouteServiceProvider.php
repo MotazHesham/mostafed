@@ -47,6 +47,19 @@ class RouteServiceProvider extends ServiceProvider
                         ->group(base_path('routes/central/frontend.php'));
                 });
             }
+            
+            Route::middleware([
+                'web',
+                \Stancl\Tenancy\Middleware\InitializeTenancyByDomain::class,
+                \Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains::class,
+            ])->group(function () { 
+                Route::namespace($this->namespace)
+                    ->group(base_path('routes/tenant/admin.php'));
+                Route::namespace($this->namespace)
+                    ->group(base_path('routes/tenant/frontend.php'));
+                Route::namespace($this->namespace)
+                    ->group(base_path('routes/tenant/beneficiary.php'));
+            }); 
         });
     }
 

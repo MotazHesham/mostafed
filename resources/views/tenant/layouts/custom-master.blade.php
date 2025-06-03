@@ -17,19 +17,19 @@
     <title> Zeno - Laravel Bootstrap 5 Premium Admin & Dashboard Template </title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('build/assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ global_asset('assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
 
     <!-- Main Theme Js -->
-    <script src="{{ asset('build/assets/authentication-main.js') }}"></script>
+    <script src="{{ global_asset('assets/js/authentication-main.js') }}"></script>
 
     <!-- Bootstrap Css -->
-    <link id="style" href="{{ asset('build/assets/libs/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link id="style" href="{{ global_asset('assets/libs/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- ICONS CSS -->
-    <link href="{{ asset('build/assets/icon-fonts/icons.css') }}" rel="stylesheet">
+    <link href="{{ global_asset('assets/icon-fonts/icons.css') }}" rel="stylesheet">
 
     <!-- APP CSS & APP SCSS -->
-    @vite(['resources/sass/app.scss'])
+    <link href="{{ global_asset('assets/css/styles.css') }}" rel="stylesheet">
 
     @yield('styles')
 
@@ -38,13 +38,13 @@
 <body class="{{ $bodyClass }}">
 
     <!-- Start Switcher -->
-    @include('central.layouts.components.custom-switcher')
+    @include('tenant.layouts.components.custom-switcher')
     <!-- End Switcher -->
 
     @yield('content')
 
     <!-- Bootstrap JS -->
-    <script src="{{ asset('build/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ global_asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     @yield('scripts')
 

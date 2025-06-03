@@ -14,21 +14,21 @@
         content="laravel template, laravel admin, admin, admin panel template, laravel dashboard, dashboard admin template, template admin, admin panel laravel, laravel, dashboard for laravel, laravel framework, admin, bootstrapdashboard, bootstrap template, dashboard, dashboard admin.">
 
     <!-- Title-->
-    <title> Zeno - Laravel Bootstrap 5 Premium Admin & Dashboard Template </title>
+    <title> {{ trans('panel.site_title')}} </title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('build/assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ global_asset('assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
 
     <!-- Main Theme Js -->
-    <script src="{{ asset('build/assets/main.js') }}"></script>
+    <script src="{{ global_asset('assets/js/main.js') }}"></script>
 
     <!-- ICONS CSS -->
-    <link href="{{ asset('build/assets/icon-fonts/icons.css') }}" rel="stylesheet">
+    <link href="{{ global_asset('assets/icon-fonts/icons.css') }}" rel="stylesheet">
 
     @include('central.layouts.components.styles')
 
     <!-- APP CSS & APP SCSS -->
-    @vite(['resources/sass/app.scss'])
+    <link href="{{ global_asset('assets/css/styles.css') }}" rel="stylesheet">
 
     @yield('styles')
     @if (app()->getLocale() == 'ar')
@@ -54,7 +54,7 @@
 
     <!-- Loader -->
     <div id="loader">
-        <img src="{{ asset('build/assets/images/media/loader.svg') }}" alt="">
+        <img src="{{ global_asset('assets/images/media/loader.svg') }}" alt="">
     </div>
     <!-- Loader -->
 
@@ -88,19 +88,22 @@
 
         @yield('modals')
 
+        <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+        </form>
     </div>
 
     <!-- Scripts -->
     @include('central.layouts.components.scripts')
 
     <!-- Sticky JS -->
-    <script src="{{ asset('build/assets/sticky.js') }}"></script>
+    <script src="{{ global_asset('assets/js/sticky.js') }}"></script>
 
     <!-- Custom-Switcher JS -->
-    @vite('resources/assets/js/custom-switcher.js')
+    <script type="module" src="{{ global_asset('assets/js/custom-switcher.js') }}"></script>
 
     <!-- App JS-->
-    @vite('resources/js/app.js') 
+    <script src="{{ global_asset('assets/js/custom.js') }}"></script> 
 </body>
 
 </html>

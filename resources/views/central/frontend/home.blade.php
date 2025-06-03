@@ -31,7 +31,7 @@
                     <div class="col-lg-5 mt-4 mt-lg-0 text-end">
                         <div class="add-content bg-transparent shadow-none p-0">
                             <div class="add-content1">
-                                <img src="{{ asset('build/assets/images/media/media-71.png') }}" alt="img"
+                                <img src="{{ asset('assets/images/media/media-71.png') }}" alt="img"
                                     class="img-fluid">
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                         <div class="position-relative">
                             <a href="javascript:void(0);">
                                 <img class="card-img-top"
-                                    src="{{ asset('build/assets/images/media/landing/services/1.png') }}" alt="blog-image">
+                                    src="{{ asset('assets/images/media/landing/services/1.png') }}" alt="blog-image">
                             </a>
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -129,7 +129,7 @@
                         <div class="position-relative">
                             <a href="javascript:void(0);">
                                 <img class="card-img-top"
-                                    src="{{ asset('build/assets/images/media/landing/services/2.png') }}" alt="blog-image">
+                                    src="{{ asset('assets/images/media/landing/services/2.png') }}" alt="blog-image">
                             </a>
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -145,7 +145,7 @@
                         <div class="position-relative">
                             <a href="javascript:void(0);">
                                 <img class="card-img-top"
-                                    src="{{ asset('build/assets/images/media/landing/services/3.png') }}" alt="blog-image">
+                                    src="{{ asset('assets/images/media/landing/services/3.png') }}" alt="blog-image">
                             </a>
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -161,7 +161,7 @@
                         <div class="position-relative">
                             <a href="javascript:void(0);">
                                 <img class="card-img-top"
-                                    src="{{ asset('build/assets/images/media/landing/services/4.png') }}"
+                                    src="{{ asset('assets/images/media/landing/services/4.png') }}"
                                     alt="blog-image">
                             </a>
                         </div>
@@ -178,7 +178,7 @@
                         <div class="position-relative">
                             <a href="javascript:void(0);">
                                 <img class="card-img-top"
-                                    src="{{ asset('build/assets/images/media/landing/services/5.png') }}"
+                                    src="{{ asset('assets/images/media/landing/services/5.png') }}"
                                     alt="blog-image">
                             </a>
                         </div>
@@ -195,7 +195,7 @@
                         <div class="position-relative">
                             <a href="javascript:void(0);">
                                 <img class="card-img-top"
-                                    src="{{ asset('build/assets/images/media/landing/services/6.png') }}"
+                                    src="{{ asset('assets/images/media/landing/services/6.png') }}"
                                     alt="blog-image">
                             </a>
                         </div>
@@ -212,7 +212,7 @@
                         <div class="position-relative">
                             <a href="javascript:void(0);">
                                 <img class="card-img-top"
-                                    src="{{ asset('build/assets/images/media/landing/services/7.png') }}"
+                                    src="{{ asset('assets/images/media/landing/services/7.png') }}"
                                     alt="blog-image">
                             </a>
                         </div>
@@ -229,7 +229,7 @@
                         <div class="position-relative">
                             <a href="javascript:void(0);">
                                 <img class="card-img-top"
-                                    src="{{ asset('build/assets/images/media/landing/services/8.png') }}"
+                                    src="{{ asset('assets/images/media/landing/services/8.png') }}"
                                     alt="blog-image">
                             </a>
                         </div>
@@ -1001,22 +1001,22 @@
                     <div
                         class="d-flex align-items-center justify-content-center trusted-companies sub-card-companies flex-wrap mb-3 mb-xl-0 gap-4">
                         <div class="trust-img reveal reveal-active"><img
-                                src="{{ asset('build/assets/images/media/landing/tools/1.png') }}" alt="img"
+                                src="{{ asset('assets/images/media/landing/tools/1.png') }}" alt="img"
                                 class="border-0"></div>
                         <div class="trust-img reveal reveal-active"><img
-                                src="{{ asset('build/assets/images/media/landing/tools/2.png') }}" alt="img"
+                                src="{{ asset('assets/images/media/landing/tools/2.png') }}" alt="img"
                                 class="border-0"></div>
                         <div class="trust-img reveal reveal-active"><img
-                                src="{{ asset('build/assets/images/media/landing/tools/3.png') }}" alt="img"
+                                src="{{ asset('assets/images/media/landing/tools/3.png') }}" alt="img"
                                 class="border-0"></div>
                         <div class="trust-img reveal reveal-active"><img
-                                src="{{ asset('build/assets/images/media/landing/tools/4.png') }}" alt="img"
+                                src="{{ asset('assets/images/media/landing/tools/4.png') }}" alt="img"
                                 class="border-0"></div>
                         <div class="trust-img reveal reveal-active"><img
-                                src="{{ asset('build/assets/images/media/landing/tools/5.png') }}" alt="img"
+                                src="{{ asset('assets/images/media/landing/tools/5.png') }}" alt="img"
                                 class="border-0"></div>
                         <div class="trust-img reveal me-0 reveal-active"><img
-                                src="{{ asset('build/assets/images/media/landing/tools/6.png') }}" alt="img"
+                                src="{{ asset('assets/images/media/landing/tools/6.png') }}" alt="img"
                                 class="border-0"></div>
                     </div>
                 </div>
@@ -1059,7 +1059,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/6.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/6.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1090,7 +1090,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/4.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/4.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1121,7 +1121,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/14.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/14.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1152,7 +1152,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/1.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/1.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1183,7 +1183,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/5.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/5.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1214,7 +1214,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/10.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/10.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1245,7 +1245,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/6.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/6.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1276,7 +1276,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/4.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/4.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1307,7 +1307,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/14.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/14.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1338,7 +1338,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/1.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/1.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1370,7 +1370,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/5.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/5.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1402,7 +1402,7 @@
                             <div class="card-body main-card-body">
                                 <div class="d-flex align-items-center gap-3">
                                     <div>
-                                        <img src="{{ asset('build/assets/images/faces/10.jpg') }}"
+                                        <img src="{{ asset('assets/images/faces/10.jpg') }}"
                                             class="img-fluid team-img rounded-circle" alt="img">
                                     </div>
                                     <div class="text-start">
@@ -1461,7 +1461,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
                                             <span class="avatar rounded-circle me-2">
-                                                <img src="{{ asset('build/assets/images/faces/1.jpg') }}"
+                                                <img src="{{ asset('assets/images/faces/1.jpg') }}"
                                                     alt="" class="img-fluid rounded-circle">
                                             </span>
                                             <div>
@@ -1503,7 +1503,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
                                             <span class="avatar rounded-circle me-2">
-                                                <img src="{{ asset('build/assets/images/faces/5.jpg') }}"
+                                                <img src="{{ asset('assets/images/faces/5.jpg') }}"
                                                     alt="" class="img-fluid rounded-circle">
                                             </span>
                                             <div>
@@ -1544,7 +1544,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
                                             <span class="avatar rounded-circle me-2">
-                                                <img src="{{ asset('build/assets/images/faces/3.jpg') }}"
+                                                <img src="{{ asset('assets/images/faces/3.jpg') }}"
                                                     alt="" class="img-fluid rounded-circle">
                                             </span>
                                             <div>
@@ -1585,7 +1585,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
                                             <span class="avatar rounded-circle me-2">
-                                                <img src="{{ asset('build/assets/images/faces/9.jpg') }}"
+                                                <img src="{{ asset('assets/images/faces/9.jpg') }}"
                                                     alt="" class="img-fluid rounded-circle">
                                             </span>
                                             <div>
@@ -1626,7 +1626,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
                                             <span class="avatar rounded-circle me-2">
-                                                <img src="{{ asset('build/assets/images/faces/8.jpg') }}"
+                                                <img src="{{ asset('assets/images/faces/8.jpg') }}"
                                                     alt="" class="img-fluid rounded-circle">
                                             </span>
                                             <div>
@@ -1667,7 +1667,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
                                             <span class="avatar rounded-circle me-2">
-                                                <img src="{{ asset('build/assets/images/faces/10.jpg') }}"
+                                                <img src="{{ asset('assets/images/faces/10.jpg') }}"
                                                     alt="" class="img-fluid rounded-circle">
                                             </span>
                                             <div>
@@ -1708,7 +1708,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
                                             <span class="avatar rounded-circle me-2">
-                                                <img src="{{ asset('build/assets/images/faces/1.jpg') }}"
+                                                <img src="{{ asset('assets/images/faces/1.jpg') }}"
                                                     alt="" class="img-fluid rounded-circle">
                                             </span>
                                             <div>
@@ -1749,7 +1749,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
                                             <span class="avatar rounded-circle me-2">
-                                                <img src="{{ asset('build/assets/images/faces/5.jpg') }}"
+                                                <img src="{{ asset('assets/images/faces/5.jpg') }}"
                                                     alt="" class="img-fluid rounded-circle">
                                             </span>
                                             <div>
@@ -1790,7 +1790,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
                                             <span class="avatar rounded-circle me-2">
-                                                <img src="{{ asset('build/assets/images/faces/3.jpg') }}"
+                                                <img src="{{ asset('assets/images/faces/3.jpg') }}"
                                                     alt="" class="img-fluid rounded-circle">
                                             </span>
                                             <div>
@@ -1831,7 +1831,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
                                             <span class="avatar rounded-circle me-2">
-                                                <img src="{{ asset('build/assets/images/faces/9.jpg') }}"
+                                                <img src="{{ asset('assets/images/faces/9.jpg') }}"
                                                     alt="" class="img-fluid rounded-circle">
                                             </span>
                                             <div>
@@ -2013,7 +2013,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
                         <a href="{{ url('index') }}" class="d-inline-block mb-2"><img
-                                src="{{ asset('build/assets/images/brand-logos/desktop-white.png') }}"
+                                src="{{ asset('assets/images/brand-logos/desktop-white.png') }}"
                                 alt="img"></a>
                         <p class="mb-4 op-8 fs-15">
                             At dolor clita amet erat takimata sed tempor invidunt lorem.

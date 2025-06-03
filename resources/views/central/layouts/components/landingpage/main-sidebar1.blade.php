@@ -10,9 +10,9 @@
                             <div class="landing-logo-container">
                                 <div class="horizontal-logo">
                                     <a href="{{url('index')}}" class="header-logo">
-                                        <img src="{{asset('build/assets/images/brand-logos/desktop-logo.png')}}" alt="logo"
+                                        <img src="{{asset('assets/images/brand-logos/desktop-logo.png')}}" alt="logo"
                                             class="desktop-logo">
-                                        <img src="{{asset('build/assets/images/brand-logos/desktop-white.png')}}" alt="logo"
+                                        <img src="{{asset('assets/images/brand-logos/desktop-white.png')}}" alt="logo"
                                             class="desktop-white">
                                     </a>
                                 </div>

@@ -100,7 +100,7 @@ class TenancyServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->bootEvents();
-        $this->mapRoutes();
+        // $this->mapRoutes();
 
         $this->makeTenancyMiddlewareHighestPriority();
     }
@@ -120,14 +120,7 @@ class TenancyServiceProvider extends ServiceProvider
 
     protected function mapRoutes()
     {
-        $this->app->booted(function () {
-            Route::namespace(static::$controllerNamespace)
-                ->group(base_path('routes/tenant/admin.php'));
-            Route::namespace(static::$controllerNamespace)
-                ->group(base_path('routes/tenant/frontend.php'));
-            Route::namespace(static::$controllerNamespace)
-                ->group(base_path('routes/tenant/beneficiary.php'));
-        });
+        
     }
 
     protected function makeTenancyMiddlewareHighestPriority()

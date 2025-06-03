@@ -1,4 +1,4 @@
-@extends('central.layouts.custom-master')
+@extends('tenant.layouts.custom-master')
 
 @php
     // Passing the bodyClass variable from the view to the layout
@@ -28,9 +28,12 @@
                                     <div class="col-xl-12">
                                         <label for="signin-username"
                                             class="form-label text-default">{{ trans('global.login_email') }}</label>
-                                        <input type="text" class="form-control" name="email" id="signin-username"
+                                        <input type="text" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="signin-username"
                                             placeholder="{{ trans('global.login_email') }}" required autocomplete="email"
                                             autofocus value="{{ old('email', null) }}">
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span> 
+                                            @enderror
                                     </div>
                                     <div class="col-xl-12 mb-2">
                                         <label for="signin-password" class="form-label text-default d-block">
@@ -43,11 +46,19 @@
                                             <a href="javascript:void(0);" class="show-password-button text-muted"
                                                 onclick="createpassword('signin-password',this)" id="button-addon2"><i
                                                     class="ri-eye-off-line align-middle"></i></a>
+                                            @error('password')
+                                                <span class="text-danger">{{ $message }}</span> 
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-grid mt-3">
                                     <button type="submit" class="btn btn-primary">{{ trans('global.login') }}</button>
+                                    <p class="text-muted mt-3 mb-0 text-center">
+                                        {{ trans('global.dont_have_account') }}
+                                        <a href="{{ route('register') }}"
+                                            class="text-primary fw-medium">{{ trans('global.register') }}</a>
+                                    </p>
                                 </div>
                             </form>
                         </div>
@@ -59,13 +70,13 @@
             <div class="authentication-cover overflow-hidden">
                 <div class="authentication-cover-logo">
                     <a href="{{ url('index') }}">
-                        <img src="{{ asset('logo-dark.png') }}" alt="" class="authentication-brand desktop-white"
-                            style="height: 3.75rem !important">
+                        <img src="{{ global_asset('logo-dark.png') }}" alt=""
+                            class="authentication-brand desktop-white" style="height: 3.75rem !important">
                     </a>
                 </div>
                 <div class="aunthentication-cover-content d-flex align-items-center justify-content-center">
                     <div>
-                        <img src="{{ asset('login_cover3.svg') }}" alt="">
+                        <img src="{{ global_asset('login_cover3.svg') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -75,5 +86,5 @@
 
 @section('scripts')
     <!-- Show Password JS -->
-    <script src="{{ asset('build/assets/show-password.js') }}"></script>
+    <script src="{{ global_asset('assets/show-password.js') }}"></script>
 @endsection

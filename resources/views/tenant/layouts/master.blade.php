@@ -17,18 +17,18 @@
     <title> Zeno - Laravel Bootstrap 5 Premium Admin & Dashboard Template </title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('build/assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
 
     <!-- Main Theme Js -->
-    <script src="{{ asset('build/assets/main.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 
     <!-- ICONS CSS -->
-    <link href="{{ asset('build/assets/icon-fonts/icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/icon-fonts/icons.css') }}" rel="stylesheet">
 
-    @include('central.layouts.components.styles')
+    @include('tenant.layouts.components.styles')
 
     <!-- APP CSS & APP SCSS -->
-    @vite(['resources/sass/app.scss'])
+    <link href="{{ global_asset('assets/css/app.css') }}" rel="stylesheet">
 
     @yield('styles')
     @if (app()->getLocale() == 'ar')
@@ -49,23 +49,23 @@
 <body class="">
 
     <!-- Start::main-switcher -->
-    @include('central.layouts.components.switcher')
+    @include('tenant.layouts.components.switcher')
     <!-- End::main-switcher -->
 
     <!-- Loader -->
     <div id="loader">
-        <img src="{{ asset('build/assets/images/media/loader.svg') }}" alt="">
+        <img src="{{ asset('assets/images/media/loader.svg') }}" alt="">
     </div>
     <!-- Loader -->
 
     <div class="page">
 
         <!-- Start::main-header -->
-        @include('central.layouts.components.main-header')
+        @include('tenant.layouts.components.main-header')
         <!-- End::main-header -->
 
         <!-- Start::main-sidebar -->
-        @include('central.layouts.components.main-sidebar')
+        @include('tenant.layouts.components.main-sidebar')
         <!-- End::main-sidebar -->
 
         <!-- Start::app-content -->
@@ -79,11 +79,11 @@
         <!-- End::content  -->
 
         <!-- Start::main-footer -->
-        @include('central.layouts.components.footer')
+        @include('tenant.layouts.components.footer')
         <!-- End::main-footer -->
 
         <!-- Start::main-modal -->
-        @include('central.layouts.components.modal')
+        @include('tenant.layouts.components.modal')
         <!-- End::main-modal -->
 
         @yield('modals')
@@ -91,16 +91,16 @@
     </div>
 
     <!-- Scripts -->
-    @include('central.layouts.components.scripts')
+    @include('tenant.layouts.components.scripts')
 
     <!-- Sticky JS -->
-    <script src="{{ asset('build/assets/sticky.js') }}"></script>
+    <script src="{{ asset('assets/sticky.js') }}"></script>
 
     <!-- Custom-Switcher JS -->
-    @vite('resources/assets/js/custom-switcher.js')
+    <script src="{{ asset('assets/js/custom-switcher.js') }}"></script>
 
     <!-- App JS-->
-    @vite('resources/js/app.js') 
+    <script src="{{ asset('assets/js/custom.js') }}"></script> 
 </body>
 
 </html>

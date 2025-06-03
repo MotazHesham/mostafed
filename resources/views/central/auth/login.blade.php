@@ -31,6 +31,9 @@
                                         <input type="text" class="form-control" name="email" id="signin-username"
                                             placeholder="{{ trans('global.login_email') }}" required autocomplete="email"
                                             autofocus value="{{ old('email', null) }}">
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span> 
+                                            @enderror
                                     </div>
                                     <div class="col-xl-12 mb-2">
                                         <label for="signin-password" class="form-label text-default d-block">
@@ -44,6 +47,9 @@
                                                 onclick="createpassword('signin-password',this)" id="button-addon2"><i
                                                     class="ri-eye-off-line align-middle"></i></a>
                                         </div>
+                                        @error('password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="d-grid mt-3">
@@ -75,5 +81,5 @@
 
 @section('scripts')
     <!-- Show Password JS -->
-    <script src="{{ asset('build/assets/show-password.js') }}"></script>
+    <script src="{{ asset('assets/js/show-password.js') }}"></script>
 @endsection

@@ -7,26 +7,26 @@
           <!-- Scroll To Top -->
 
           <!-- Popper JS -->
-          <script src="{{asset('build/assets/libs/@popperjs/core/umd/popper.min.js')}}"></script>
+          <script src="{{asset('assets/libs/@popperjs/core/umd/popper.min.js')}}"></script>
 
           <!-- Bootstrap JS -->
-          <script src="{{asset('build/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+          <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
           <!-- Node Waves JS-->
-          <script src="{{asset('build/assets/libs/node-waves/waves.min.js')}}"></script>
+          <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
 
           <!-- Simplebar JS -->
-          <script src="{{asset('build/assets/libs/simplebar/simplebar.min.js')}}"></script>
-          @vite('resources/assets/js/simplebar.js')
+          <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
+          <script src="{{asset('assets/js/simplebar.js')}}"></script>
 
           <!-- Auto Complete JS -->
-          <script src="{{asset('build/assets/libs/@tarekraafat/autocomplete.js/autoComplete.min.js')}}"></script>
+          <script src="{{asset('assets/libs/@tarekraafat/autocomplete.js/autoComplete.min.js')}}"></script>
 
           <!-- Color Picker JS -->
-          <script src="{{asset('build/assets/libs/@simonwep/pickr/pickr.es5.min.js')}}"></script>
+          <script src="{{asset('assets/libs/@simonwep/pickr/pickr.es5.min.js')}}"></script>
 
           <!-- Date & Time Picker JS -->
-          <script src="{{asset('build/assets/libs/flatpickr/flatpickr.min.js')}}"></script>
+          <script src="{{asset('assets/libs/flatpickr/flatpickr.min.js')}}"></script>
 
           <!-- Jquery Cdn -->
           <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -45,7 +45,7 @@
           <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
 
           <!-- Dropzone JS -->
-          <script src="{{asset('build/assets/libs/dropzone/dropzone-min.js')}}"></script>
+          <script src="{{asset('assets/libs/dropzone/dropzone-min.js')}}"></script>
 
           <script>
                $(function() {
