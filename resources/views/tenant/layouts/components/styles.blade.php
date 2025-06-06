@@ -1,5 +1,6 @@
+
 <!-- Choices JS -->
-<script src="{{ global_asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
+<script src="{{global_asset('assets/libs/choices.js/public/assets/scripts/choices.min.js')}}"></script>
 
 <!-- Bootstrap Css -->
 <link id="style" href="{{ global_asset('assets/libs/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -10,8 +11,7 @@
 <!-- Simplebar Css -->
 <link href="{{ global_asset('assets/libs/simplebar/simplebar.min.css') }}" rel="stylesheet">
 
-<!-- Color Picker Css -->
-<link rel="stylesheet" href="{{ global_asset('assets/libs/flatpickr/flatpickr.min.css') }}">
+<!-- Color Picker Css --> 
 <link rel="stylesheet" href="{{ global_asset('assets/libs/@simonwep/pickr/themes/nano.min.css') }}">
 
 <!-- Choices Css -->
@@ -32,8 +32,16 @@
 <!-- Select2 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
 
+<!-- Filepond CSS -->
+<link rel="stylesheet" href="{{global_asset('assets/libs/filepond/filepond.min.css')}}">
+<link rel="stylesheet" href="{{global_asset('assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css')}}">
+<link rel="stylesheet" href="{{global_asset('assets/libs/filepond-plugin-image-edit/filepond-plugin-image-edit.min.css')}}">
+
 <!-- Dropzone CSS -->
 <link rel="stylesheet" href="{{global_asset('assets/libs/dropzone/dropzone.css')}}">
+
+<!-- Toastify CSS -->
+<link rel="stylesheet" href="{{global_asset('assets/libs/toastify-js/src/toastify.css')}}">
 
 <style>
         .dataTables_wrapper .dt-buttons {

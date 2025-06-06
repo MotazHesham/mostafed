@@ -12,15 +12,23 @@ class TaskStatusTableSeeder extends Seeder
         $taskStatuses = [
             [
                 'id'   => 1,
-                'name' => 'Open',
+                'name' => 'New',
             ],
             [
                 'id'   => 2,
-                'name' => 'In progress',
+                'name' => 'Todo',
             ],
             [
                 'id'   => 3,
-                'name' => 'Closed',
+                'name' => 'On Going',
+            ],
+            [
+                'id'   => 4,
+                'name' => 'In Review',
+            ],
+            [
+                'id'   => 5,
+                'name' => 'Completed',
             ],
         ];
 

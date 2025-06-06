@@ -44,11 +44,24 @@
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
           <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
 
-          <!-- Select2 Cdn -->
-          <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-          
+          <!-- Filepond JS -->
+          <script src="{{ global_asset('assets/libs/filepond/filepond.min.js')}}"></script>
+          <script src="{{ global_asset('assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js')}}"></script>
+          <script src="{{ global_asset('assets/libs/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js')}}"></script> 
+          <script src="{{ global_asset('assets/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js')}}"></script> 
+
           <!-- Dropzone JS -->
           <script src="{{global_asset('assets/libs/dropzone/dropzone-min.js')}}"></script>
+
+          <!-- Vanilla-Wizard JS -->
+          <script src="{{global_asset('assets/libs/vanilla-wizard/js/wizard.min.js')}}"></script>
+          <script src="{{global_asset('assets/js/form-wizard.js')}}"></script>
+          
+          <!-- Select2 Cdn -->
+          <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+
+          <!-- Toastify JS -->
+          <script src="{{global_asset('assets/libs/toastify-js/src/toastify.js')}}"></script>
 
           <script>
                $(function() {
@@ -153,7 +166,59 @@
                     }); 
 
                });
+          </script>
+          <script>
                
+               function showAjaxModal(url,data) {
+                    // Show the modal
+                    $('#ajaxModal').modal('show');
+                    
+                    // Show loading spinner in modal content
+                    $('#ajaxModal .modal-content').html(`
+                         <div class="modal-header">
+                              <h5 class="modal-title">Loading...</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                         </div>
+                         <div class="modal-body text-center py-5">
+                              <div class="spinner-border text-primary" role="status">
+                                   <span class="visually-hidden">Loading...</span>
+                              </div>
+                              <div class="mt-3">Please wait...</div>
+                         </div>
+                    `);
+                    
+                    // Make AJAX request
+                    $.ajax({
+                         url: url,
+                         type: 'POST',
+                         data: {...data, _token: '{{ csrf_token() }}'},
+                         success: function(response) {
+                              // Load response into modal content
+                              $('#ajaxModal .modal-content').html(null); 
+                              $('#ajaxModal .modal-content').html(response.html); 
+                         },
+                         error: function(xhr, status, error) {
+                            // Show error message
+                              $('#ajaxModal .modal-content').html(`
+                                   <div class="modal-header">
+                                        <h5 class="modal-title text-danger">Error</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                   </div>
+                                   <div class="modal-body">
+                                        <div class="alert alert-danger">
+                                        <i class="ti ti-alert-circle me-2"></i>
+                                        Failed to load content. Please try again.
+                                        </div>
+                                        <small class="text-muted">Error: ${error}</small>
+                                   </div>
+                                   <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                   </div>
+                              `);
+                         }
+                    });
+               }
+
                // Add event listener for sidebar toggle
                $(document).on('click', '[data-nav-layout="vertical"]', function() {
                     setTimeout(function() {
@@ -175,4 +240,36 @@
                     })
                });
           </script>
+          <script> 
+               function initializeFlatpickr(id) { 
+                    if (document.getElementById(id) && !document.getElementById(id)._flatpickr) {
+                         flatpickr("#" + id, {
+                              dateFormat: '{{ config('panel.date_format') }}',
+                         });
+                    }
+               } 
+          </script>
+          <script>
+               function showToast(message, type = 'success', position = 'top') {
+                    backgroundColor = 'var(--primary-color)';
+                    if (type === 'error') {
+                         backgroundColor = 'red';
+                    }else if (type === 'warning') {
+                         backgroundColor = 'yellow';
+                    }else if (type === 'info') {
+                         backgroundColor = 'blue';
+                    }else if (type === 'success') {
+                         backgroundColor = 'green';
+                    }
+                    Toastify({
+                         text: message,
+                         duration: 3000,
+                         newWindow: true,
+                         close: true,
+                         gravity: position, 
+                         backgroundColor: backgroundColor, 
+                    }).showToast();
+               }
+          </script>
           @yield('scripts')
+          @stack('stack-scripts')

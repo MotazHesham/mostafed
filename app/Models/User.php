@@ -13,12 +13,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use SoftDeletes, Notifiable, HasFactory;
+    use SoftDeletes, Notifiable, HasFactory, InteractsWithMedia;
 
     public $table = 'users';
+
+    protected $appends = [
+        'photo',
+    ];
 
     protected $hidden = [
         'remember_token',
@@ -59,21 +66,27 @@ class User extends Authenticatable
         return $date->format('Y-m-d H:i:s');
     }
 
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
+        $this->addMediaConversion('preview')->fit('crop', 120, 120);
+    }
+
+    public function getPhotoAttribute()
+    {
+        $file = $this->getMedia('photo')->last();
+        if ($file) {
+            $file->url       = $file->getUrl();
+            $file->thumbnail = $file->getUrl('thumb');
+            $file->preview   = $file->getUrl('preview');
+        }
+
+        return $file;
+    }
     public function getIsAdminAttribute()
     {
         return $this->roles()->where('id', 1)->exists();
-    }
-
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        self::created(function (self $user) {
-            $registrationRole = config('panel.registration_default_role');
-            if (! $user->roles()->get()->contains($registrationRole)) {
-                $user->roles()->attach($registrationRole);
-            }
-        });
-    }
+    } 
 
     public function userUserAlerts()
     {

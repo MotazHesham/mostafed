@@ -1,5 +1,3 @@
-<!-- Choices JS -->
-<script src="{{ global_asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
 
 <!-- Bootstrap Css -->
 <link id="style" href="{{ global_asset('assets/libs/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -12,10 +10,7 @@
 
 <!-- Color Picker Css -->
 <link rel="stylesheet" href="{{ global_asset('assets/libs/flatpickr/flatpickr.min.css') }}">
-<link rel="stylesheet" href="{{ global_asset('assets/libs/@simonwep/pickr/themes/nano.min.css') }}">
-
-<!-- Choices Css -->
-<link rel="stylesheet" href="{{ global_asset('assets/libs/choices.js/public/assets/styles/choices.min.css') }}">
+<link rel="stylesheet" href="{{ global_asset('assets/libs/@simonwep/pickr/themes/nano.min.css') }}"> 
 
 <!-- FlatPickr CSS -->
 <link rel="stylesheet" href="{{ global_asset('assets/libs/flatpickr/flatpickr.min.css') }}">
@@ -30,6 +25,9 @@
 
 <!-- Dropzone CSS -->
 <link rel="stylesheet" href="{{ global_asset('assets/libs/dropzone/dropzone.css') }}">
+
+<!-- Select2 Cdn -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
 
 <style>
         .dataTables_wrapper .dt-buttons {

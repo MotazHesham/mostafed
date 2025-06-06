@@ -15,6 +15,8 @@ class CreateBeneficiaryFamiliesTable extends Migration
             $table->date('dob')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->string('custom_health_condition')->nullable();
+            $table->string('custom_disability_type')->nullable();
             $table->string('can_work')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="Description" content="Laravel Bootstrap Responsive Admin Web Dashboard Template">
     <meta name="Author" content="Spruko Technologies Private Limited">
     <meta name="keywords"
@@ -88,6 +89,15 @@
 
         @yield('modals')
 
+        {{-- ajax modal --}}
+        <div class="modal fade" id="ajaxModal" tabindex="-1" aria-labelledby="ajaxModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    
+                </div>
+            </div>
+        </div> 
+
     </div>
 
     <!-- Scripts -->
@@ -101,6 +111,7 @@
 
     <!-- App JS-->
     <script src="{{ global_asset('assets/js/custom.js') }}"></script> 
+
 </body>
 
 </html>

@@ -24,7 +24,7 @@ class StoreBeneficiaryFamilyRequest extends FormRequest
             'name' => [
                 'string',
                 'max:255',
-                'nullable',
+                'required',
             ],
             'dob' => [
                 'date_format:' . config('panel.date_format'),
@@ -32,13 +32,14 @@ class StoreBeneficiaryFamilyRequest extends FormRequest
             ],
             'phone' => [
                 'string',
-                'nullable',
+                'required',
             ],
             'email' => [
                 'string',
+                'email',
                 'max:255',
                 'nullable',
             ],
         ];
-    }
+    } 
 }

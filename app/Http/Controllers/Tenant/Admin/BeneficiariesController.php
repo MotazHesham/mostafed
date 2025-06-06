@@ -78,41 +78,37 @@ class BeneficiariesController extends Controller
 
     public function create()
     {
-        abort_if(Gate::denies('beneficiary_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('beneficiary_create'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
 
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $nationalities = Nationality::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $marital_statuses = MaritalStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $job_types = JobType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $educational_qualifications = EducationalQualification::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $districts = District::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $health_conditions = HealthCondition::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $disability_types = DisabilityType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $specialists = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('tenant.admin.beneficiaries.create', compact('disability_types', 'districts', 'educational_qualifications', 'health_conditions', 'job_types', 'marital_statuses', 'nationalities', 'specialists', 'users'));
+        return view('tenant.admin.beneficiaries.create');
     }
 
     public function store(StoreBeneficiaryRequest $request)
     {
-        $beneficiary = Beneficiary::create($request->all());
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'phone' => $request->phone,
+            'identity_num' => $request->identity_num, 
+            'approved' => 1,
+            'user_type' => 'beneficiary',
+        ]);
+
+        $beneficiary = Beneficiary::create([
+            'user_id' => $user->id, 
+        ]);
+
+        if ($request->has('next')) {
+            return redirect()->route('admin.beneficiaries.edit', $beneficiary->id);
+        }
 
         return redirect()->route('admin.beneficiaries.index');
     }
 
     public function edit(Beneficiary $beneficiary)
     {
-        abort_if(Gate::denies('beneficiary_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        abort_if(Gate::denies('beneficiary_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
 
         $nationalities = Nationality::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -132,7 +128,8 @@ class BeneficiariesController extends Controller
 
         $beneficiary->load('user', 'nationality', 'marital_status', 'job_type', 'educational_qualification', 'district', 'health_condition', 'disability_type', 'specialist');
 
-        return view('tenant.admin.beneficiaries.edit', compact('beneficiary', 'disability_types', 'districts', 'educational_qualifications', 'health_conditions', 'job_types', 'marital_statuses', 'nationalities', 'specialists', 'users'));
+        $user = $beneficiary->user;
+        return view('tenant.admin.beneficiaries.edit', compact('beneficiary', 'disability_types', 'districts', 'educational_qualifications', 'health_conditions', 'job_types', 'marital_statuses', 'nationalities', 'specialists', 'user'));
     }
 
     public function update(UpdateBeneficiaryRequest $request, Beneficiary $beneficiary)

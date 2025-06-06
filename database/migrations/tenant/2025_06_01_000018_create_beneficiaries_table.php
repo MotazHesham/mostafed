@@ -20,6 +20,8 @@ class CreateBeneficiariesTable extends Migration
             $table->string('can_work')->nullable();
             $table->longText('incomes')->nullable();
             $table->longText('expenses')->nullable();
+            $table->string('custom_health_condition')->nullable();
+            $table->string('custom_disability_type')->nullable();
             $table->boolean('is_archived')->default(0);
             $table->timestamps();
             $table->softDeletes();

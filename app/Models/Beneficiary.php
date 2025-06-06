@@ -41,7 +41,9 @@ class Beneficiary extends Model
         'building_number',
         'floor_number',
         'health_condition_id',
+        'custom_health_condition',
         'disability_type_id',
+        'custom_disability_type',
         'can_work',
         'incomes',
         'expenses',
@@ -60,6 +62,11 @@ class Beneficiary extends Model
     public function beneficiaryBeneficiaryOrders()
     {
         return $this->hasMany(BeneficiaryOrder::class, 'beneficiary_id', 'id');
+    }
+
+    public function beneficiaryFamilies()
+    {
+        return $this->hasMany(BeneficiaryFamily::class, 'beneficiary_id', 'id');
     }
 
     public function user()

@@ -6,13 +6,15 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 class Nationality extends Model
 {
     use SoftDeletes, HasFactory;
+    use HasTranslations;
 
     public $table = 'nationalities';
-
+    public $translatable = ['name'];
     protected $dates = [
         'created_at',
         'updated_at',
