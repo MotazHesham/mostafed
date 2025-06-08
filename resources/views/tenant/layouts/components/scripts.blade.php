@@ -63,6 +63,9 @@
           <!-- Toastify JS -->
           <script src="{{global_asset('assets/libs/toastify-js/src/toastify.js')}}"></script>
 
+          <!-- SweetAlert2 JS -->
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
           <script>
                $(function() {
                     let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
@@ -219,6 +222,49 @@
                     });
                }
 
+               function showAjaxOffcanvas(url, data, position = "left") {
+                    $('#ajaxOffcanvas').offcanvas('show'); 
+                    $('#ajaxOffcanvas').html(`
+                         <div class="offcanvas-header border-bottom border-block-end-dashed">
+                              <h5 class="offcanvas-title" id="ajaxOffcanvasLabel"></h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                         </div>
+                         <div class="offcanvas-body p-0">
+                              <div class="text-center py-5">
+                                   <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                   </div>
+                                   <div class="mt-3">Please wait...</div>
+                              </div>
+                         </div>
+                    `);
+                    $.ajax({
+                         url: url,
+                         type: 'POST',
+                         data: {...data, _token: '{{ csrf_token() }}'},
+                         success: function(response) {
+                              $('#ajaxOffcanvas').html(response.html);
+                         },
+                         error: function(xhr, status, error) {
+                              $('#ajaxOffcanvas').html(`
+                                   <div class="offcanvas-header border-bottom border-block-end-dashed">
+                                        <h5 class="offcanvas-title text-danger">Error</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                   </div>
+                                   <div class="offcanvas-body p-0">
+                                        <div class="text-center py-5">
+                                             <div class="alert alert-danger">
+                                                  <i class="ti ti-alert-circle me-2"></i>
+                                                  Failed to load content. Please try again.
+                                             </div>
+                                             <small class="text-muted">Error: ${error}</small>
+                                        </div>
+                                   </div>    
+                              `);  
+                         }
+                    });
+               }
+
                // Add event listener for sidebar toggle
                $(document).on('click', '[data-nav-layout="vertical"]', function() {
                     setTimeout(function() {
@@ -269,6 +315,117 @@
                          gravity: position, 
                          backgroundColor: backgroundColor, 
                     }).showToast();
+               }
+          </script>
+
+          <script>
+               function modalAjaxSubmit(e) {
+                    if (e) {
+                         e.preventDefault();
+                    }
+                    
+                    var form = $('#ajaxModal form'); 
+                    var url = form.attr('action');
+                    var formData = new FormData(form[0]);
+                    var method = form.attr('method');
+                    
+                    var submitBtn = form.find('button[type="submit"]');
+                    var originalBtnHtml = submitBtn.html();
+                    submitBtn.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+                    submitBtn.prop('disabled', true);
+
+                    // Clear previous validation errors
+                    form.find('.is-invalid').removeClass('is-invalid');
+                    form.find('.invalid-feedback').remove();
+                    
+                    $.ajax({
+                         url: url,
+                         type: method,
+                         data: formData,
+                         processData: false,
+                         contentType: false,
+                         success: function(response){
+                              // If response contains html property, update the specified wrapper
+                              if(response.html && response.wrapper) {
+                                   $(response.wrapper).html(response.html);
+                              }
+                              
+                              $('#ajaxModal').modal('hide');
+                              submitBtn.html(originalBtnHtml);
+                              submitBtn.prop('disabled', false);
+                              
+                              // Show success message if provided
+                              if(response.message) {
+                                   showToast(response.message, 'success', 'top');
+                              }
+                         },
+                         error: function(xhr, status, error){
+                              if (xhr.status === 422) {
+                                   // Handle validation errors
+                                   var errors = xhr.responseJSON.errors;
+                                   
+                                   $.each(errors, function(field, messages) {
+                                        var input = form.find('[name="' + field + '"]');
+                                        input.addClass('is-invalid');
+                                        
+                                        // Add error message
+                                        var errorHtml = '<div class="invalid-feedback">' + messages[0] + '</div>';
+                                        input.after(errorHtml);
+                                   });
+                                   
+                                   // Show general error message
+                                   if(xhr.responseJSON.message) {
+                                        showToast(xhr.responseJSON.message, 'error', 'top');
+                                   }
+                              } else {
+                                   // Handle other errors
+                                   console.log(xhr.responseText);
+                                   showToast('An error occurred. Please try again.', 'error', 'top');
+                              }
+                              submitBtn.html(originalBtnHtml);
+                              submitBtn.prop('disabled', false);
+                         }
+                    });
+               }
+
+               function ajaxDeleteFromTable(url, recordId, trId = null) {
+                    Swal.fire({
+                         title: '{{ trans('global.areYouSure') }}', 
+                         icon: 'warning',
+                         showCancelButton: true,
+                         confirmButtonColor: '#d33',
+                         cancelButtonColor: '#3085d6',
+                         cancelButtonText: '{{ trans('global.no') }}',
+                         confirmButtonText: '{{ trans('global.yes') }}',
+                    }).then((result) => {
+                         if (result.isConfirmed) { 
+                              var method = 'POST';
+                              var formData = new FormData();
+                              formData.append('_token', '{{ csrf_token() }}');
+                              formData.append('id', recordId);
+
+                              $.ajax({
+                              url: url,
+                              type: method,
+                              data: formData,
+                              processData: false,
+                              contentType: false,
+                              success: function(response) {
+                                   if(trId) {
+                                        $('#' + trId).fadeOut(400, function() {
+                                             $(this).remove();
+                                        });
+                                   }
+                                   if (response.message) {
+                                        showToast(response.message, 'success', 'top');
+                                   }
+                              },
+                              error: function(xhr, status, error) {
+                                   showToast('An error occurred. Please try again.', 'error', 'top');
+                              }
+                              });
+                         }
+                    });
                }
           </script>
           @yield('scripts')

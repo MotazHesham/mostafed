@@ -13,6 +13,7 @@ use App\Models\DisabilityType;
 use App\Models\FamilyRelationship;
 use App\Models\HealthCondition;
 use App\Models\MaritalStatus;
+use App\Models\EducationalQualification;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -22,6 +23,18 @@ use Yajra\DataTables\Facades\DataTables;
 class BeneficiaryFamilyController extends Controller
 {
     use MediaUploadingTrait; 
+
+    public function show(Request $request)
+    {
+        $beneficiaryFamily = BeneficiaryFamily::find($request->id);
+        
+        $html = view('tenant.admin.beneficiaryFamilies.show', compact('beneficiaryFamily'))->render();
+
+        return response()->json([
+            'html' => $html,  
+        ]);
+    }
+
     public function create(Request $request)
     {
         abort_if(Gate::denies('beneficiary_family_create'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
@@ -36,7 +49,9 @@ class BeneficiaryFamilyController extends Controller
 
         $disability_types = DisabilityType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $html = view('tenant.admin.beneficiaryFamilies.create', compact('beneficiary', 'disability_types', 'family_relationships', 'health_conditions', 'marital_statuses'))->render();
+        $educational_qualifications = EducationalQualification::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $html = view('tenant.admin.beneficiaryFamilies.create', compact('beneficiary', 'disability_types', 'family_relationships', 'health_conditions', 'marital_statuses', 'educational_qualifications'))->render();
 
         return response()->json([
             'html' => $html,  
@@ -59,15 +74,18 @@ class BeneficiaryFamilyController extends Controller
 
         return response()->json([
             'html' => $html,
+            'wrapper' => '#wrapper-family-information',
             'message' => trans('global.flash.created', ['title' => trans('cruds.beneficiaryFamily.title_singular')])
         ]);
     }
 
-    public function edit(BeneficiaryFamily $beneficiaryFamily)
+    public function edit(Request $request)
     {
         abort_if(Gate::denies('beneficiary_family_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
 
-        $family_relationships = FamilyRelationship::pluck('gender', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $beneficiaryFamily = BeneficiaryFamily::find($request->id);
+
+        $family_relationships = FamilyRelationship::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $marital_statuses = MaritalStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -75,9 +93,15 @@ class BeneficiaryFamilyController extends Controller
 
         $disability_types = DisabilityType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $beneficiaryFamily->load('beneficiary', 'family_relationship', 'marital_status', 'health_condition', 'disability_type');
+        $educational_qualifications = EducationalQualification::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('tenant.admin.beneficiaryFamilies.edit', compact( 'beneficiaryFamily', 'disability_types', 'family_relationships', 'health_conditions', 'marital_statuses'));
+        $beneficiaryFamily->load('beneficiary', 'family_relationship', 'marital_status', 'health_condition', 'disability_type', 'educational_qualification');
+
+        $html = view('tenant.admin.beneficiaryFamilies.edit', compact( 'beneficiaryFamily', 'disability_types', 'family_relationships', 'health_conditions', 'marital_statuses', 'educational_qualifications'))->render();
+
+        return response()->json([
+            'html' => $html,  
+        ]);
     }
 
     public function update(UpdateBeneficiaryFamilyRequest $request, BeneficiaryFamily $beneficiaryFamily)
@@ -95,21 +119,30 @@ class BeneficiaryFamilyController extends Controller
             $beneficiaryFamily->photo->delete();
         }
 
-        $beneficiaryFamilies = BeneficiaryFamily::where('beneficiary_id', $request->beneficiary_id)->orderBy('id', 'desc')->get();
+        $beneficiaryFamilies = BeneficiaryFamily::where('beneficiary_id', $beneficiaryFamily->beneficiary_id)->orderBy('id', 'desc')->get();
         $html = view('tenant.admin.beneficiaryFamilies.index', compact('beneficiaryFamilies'))->render();
 
         return response()->json([
             'html' => $html,  
+            'wrapper' => '#wrapper-family-information',
+            'message' => trans('global.flash.updated', ['title' => trans('cruds.beneficiaryFamily.title_singular')])
         ]);
     } 
 
-    public function destroy(BeneficiaryFamily $beneficiaryFamily)
+    public function destroy(Request $request)
     {
         abort_if(Gate::denies('beneficiary_family_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $beneficiaryFamily = BeneficiaryFamily::find($request->id);
+
         $beneficiaryFamily->delete();
 
-        return back();
+        $beneficiaryFamilies = BeneficiaryFamily::where('beneficiary_id', $beneficiaryFamily->beneficiary_id)->orderBy('id', 'desc')->get();
+        $html = view('tenant.admin.beneficiaryFamilies.index', compact('beneficiaryFamilies'))->render();
+
+        return response()->json([ 
+            'message' => trans('global.flash.deleted', ['title' => trans('cruds.beneficiaryFamily.title_singular')])
+        ]);
     } 
 
     public function storeCKEditorImages(Request $request)

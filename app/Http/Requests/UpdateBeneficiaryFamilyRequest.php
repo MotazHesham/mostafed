@@ -16,28 +16,58 @@ class UpdateBeneficiaryFamilyRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'beneficiary_id' => [
+        return [ 
+            'photo' => [
+                'nullable', 
+            ],
+            'identity_num' => [
                 'required',
-                'integer',
+                config('panel.identity_validation'),
             ],
             'name' => [
                 'string',
-                'max:255',
-                'nullable',
+                'max:' . config('panel.max_characters_short'),
+                'required',
             ],
             'dob' => [
                 'date_format:' . config('panel.date_format'),
-                'nullable',
+                'required',
             ],
-            'phone' => [
-                'string',
-                'nullable',
+            'phone' => [ 
+                'required',
+                config('panel.phone_validation'),
             ],
             'email' => [
                 'string',
-                'max:255',
+                'email',
+                'max:' . config('panel.max_characters_short'),
+                'required',
+            ],
+            'family_relationship_id' => [
+                'required',
+                'integer',
+            ],
+            'marital_status_id' => [    
+                'required',
+                'integer',
+            ],
+            'educational_qualification_id' => [
+                'required',
+                'integer',
+            ],
+            'health_condition_id' => [
+                'required_if:has_health_condition,1', 
+            ],
+            'custom_health_condition' => [ 
                 'nullable',
+                'max:' . config('panel.max_characters_long'),
+            ],
+            'disability_type_id' => [
+                'required_if:has_disability,1', 
+            ],
+            'custom_disability_type' => [ 
+                'nullable',
+                'max:' . config('panel.max_characters_long'),
             ],
         ];
     }

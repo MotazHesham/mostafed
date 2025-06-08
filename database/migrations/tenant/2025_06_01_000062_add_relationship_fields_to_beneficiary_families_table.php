@@ -19,6 +19,8 @@ class AddRelationshipFieldsToBeneficiaryFamiliesTable extends Migration
             $table->foreign('health_condition_id', 'health_condition_fk_10586735')->references('id')->on('health_conditions');
             $table->unsignedBigInteger('disability_type_id')->nullable();
             $table->foreign('disability_type_id', 'disability_type_fk_10586736')->references('id')->on('disability_types');
+            $table->unsignedBigInteger('educational_qualification_id')->nullable();
+            $table->foreign('educational_qualification_id', 'educational_qualification_fk_10586737')->references('id')->on('educational_qualifications');
         });
     }
 }

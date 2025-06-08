@@ -1,9 +1,9 @@
 <form method="POST" action="{{ route('admin.beneficiary-families.update', [$beneficiaryFamily->id]) }}"
-    enctype="multipart/form-data">
+    enctype="multipart/form-data" onsubmit="modalAjaxSubmit(event)">
     @method('PUT')
     @csrf
     <div class="modal-header">
-        <h5 class="modal-title" id="addFamilyModalLabel">
+        <h5 class="modal-title" id="editFamilyModalLabel">
             {{ trans('global.edit') }} {{ trans('cruds.beneficiaryFamily.title_singular') }}
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -18,7 +18,14 @@
                 'url' => route('admin.beneficiary-families.storeMedia'),
                 'label' => 'cruds.beneficiaryFamily.fields.photo',
                 'isRequired' => false,
-                'value' => $beneficiaryFamily->photo ?? '',
+                'model' => $beneficiaryFamily,
+            ])
+            @include('utilities.form.text', [
+                'name' => 'identity_num',
+                'label' => 'cruds.beneficiaryFamily.fields.identity_num',
+                'isRequired' => true,
+                'grid' => 'col-md-6', 
+                'value' => $beneficiaryFamily->identity_num ?? '',
             ])
             @include('utilities.form.text', [
                 'name' => 'name',
@@ -26,6 +33,14 @@
                 'isRequired' => false,
                 'grid' => 'col-md-6',
                 'value' => $beneficiaryFamily->name ?? '',
+            ])  
+            @include('utilities.form.select', [
+                'name' => 'educational_qualification_id',
+                'label' => 'cruds.beneficiaryFamily.fields.educational_qualification',
+                'isRequired' => true,
+                'grid' => 'col-md-6',
+                'options' => $educational_qualifications,
+                'value' => $beneficiaryFamily->educational_qualification_id ?? '',
             ])
             @include('utilities.form.select', [
                 'name' => 'gender',
@@ -96,7 +111,7 @@
                             '0' => trans('global.no'),
                         ],
                         'grid' => 'col',
-                        'value' => $beneficiary->health_condition_id ? '1' : '0',
+                        'value' => $beneficiaryFamily->health_condition_id ? '1' : '0',
                     ])
                     <div id="modal_health_condition_wrapper" style="display: none;" class="col">
                         @include('utilities.form.select', [
@@ -108,7 +123,7 @@
                                 'other' => trans('global.other'),
                             ],
                             'grid' => '',
-                            'value' => $beneficiary->health_condition_id ?? '',
+                            'value' => $beneficiaryFamily->health_condition_id ?? '',
                         ])
                     </div>
                     <div id="modal_custom_health_condition_wrapper" style="display: none;" class="col">
@@ -118,7 +133,7 @@
                             'label' => 'cruds.beneficiaryFamily.fields.custom_health_condition',
                             'isRequired' => false,
                             'grid' => '',
-                            'value' => $beneficiary->custom_health_condition ?? '',
+                            'value' => $beneficiaryFamily->custom_health_condition ?? '',
                         ])
                     </div>
                 </div>
@@ -137,7 +152,7 @@
                             '0' => trans('global.no'),
                         ],
                         'grid' => 'col',
-                        'value' => $beneficiary->disability_type_id ? '1' : '0',
+                        'value' => $beneficiaryFamily->disability_type_id ? '1' : '0',
                     ])
                     <div id="modal_disability_type_wrapper" style="display: none;" class="col">
                         @include('utilities.form.select', [
@@ -149,7 +164,7 @@
                                 'other' => trans('global.other'),
                             ],
                             'grid' => '',
-                            'value' => $beneficiary->disability_type_id ?? '',
+                            'value' => $beneficiaryFamily->disability_type_id ?? '',
                         ])
                     </div>
                     <div id="modal_custom_disability_type_wrapper" style="display: none;" class="col">
@@ -159,7 +174,7 @@
                             'label' => 'cruds.beneficiaryFamily.fields.custom_disability_type',
                             'isRequired' => false,
                             'grid' => '',
-                            'value' => $beneficiary->custom_disability_type ?? '',
+                            'value' => $beneficiaryFamily->custom_disability_type ?? '',
                         ])
                     </div>
                 </div>
@@ -179,59 +194,83 @@
 </form>
 
 <script>
+    handleHealthConditionToggle('{{ $beneficiaryFamily->health_condition_id ? '1' : '0' }}');
+    handleDisabilityToggle('{{ $beneficiaryFamily->disability_type_id ? '1' : '0' }}'); 
+    handleHealthConditionTypeChange('{{ $beneficiaryFamily->health_condition->name ?? '' }}');
+    handleDisabilityTypeChange('{{ $beneficiaryFamily->disability_type->name ?? '' }}');
+    
     /* Health Condition Toggle */
-    const modalHasHealthConditionSelect = document.getElementById('modal_has_health_condition');
-    const modalHealthConditionWrapper = document.getElementById('modal_health_condition_wrapper');
-    const modalHealthConditionSelect = document.getElementById('modal_health_condition_id');
-    const modalCustomHealthConditionWrapper = document.getElementById('modal_custom_health_condition_wrapper');
+    function handleHealthConditionToggle(value) {
+        var modalHealthConditionWrapper = document.getElementById('modal_health_condition_wrapper');
+        var modalCustomHealthConditionWrapper = document.getElementById('modal_custom_health_condition_wrapper');
+        
+        if (value === '1') {
+            modalHealthConditionWrapper.style.display = 'block';
+        } else {
+            modalHealthConditionWrapper.style.display = 'none';
+            modalCustomHealthConditionWrapper.style.display = 'none';
+        }
+    }
 
-    if (modalHasHealthConditionSelect && modalHealthConditionWrapper) {
+    function handleHealthConditionTypeChange(value) {
+        var modalCustomHealthConditionWrapper = document.getElementById('modal_custom_health_condition_wrapper');
+        
+        if (value == 'other' || value == 'أخرى') {
+            modalCustomHealthConditionWrapper.style.display = 'block';
+        } else {
+            modalCustomHealthConditionWrapper.style.display = 'none';
+        }
+    }
+
+    /* Disability Type Toggle */
+    function handleDisabilityToggle(value) {
+        var modalDisabilityTypeWrapper = document.getElementById('modal_disability_type_wrapper');
+        var modalCustomDisabilityTypeWrapper = document.getElementById('modal_custom_disability_type_wrapper');
+        
+        if (value === '1') {
+            modalDisabilityTypeWrapper.style.display = 'block';
+        } else {
+            modalDisabilityTypeWrapper.style.display = 'none';
+            modalCustomDisabilityTypeWrapper.style.display = 'none';
+        }
+    }
+
+    function handleDisabilityTypeChange(value) {
+        var modalCustomDisabilityTypeWrapper = document.getElementById('modal_custom_disability_type_wrapper');
+        
+        if (value == 'other' || value == 'أخرى') {
+            modalCustomDisabilityTypeWrapper.style.display = 'block';
+        } else {
+            modalCustomDisabilityTypeWrapper.style.display = 'none';
+        }
+    }
+
+    var modalHasHealthConditionSelect = document.getElementById('modal_has_health_condition');
+    var modalHealthConditionSelect = document.getElementById('modal_health_condition_id');
+    var modalHasDisabilitySelect = document.getElementById('modal_has_disability');
+    var modalDisabilityTypeSelect = document.getElementById('modal_disability_type_id');
+
+    if (modalHasHealthConditionSelect) {
         modalHasHealthConditionSelect.addEventListener('change', function() {
-            if (this.value === '1') {
-                modalHealthConditionWrapper.style.display = 'block';
-            } else {
-                modalHealthConditionWrapper.style.display = 'none';
-                modalCustomHealthConditionWrapper.style.display = 'none';
-            }
+            handleHealthConditionToggle(this.value);
         });
     }
 
-    if (modalHealthConditionSelect && modalCustomHealthConditionWrapper) {
+    if (modalHealthConditionSelect) {
         modalHealthConditionSelect.addEventListener('change', function() {
-            if (this.value === 'other') {
-                modalCustomHealthConditionWrapper.style.display = 'block';
-            } else {
-                modalCustomHealthConditionWrapper.style.display = 'none';
-            }
+            handleHealthConditionTypeChange(this.value);
         });
     }
-    /* Health Condition Toggle */
 
-    /* Disability Type Toggle */
-    const modalHasDisabilitySelect = document.getElementById('modal_has_disability');
-    const modalDisabilityTypeWrapper = document.getElementById('modal_disability_type_wrapper');
-    const modalDisabilityTypeSelect = document.getElementById('modal_disability_type_id');
-    const modalCustomDisabilityTypeWrapper = document.getElementById('modal_custom_disability_type_wrapper');
-
-    if (modalHasDisabilitySelect && modalDisabilityTypeWrapper) {
+    if (modalHasDisabilitySelect) {
         modalHasDisabilitySelect.addEventListener('change', function() {
-            if (this.value === '1') {
-                modalDisabilityTypeWrapper.style.display = 'block';
-            } else {
-                modalDisabilityTypeWrapper.style.display = 'none';
-                modalCustomDisabilityTypeWrapper.style.display = 'none';
-            }
+            handleDisabilityToggle(this.value);
         });
     }
 
-    if (modalDisabilityTypeSelect && modalCustomDisabilityTypeWrapper) {
+    if (modalDisabilityTypeSelect) {
         modalDisabilityTypeSelect.addEventListener('change', function() {
-            if (this.value === 'other') {
-                modalCustomDisabilityTypeWrapper.style.display = 'block';
-            } else {
-                modalCustomDisabilityTypeWrapper.style.display = 'none';
-            }
+            handleDisabilityTypeChange(this.value);
         });
-    }
-    /* Disability Type Toggle */
+    } 
 </script>

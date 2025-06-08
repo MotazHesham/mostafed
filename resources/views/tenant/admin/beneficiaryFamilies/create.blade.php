@@ -1,4 +1,5 @@
-<form method="POST" action="{{ route('admin.beneficiary-families.store') }}" enctype="multipart/form-data" id="storeFamilyMemberForm">
+<form method="POST" action="{{ route('admin.beneficiary-families.store') }}" 
+    enctype="multipart/form-data" onsubmit="modalAjaxSubmit(event)">
     @csrf
     <input type="hidden" name="beneficiary_id" value="{{ $beneficiary->id }}">
     <div class="modal-header">
@@ -19,10 +20,23 @@
                 'isRequired' => false, 
             ])
             @include('utilities.form.text', [
+                'name' => 'identity_num',
+                'label' => 'cruds.beneficiaryFamily.fields.identity_num',
+                'isRequired' => true,
+                'grid' => 'col-md-6', 
+            ])
+            @include('utilities.form.text', [
                 'name' => 'name',
                 'label' => 'cruds.beneficiaryFamily.fields.name',
                 'isRequired' => true,
                 'grid' => 'col-md-6', 
+            ])
+            @include('utilities.form.select', [
+                'name' => 'educational_qualification_id',
+                'label' => 'cruds.beneficiaryFamily.fields.educational_qualification',
+                'isRequired' => true,
+                'grid' => 'col-md-6',
+                'options' => $educational_qualifications, 
             ])
             @include('utilities.form.select', [
                 'name' => 'gender',

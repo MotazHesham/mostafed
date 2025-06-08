@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html @if (app()->getLocale() == 'ar') dir="rtl" @else dir="ltr" @endif  data-nav-layout="vertical" data-theme-mode="light" data-header-styles="light"
-    data-menu-styles="light" data-toggled="close">
+<html @if (app()->getLocale() == 'ar') dir="rtl" @else dir="ltr" @endif data-nav-layout="vertical"
+    data-theme-mode="light" data-header-styles="light" data-menu-styles="light" data-toggled="close">
 
 <head>
 
@@ -35,13 +35,15 @@
     @if (app()->getLocale() == 'ar')
         <style>
             @import url(https://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
-            body{
-                font-family: 'Droid Arabic Naskh', serif;
+
+            body {
+                font-family: 'Droid Arabic Naskh', 'Roboto', serif;
             }
-            .main-menu i{
+
+            .main-menu i {
                 font-size: 1.1rem;
                 padding: 0 0 0 10px;
-            }   
+            }
         </style>
     @endif
 
@@ -93,11 +95,15 @@
         <div class="modal fade" id="ajaxModal" tabindex="-1" aria-labelledby="ajaxModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    
+
                 </div>
             </div>
-        </div> 
+        </div>
 
+        {{-- ajax offcanvas --}}
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="ajaxOffcanvas" aria-labelledby="ajaxOffcanvasLabel">
+
+        </div>
     </div>
 
     <!-- Scripts -->
@@ -110,7 +116,7 @@
     <script type="module" src="{{ global_asset('assets/js/custom-switcher.js') }}"></script>
 
     <!-- App JS-->
-    <script src="{{ global_asset('assets/js/custom.js') }}"></script> 
+    <script src="{{ global_asset('assets/js/custom.js') }}"></script>
 
 </body>
 

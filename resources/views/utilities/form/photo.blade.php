@@ -20,9 +20,10 @@
             FilePondPluginFileValidateSize,
             FilePondPluginFileValidateType
         );
-        const element = document.getElementById('{{ $id }}-filepond');
-        const pond = FilePond.create(
-            element, {
+        var element{{ $id }} = document.getElementById('{{ $id }}-filepond');
+        var form{{ $id }} = document.getElementById('{{ $id }}-filepond').closest('form');
+        var pond{{ $id }} = FilePond.create(
+            element{{ $id }}, {
                 labelIdle: `Drag & Drop your picture or <span class="filepond--label-action">Browse</span>`,
                 imagePreviewHeight: 170,
                 stylePanelLayout: 'compact circle',
@@ -35,10 +36,32 @@
                 allowImageCrop: false,
                 allowImageEdit: false,
 
+                acceptedFileTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/jpg'],
+                maxFileSize: '5MB',
+                maxFiles: 1,
+                allowRevert: true,
+                allowRemove: true,
+
+                labelFileTypeNotAllowed: 'File of invalid type. Only JPEG, PNG, GIF are allowed.',
+                fileValidateTypeLabelExpectedTypes: 'Expects {allButLastType} or {lastType}',
+                labelMaxFileSizeExceeded: 'File is too large',
+                labelMaxFileSize: 'Maximum file size is 5MB',
+
+                files: [
+                    @if (isset($model) && $model->{$name})
+                        {
+                            source: "{{ $model->{$name}->preview ?? $model->{$name}->preview_url }}",
+                            options: {
+                                type: 'local',
+                            }
+                        }
+                    @endif
+                ],
+
                 // Server configuration for AJAX upload
                 server: {
                     process: (fieldName, file, metadata, load, error, progress, abort) => {
-                        const formData = new FormData();
+                        var formData = new FormData();
 
                         // Upload the original file as-is without any modifications
                         formData.append('file', file, file.name);
@@ -46,7 +69,7 @@
                         formData.append('width', 4096);
                         formData.append('height', 4096);
 
-                        const request = new XMLHttpRequest();
+                        var request = new XMLHttpRequest();
                         request.open('POST', '{{ $url }}');
                         request.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
 
@@ -56,18 +79,21 @@
 
                         request.onload = function() {
                             if (request.status >= 200 && request.status < 300) {
-                                const response = JSON.parse(request.responseText);
+                                var response = JSON.parse(request.responseText);
 
                                 // Remove existing hidden input if any
-                                const form = document.getElementById('{{ $id }}-filepond').closest(
-                                    'form');
+                                var existingInput = form{{ $id }}.querySelector(
+                                    `input[name="{{ $name }}"]`);
+                                if (existingInput) {
+                                    existingInput.remove();
+                                }
 
                                 // Create new hidden input with response data
-                                const input = document.createElement('input');
+                                var input = document.createElement('input');
                                 input.type = 'hidden';
                                 input.name = '{{ $name }}';
                                 input.value = response.name;
-                                form.appendChild(input);
+                                form{{ $id }}.appendChild(input);
 
                                 load(response.name);
                             } else {
@@ -89,48 +115,36 @@
                             }
                         };
                     },
-                    revert: {
-                        url: '{{ $url }}',
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                        },
-                        onload: () => {
-                            // Remove hidden input when file is removed
-                            const form = document.querySelector('form');
-                            const input = form.querySelector(`input[name="{{ $name }}"]`);
-                            if (input) {
-                                input.remove();
-                            }
+                    revert: (uniqueFileId, load, error) => {
+                        var input = form{{ $id }}.querySelector(`input[name="{{ $name }}"]`);
+                        if (input) {
+                            input.remove();
                         }
-                    }
+                        load();
+                    },
+                    load: (source, load, error, progress, abort, headers) => {
+                        fetch(source)
+                            .then(response => {
+                                if (!response.ok) throw new Error('Network response was not ok');
+                                return response.blob();
+                            })
+                            .then(load)
+                            .catch(() => error('Could not load image'));
+                        return {
+                            abort
+                        };
+                    },
                 },
-
-                // Handle existing files
-                @if (isset($model) && $model->{$name})
-                    files: [{
-                        source: '{{ $model->{$name}->file_name ?? $model->{$name} }}',
-                        options: {
-                            type: 'local',
-                            file: {
-                                name: '{{ $model->{$name}->original_name ?? $model->{$name} }}',
-                                size: {{ $model->{$name}->size ?? 0 }},
-                                type: '{{ $model->{$name}->mime_type ?? 'image/jpeg' }}'
-                            }
-                        }
-                    }]
-                @endif
-            }
+                oninit: () => {
+                    @if (isset($model) && $model->{$name})
+                        var input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = '{{ $name }}';
+                        input.value = '{{ $model->{$name}->file_name ?? $model->{$name} }}';
+                        form{{ $id }}.appendChild(input);
+                    @endif
+                }
+            },
         );
-
-        @if (isset($model) && $model->{$name})
-            // Add hidden input for existing file
-            const form = document.querySelector('form');
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = '{{ $name }}';
-            input.value = '{{ $model->{$name}->file_name ?? $model->{$name} }}';
-            form.appendChild(input);
-        @endif
     </script>
 @endsection

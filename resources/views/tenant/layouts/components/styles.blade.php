@@ -68,6 +68,15 @@
         table.dataTable tbody td.select-checkbox::after,
         table.dataTable tbody th.select-checkbox::before,
         table.dataTable tbody th.select-checkbox::after {
-        top: 50%;
+                top: 50%;
+        }
+        .is-invalid {
+                border-color: #dc3545;
+        }
+        .invalid-feedback {
+                display: block;
+                color: #dc3545;
+                font-size: 0.875em;
+                margin-top: 0.25rem;
         }
 </style>

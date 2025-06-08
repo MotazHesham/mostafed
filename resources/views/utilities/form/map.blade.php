@@ -8,7 +8,7 @@
         @endif
     </label>
     <div class="d-flex align-items-center gap-2">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#locationModal">
+        <button type="button" class="btn btn-secondary-light" data-bs-toggle="modal" data-bs-target="#locationModal">
             <i class="fas fa-map-marker-alt me-2"></i>{{ trans('global.select_location') }}
         </button>
         <span id="locationDisplay" class="text-muted">

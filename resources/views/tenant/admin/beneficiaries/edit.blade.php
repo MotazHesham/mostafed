@@ -7,7 +7,7 @@
                 'title' => trans('global.list') . ' ' . trans('cruds.beneficiary.title'),
                 'url' => route('admin.beneficiaries.index'),
             ],
-            ['title' => trans('global.create') . ' ' . trans('cruds.beneficiary.title'), 'url' => '#'],
+            ['title' => trans('global.edit') . ' ' . trans('cruds.beneficiary.title'), 'url' => '#'],
         ];
     @endphp
     @include('tenant.partials.breadcrumb')
@@ -17,7 +17,7 @@
             <div class="card custom-card">
                 <div class="card-header">
                     <div class="card-title">
-                        {{ trans('global.create') }} {{ trans('cruds.beneficiary.title_singular') }}
+                        {{ trans('global.edit') }} {{ trans('cruds.beneficiary.title_singular') }}
                     </div>
                 </div>
                 <div class="card-body p-0">

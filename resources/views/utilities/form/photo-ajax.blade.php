@@ -35,6 +35,28 @@
             allowImageCrop: false,
             allowImageEdit: false,
 
+            acceptedFileTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/jpg'],
+            maxFileSize: '5MB',
+            maxFiles: 1,
+            allowRevert: true,
+            allowRemove: true,
+
+            labelFileTypeNotAllowed: 'File of invalid type. Only JPEG, PNG, GIF are allowed.',
+            fileValidateTypeLabelExpectedTypes: 'Expects {allButLastType} or {lastType}',
+            labelMaxFileSizeExceeded: 'File is too large',
+            labelMaxFileSize: 'Maximum file size is 5MB',
+
+            files: [
+                @if (isset($model) && $model->{$name})
+                {
+                    source: "{{ $model->{$name}->preview ?? $model->{$name}->preview_url }}",
+                    options: {
+                        type: 'local',
+                    }
+                }
+                @endif
+            ], 
+
             // Server configuration for AJAX upload
             server: {
                 process: (fieldName, file, metadata, load, error, progress, abort) => {
@@ -90,46 +112,34 @@
                             abort();
                         }
                     };
+                }, 
+                revert: (uniqueFileId, load, error) => { 
+                    var input = form{{ $id }}.querySelector(`input[name="{{ $name }}"]`);
+                    if (input) {
+                        input.remove();
+                    }
+                    load();
                 },
-                revert: {
-                    url: '{{ $url }}',
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                    },
-                    onload: () => {
-                        // Remove hidden input when file is removed
-                        var input = form{{ $id }}.querySelector(`input[name="{{ $name }}"]`);
-                        if (input) {
-                            input.remove();
-                        }
-                    }
-                }
-            },
-
-            // Handle existing files
-            @if (isset($model) && $model->{$name})
-                files: [{
-                    source: '{{ $model->{$name}->file_name ?? $model->{$name} }}',
-                    options: {
-                        type: 'local',
-                        file: {
-                            name: '{{ $model->{$name}->original_name ?? $model->{$name} }}',
-                            size: {{ $model->{$name}->size ?? 0 }},
-                            type: '{{ $model->{$name}->mime_type ?? 'image/jpeg' }}'
-                        }
-                    }
-                }]
-            @endif
-        }
-    );
-
-    @if (isset($model) && $model->{$name})
-        // Add hidden input for existing file 
-        var input{{ $id }} = document.createElement('input');
-        input{{ $id }}.type = 'hidden';
-        input{{ $id }}.name = '{{ $name }}';
-        input{{ $id }}.value = '{{ $model->{$name}->file_name ?? $model->{$name} }}';
-        form{{ $id }}.appendChild(input{{ $id }});
-    @endif
+                load: (source, load, error, progress, abort, headers) => {
+                    fetch(source)
+                        .then(response => {
+                            if (!response.ok) throw new Error('Network response was not ok');
+                            return response.blob();
+                        })
+                        .then(load)
+                        .catch(() => error('Could not load image'));
+                    return { abort };
+                },
+            }, 
+            oninit: () => {
+                @if (isset($model) && $model->{$name}) 
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = '{{ $name }}';
+                    input.value = '{{ $model->{$name}->file_name ?? $model->{$name} }}';
+                    form{{ $id }}.appendChild(input);
+                @endif 
+            }
+        },
+    ); 
 </script>

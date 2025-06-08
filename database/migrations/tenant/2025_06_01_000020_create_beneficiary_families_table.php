@@ -10,6 +10,7 @@ class CreateBeneficiaryFamiliesTable extends Migration
     {
         Schema::create('beneficiary_families', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('identity_num')->nullable();
             $table->string('name')->nullable();
             $table->string('gender')->nullable();
             $table->date('dob')->nullable();

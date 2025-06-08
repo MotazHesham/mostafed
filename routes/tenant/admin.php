@@ -105,11 +105,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Tenant\Admi
     Route::delete('beneficiary-families/destroy', 'BeneficiaryFamilyController@massDestroy')->name('beneficiary-families.massDestroy');
     Route::post('beneficiary-families/media', 'BeneficiaryFamilyController@storeMedia')->name('beneficiary-families.storeMedia');
     Route::post('beneficiary-families/ckmedia', 'BeneficiaryFamilyController@storeCKEditorImages')->name('beneficiary-families.storeCKEditorImages');
+    Route::post('beneficiary-families/show', 'BeneficiaryFamilyController@show')->name('beneficiary-families.show');
     Route::post('beneficiary-families/create', 'BeneficiaryFamilyController@create')->name('beneficiary-families.create');
     Route::post('beneficiary-families/store', 'BeneficiaryFamilyController@store')->name('beneficiary-families.store');
     Route::post('beneficiary-families/edit', 'BeneficiaryFamilyController@edit')->name('beneficiary-families.edit');
     Route::put('beneficiary-families/update/{beneficiaryFamily}', 'BeneficiaryFamilyController@update')->name('beneficiary-families.update');
-    Route::get('beneficiary-families/destroy/{beneficiaryFamily}', 'BeneficiaryFamilyController@destroy')->name('beneficiary-families.destroy');
+    Route::post('beneficiary-families/destroy', 'BeneficiaryFamilyController@destroy')->name('beneficiary-families.destroy');
 
 
     // Economic Status

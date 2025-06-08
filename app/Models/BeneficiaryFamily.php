@@ -45,6 +45,8 @@ class BeneficiaryFamily extends Model implements HasMedia
         'dob',
         'phone',
         'email',
+        'identity_num',
+        'educational_qualification_id',
         'family_relationship_id',
         'marital_status_id',
         'health_condition_id',
@@ -86,6 +88,11 @@ class BeneficiaryFamily extends Model implements HasMedia
     public function family_relationship()
     {
         return $this->belongsTo(FamilyRelationship::class, 'family_relationship_id');
+    }
+
+    public function educational_qualification()
+    {
+        return $this->belongsTo(EducationalQualification::class, 'educational_qualification_id');
     }
 
     public function marital_status()
