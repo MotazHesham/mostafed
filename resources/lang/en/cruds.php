@@ -331,7 +331,15 @@ return [
         'profile' => [
             'accepted_requests' => 'Accepted Requests',
             'rejected_requests' => 'Rejected Requests', 
-            'basic_info' => 'Basic Information',
+            'basic_info' => 'Basic Information', 
+            'family_info' => 'Family Information',
+            'economic_info' => 'Economic Information',
+            'documents' => 'Documents',
+            'edit_profile' => 'Edit Profile',
+            'about' => 'About',
+            'contact_info' => 'Contact Info',
+            'net_income' => 'Net Income',
+            'category' => 'Category', 
         ],
         'fields'         => [
             'id'                               => 'ID',
@@ -551,6 +559,9 @@ return [
     'task' => [
         'title'          => 'Tasks',
         'title_singular' => 'Task',
+        'show'           => [
+            'information' => 'Task Information',
+        ],
         'fields'         => [
             'id'                       => 'ID',
             'id_helper'                => ' ',

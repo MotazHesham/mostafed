@@ -28,7 +28,7 @@
                     'isRequired' => true,
                     'value' => old('name', ''),
                 ])
-                @include('utilities.form.multiSelect', [
+                @include('utilities.form.multiSelect2', [
                     'name' => 'cities',
                     'label' => 'cruds.region.fields.cities',
                     'isRequired' => true,

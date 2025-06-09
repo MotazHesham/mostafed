@@ -20,7 +20,14 @@ class TaskStatus extends Model
     ];
 
     public const BADGE_CLASS_SELECT = [
-        'badge bg-primary-transparent' => 'Primary',
+        'primary' => 'Primary',
+        'success' => 'Success',
+        'warning' => 'Warning',
+        'danger' => 'Danger',
+        'info' => 'Info',
+        'dark' => 'Dark',
+        'light' => 'Light',
+        'secondary' => 'Secondary',
     ];
 
     protected $fillable = [

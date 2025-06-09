@@ -21,17 +21,12 @@
     <span class="help-block">{{ trans($label . '_helper') }}</span>
 </div>
 
-@section('scripts')
-    @parent
-    <script>
-        $(document).ready(function() {
 
-            var multipleCancelButton = new Choices(
-                '#{{ $id }}', {
-                    allowHTML: true,
-                    removeItemButton: true,
-                }
-            );
-        });
-    </script>
-@endsection
+<script>
+    var multipleCancelButton = new Choices(
+        '#{{ $id }}', {
+            allowHTML: true,
+            removeItemButton: true,
+        }
+    );
+</script>

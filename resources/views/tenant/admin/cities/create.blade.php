@@ -30,7 +30,7 @@
                     'label' => 'cruds.city.fields.name',
                     'isRequired' => true,
                 ])
-                @include('utilities.form.multiSelect', [
+                @include('utilities.form.multiSelect2', [
                     'name' => 'districts',
                     'label' => 'cruds.city.fields.districts',
                     'isRequired' => true,

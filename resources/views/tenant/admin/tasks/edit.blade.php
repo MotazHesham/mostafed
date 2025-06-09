@@ -1,226 +1,82 @@
-@extends('tenant.layouts.master')
-@section('content')
-
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.edit') }} {{ trans('cruds.task.title_singular') }}
+<form method="POST" action="{{ route('admin.tasks.update', $task->id) }}" enctype="multipart/form-data"
+    onsubmit="modalAjaxSubmit(event, 'edit-task')">
+    @csrf
+    @method('PUT')
+    <div class="modal-header">
+        <h6 class="modal-title">{{ trans('global.edit') }} {{ trans('cruds.task.title_singular') }}</h6>
     </div>
+    <div class="modal-body">
+        <div class="row gy-2">
+            @include('utilities.form.text', [
+                'name' => 'name',
+                'label' => 'cruds.task.fields.name',
+                'isRequired' => true,
+                'grid' => 'col-md-6',
+                'value' => $task->name ?? null,
+            ])
+            @include('utilities.form.select', [
+                'name' => 'task_priority_id',
+                'label' => 'cruds.task.fields.task_priority',
+                'isRequired' => true,
+                'options' => \App\Models\TaskPriority::pluck('name', 'id'),
+                'grid' => 'col-md-6',
+                'value' => $task->task_priority_id ?? null,
+            ])
+            @include('utilities.form.textarea', [
+                'name' => 'short_description',
+                'label' => 'cruds.task.fields.short_description',
+                'isRequired' => false,
+                'grid' => 'col-md-6',
+                'value' => $task->short_description ?? null,
+            ])
+            @include('utilities.form.textarea', [
+                'name' => 'description',
+                'label' => 'cruds.task.fields.description',
+                'isRequired' => false,
+                'grid' => 'col-md-6',
+                'value' => $task->description ?? null,
+            ])
+            @include('utilities.form.dropzone-multiple-ajax', [
+                'name' => 'attachment',
+                'id' => 'attachmentedit',
+                'label' => 'cruds.task.fields.attachment',
+                'url' => route('admin.tasks.storeMedia'),
+                'isRequired' => false,
+                'grid' => 'col-md-12',
+                'model' => $task ?? null,
+            ])
+            @include('utilities.form.multiselect-ajax', [
+                'name' => 'assigned_tos',
+                'id' => 'assigned_to_id-edit',
+                'label' => 'cruds.task.fields.assigned_to',
+                'isRequired' => true,
+                'options' => \App\Models\User::where('user_type', 'staff')->pluck('name', 'id'),
+                'grid' => 'col-md-6',
+                'value' => $task->assigned_tos->pluck('id')->toArray() ?? null,
+            ])
+            @include('utilities.form.date-ajax', [
+                'name' => 'due_date',
+                'id' => 'due_date-edit',
+                'label' => 'cruds.task.fields.due_date',
+                'isRequired' => false,
+                'grid' => 'col-md-6',
+                'value' => $task->due_date ?? null,
+            ])
+            @include('utilities.form.multiselect-ajax', [
+                'name' => 'tags',
+                'id' => 'tags-edit',
+                'label' => 'cruds.task.fields.tag',
+                'isRequired' => false,
+                'options' => \App\Models\TaskTag::pluck('name', 'id'),
+                'grid' => 'col-md-12',
+                'value' => $task->tags->pluck('id')->toArray() ?? null,
+            ])
 
-    <div class="card-body">
-        <form method="POST" action="{{ route("admin.tasks.update", [$task->id]) }}" enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
-            <div class="form-group">
-                <label class="required" for="name">{{ trans('cruds.task.fields.name') }}</label>
-                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $task->name) }}" required>
-                @if($errors->has('name'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('name') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.name_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="short_description">{{ trans('cruds.task.fields.short_description') }}</label>
-                <textarea class="form-control {{ $errors->has('short_description') ? 'is-invalid' : '' }}" name="short_description" id="short_description">{{ old('short_description', $task->short_description) }}</textarea>
-                @if($errors->has('short_description'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('short_description') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.short_description_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="description">{{ trans('cruds.task.fields.description') }}</label>
-                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $task->description) }}</textarea>
-                @if($errors->has('description'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('description') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.description_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="status_id">{{ trans('cruds.task.fields.status') }}</label>
-                <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id" required>
-                    @foreach($statuses as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('status_id') ? old('status_id') : $task->status->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('status'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('status') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.status_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="task_priority_id">{{ trans('cruds.task.fields.task_priority') }}</label>
-                <select class="form-control select2 {{ $errors->has('task_priority') ? 'is-invalid' : '' }}" name="task_priority_id" id="task_priority_id">
-                    @foreach($task_priorities as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('task_priority_id') ? old('task_priority_id') : $task->task_priority->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('task_priority'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('task_priority') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.task_priority_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="tags">{{ trans('cruds.task.fields.tag') }}</label>
-                <div style="padding-bottom: 4px">
-                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                </div>
-                <select class="form-control select2 {{ $errors->has('tags') ? 'is-invalid' : '' }}" name="tags[]" id="tags" multiple>
-                    @foreach($tags as $id => $tag)
-                        <option value="{{ $id }}" {{ (in_array($id, old('tags', [])) || $task->tags->contains($id)) ? 'selected' : '' }}>{{ $tag }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('tags'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('tags') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.tag_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="attachment">{{ trans('cruds.task.fields.attachment') }}</label>
-                <div class="needsclick dropzone {{ $errors->has('attachment') ? 'is-invalid' : '' }}" id="attachment-dropzone">
-                </div>
-                @if($errors->has('attachment'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('attachment') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.attachment_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="due_date">{{ trans('cruds.task.fields.due_date') }}</label>
-                <input class="form-control date {{ $errors->has('due_date') ? 'is-invalid' : '' }}" type="text" name="due_date" id="due_date" value="{{ old('due_date', $task->due_date) }}">
-                @if($errors->has('due_date'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('due_date') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.due_date_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="assigned_tos">{{ trans('cruds.task.fields.assigned_to') }}</label>
-                <div style="padding-bottom: 4px">
-                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                </div>
-                <select class="form-control select2 {{ $errors->has('assigned_tos') ? 'is-invalid' : '' }}" name="assigned_tos[]" id="assigned_tos" multiple>
-                    @foreach($assigned_tos as $id => $assigned_to)
-                        <option value="{{ $id }}" {{ (in_array($id, old('assigned_tos', [])) || $task->assigned_tos->contains($id)) ? 'selected' : '' }}>{{ $assigned_to }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('assigned_tos'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('assigned_tos') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.assigned_to_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="task_board_id">{{ trans('cruds.task.fields.task_board') }}</label>
-                <select class="form-control select2 {{ $errors->has('task_board') ? 'is-invalid' : '' }}" name="task_board_id" id="task_board_id" required>
-                    @foreach($task_boards as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('task_board_id') ? old('task_board_id') : $task->task_board->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('task_board'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('task_board') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.task_board_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="assigned_by_id">{{ trans('cruds.task.fields.assigned_by') }}</label>
-                <select class="form-control select2 {{ $errors->has('assigned_by') ? 'is-invalid' : '' }}" name="assigned_by_id" id="assigned_by_id" required>
-                    @foreach($assigned_bies as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('assigned_by_id') ? old('assigned_by_id') : $task->assigned_by->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('assigned_by'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('assigned_by') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.assigned_by_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary-light rounded-pill btn-wave" type="submit">
-                    {{ trans('global.save') }}
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-
-
-@endsection
-
-@section('scripts')
-<script>
-    var uploadedAttachmentMap = {}
-Dropzone.options.attachmentDropzone = {
-    url: '{{ route('admin.tasks.storeMedia') }}',
-    maxFilesize: 4, // MB
-    addRemoveLinks: true,
-    headers: {
-      'X-CSRF-TOKEN': "{{ csrf_token() }}"
-    },
-    params: {
-      size: 4
-    },
-    success: function (file, response) {
-      $('form').append('<input type="hidden" name="attachment[]" value="' + response.name + '">')
-      uploadedAttachmentMap[file.name] = response.name
-    },
-    removedfile: function (file) {
-      file.previewElement.remove()
-      var name = ''
-      if (typeof file.file_name !== 'undefined') {
-        name = file.file_name
-      } else {
-        name = uploadedAttachmentMap[file.name]
-      }
-      $('form').find('input[name="attachment[]"][value="' + name + '"]').remove()
-    },
-    init: function () {
-@if(isset($task) && $task->attachment)
-          var files =
-            {!! json_encode($task->attachment) !!}
-              for (var i in files) {
-              var file = files[i]
-              this.options.addedfile.call(this, file)
-              file.previewElement.classList.add('dz-complete')
-              $('form').append('<input type="hidden" name="attachment[]" value="' + file.file_name + '">')
-            }
-@endif
-    },
-     error: function (file, response) {
-         if ($.type(response) === 'string') {
-             var message = response //dropzone sends it's own error messages in string
-         } else {
-             var message = response.errors.file
-         }
-         file.previewElement.classList.add('dz-error')
-         _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
-         _results = []
-         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-             node = _ref[_i]
-             _results.push(node.textContent = message)
-         }
-
-         return _results
-     }
-}
-</script>
-@endsection
+    <div class="modal-footer">
+        <button type="button" class="btn m-0 me-2 btn-success-light"
+            data-bs-dismiss="modal">{{ trans('global.cancel') }}</button>
+        <button type="submit" class="btn m-0 btn-primary">{{ trans('global.update') }}</button>
+    </div>
+</form>

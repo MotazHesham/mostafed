@@ -20,6 +20,9 @@ use Database\Seeders\Tenant\RequiredDocumentSeeder;
 use Database\Seeders\Tenant\TaskStatusTableSeeder;
 use Database\Seeders\Tenant\UsersTableSeeder;
 use Database\Seeders\Tenant\JobTypeSeeder;
+use Database\Seeders\Tenant\TaskBoards;
+use Database\Seeders\Tenant\TaskPrioritySeeder;
+use Database\Seeders\Tenant\TaskTagsSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseTenantSeeder extends Seeder
@@ -33,8 +36,6 @@ class DatabaseTenantSeeder extends Seeder
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
             TaskStatusTableSeeder::class,
-            RegionSeeder::class,
-            CitiesSeeder::class, 
             NationalitiesSeeder::class,
             MaritalStatusSeeder::class,
             FamilyRelationshipSeeder::class,
@@ -45,6 +46,11 @@ class DatabaseTenantSeeder extends Seeder
             ServiceStatusSeeder::class, 
             RequiredDocumentSeeder::class,
             JobTypeSeeder::class,
+            TaskPrioritySeeder::class,
+            TaskTagsSeeder::class,
+            TaskBoards::class,
+            RegionSeeder::class,
+            CitiesSeeder::class, 
         ]);
     }
 }

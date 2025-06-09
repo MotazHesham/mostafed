@@ -37,6 +37,7 @@ class Task extends Model implements HasMedia
         'due_date',
         'task_board_id',
         'assigned_by_id',
+        'ordering',
         'created_at',
         'updated_at',
         'deleted_at',

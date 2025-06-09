@@ -314,15 +314,7 @@
                function initializeFlatpickr(id) { 
                     if (document.getElementById(id) && !document.getElementById(id)._flatpickr) {
                          flatpickr("#" + id, {
-                              dateFormat: '{{ config('panel.date_format') }}',
-                              locale: '{{ app()->getLocale() }}',
-                              plugins: [
-                                   hijriCalendarPlugin(luxon.DateTime, {
-                                        calendarType: 'hijri',
-                                        hijriMode: true,
-                                        hijriToggle: false
-                                   }),
-                              ]
+                              dateFormat: '{{ config('panel.date_format') }}', 
                          });
                     }
                } 
@@ -348,6 +340,7 @@
                     }
                }
           </script>
+
           <!-- show toast -->
           <script>
                function showToast(message, type = 'success', position = 'top') {
@@ -374,12 +367,12 @@
 
           <!-- modal ajax submit -->
           <script>
-               function modalAjaxSubmit(e) {
+               function modalAjaxSubmit(e, modalId = 'ajaxModal') {
                     if (e) {
                          e.preventDefault();
                     }
                     
-                    var form = $('#ajaxModal form'); 
+                    var form = $('#' + modalId + ' form'); 
                     var url = form.attr('action');
                     var formData = new FormData(form[0]);
                     var method = form.attr('method');
@@ -401,11 +394,17 @@
                          contentType: false,
                          success: function(response){
                               // If response contains html property, update the specified wrapper
-                              if(response.html && response.wrapper) {
-                                   $(response.wrapper).html(response.html);
+                              if(response.html) {
+                                   if(response.wrapper) {
+                                        $(response.wrapper).html(response.html);
+                                   }else if(response.append){
+                                        $(response.append).append(response.html);
+                                   }else if(response.replace){
+                                        $(response.replace).replaceWith(response.html);
+                                   }
                               }
                               
-                              $('#ajaxModal').modal('hide');
+                              $('#' + modalId).modal('hide');
                               submitBtn.html(originalBtnHtml);
                               submitBtn.prop('disabled', false);
                               

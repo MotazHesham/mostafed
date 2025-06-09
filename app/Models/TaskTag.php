@@ -28,8 +28,14 @@ class TaskTag extends Model
     ];
 
     public const BADGE_CLASS_SELECT = [
-        'badge bg-primary-transparent'   => 'Primary',
+        'badge bg-primary-transparent' => 'Primary',
         'badge bg-secondary-transparent' => 'Secondary',
+        'badge bg-success-transparent' => 'Success',
+        'badge bg-danger-transparent' => 'Danger',
+        'badge bg-warning-transparent' => 'Warning',
+        'badge bg-info-transparent' => 'Info',
+        'badge bg-dark-transparent' => 'Dark',
+        'badge bg-light-transparent text-dark' => 'Light',
     ];
 
     protected function serializeDate(DateTimeInterface $date)

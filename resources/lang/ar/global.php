@@ -344,6 +344,7 @@ return [
     'view_location'                  => 'عرض الموقع', 
     'total'                          => 'المجموع',
     'arrange'                        => 'ترتيب',
+    'view_list'                      => 'عرض القائمة',
     
     'flash' => [
         'created' => 'تم إنشاء :title بنجاح',

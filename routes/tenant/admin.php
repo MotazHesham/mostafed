@@ -139,6 +139,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Tenant\Admi
     Route::delete('tasks/destroy', 'TaskController@massDestroy')->name('tasks.massDestroy');
     Route::post('tasks/media', 'TaskController@storeMedia')->name('tasks.storeMedia');
     Route::post('tasks/ckmedia', 'TaskController@storeCKEditorImages')->name('tasks.storeCKEditorImages');
+    Route::post('tasks/update-status', 'TaskController@updateStatus')->name('tasks.update-status');
     Route::resource('tasks', 'TaskController');
 
     // Tasks Calendar

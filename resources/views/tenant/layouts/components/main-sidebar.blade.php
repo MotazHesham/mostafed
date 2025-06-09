@@ -105,12 +105,24 @@
                             <li class="slide side-menu__label1">
                                 <a href="javascript:void(0)">{{ trans('cruds.taskManagement.title') }}</a>
                             </li>
-                            @can('task_board_access')
-                                <li class="slide">
-                                    <a href="{{ route('admin.task-boards.index') }}" class="side-menu__item {{ request()->is('admin/task-boards/*') ? 'active' : '' }}">
-                                        {{ trans('cruds.taskBoard.title') }}
+                            @can('task_board_access') 
+                                <li class="slide has-sub">
+                                    <a href="javascript:void(0);" class="side-menu__item  {{ request()->is('admin/task-boards/*') ? 'active' : '' }}">{{ trans('cruds.taskBoard.title') }}
+                                        <i class="ri-arrow-right-s-line side-menu__angle"></i>
                                     </a>
-                                </li>
+                                    <ul class="slide-menu child2">
+                                        @foreach(\App\Models\TaskBoard::orderBy('id','desc')->take(8)->get() as $taskBoard)
+                                            <li class="slide">
+                                                <a href="{{ route('admin.task-boards.show', $taskBoard->id) }}" class="side-menu__item">{{ $taskBoard->name }}</a>
+                                            </li>  
+                                        @endforeach
+                                        <li class="slide">
+                                            <a href="{{ route('admin.task-boards.index') }}" class="side-menu__item text-secondary {{ request()->is('admin/task-boards') ? 'active' : '' }}">
+                                                {{ trans('global.view_list') }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li> 
                             @endcan
                             @can('task_access')
                                 <li class="slide">

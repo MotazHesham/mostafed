@@ -344,6 +344,7 @@ return [
     'view_location'                  => 'View Location', 
     'total'                          => 'Total',
     'arrange'                        => 'Arrange',
+    'view_list'                      => 'View list',
     
     'flash' => [
         'created' => 'Created :title successfully',

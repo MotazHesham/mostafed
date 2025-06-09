@@ -21,6 +21,7 @@ class UsersTableSeeder extends Seeder
                 'phone_2'        => '',
                 'identity_num'   => '',
                 'username'       => '',
+                'user_type'      => 'staff',
             ],
         ];
 

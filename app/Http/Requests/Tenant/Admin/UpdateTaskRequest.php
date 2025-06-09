@@ -20,11 +20,7 @@ class UpdateTaskRequest extends FormRequest
             'name' => [
                 'string',
                 'required',
-            ],
-            'status_id' => [
-                'required',
-                'integer',
-            ],
+            ], 
             'tags.*' => [
                 'integer',
             ],
@@ -43,15 +39,7 @@ class UpdateTaskRequest extends FormRequest
             ],
             'assigned_tos' => [
                 'array',
-            ],
-            'task_board_id' => [
-                'required',
-                'integer',
-            ],
-            'assigned_by_id' => [
-                'required',
-                'integer',
-            ],
+            ], 
         ];
     }
 }

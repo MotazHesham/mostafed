@@ -95,5 +95,5 @@
     [data-theme-mode="dark"] .dropzone .dz-preview.dz-image-preview  {
         background: rgba(0, 0, 0, 0.2); 
         color: #ffffff;
-    } 
+    }  
 </style>

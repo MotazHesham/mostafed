@@ -24,7 +24,7 @@
                     'isRequired' => true,
                     'value' => $city->getTranslation('name', currentEditingLang()),
                 ])
-                @include('utilities.form.multiSelect', [
+                @include('utilities.form.multiSelect2', [
                     'name' => 'districts',
                     'label' => 'cruds.city.fields.districts',
                     'isRequired' => true,

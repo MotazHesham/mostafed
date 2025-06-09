@@ -519,7 +519,7 @@ return [
         'title_singular' => 'إدارة المهام',
     ],
     'taskStatus' => [
-        'title'          => 'حالات المهام',
+        'title'          => 'الحالات',
         'title_singular' => 'حالة مهمة',
         'fields'         => [
             'id'                 => 'id',
@@ -539,7 +539,7 @@ return [
         ],
     ],
     'taskTag' => [
-        'title'          => 'علامات المهام',
+        'title'          => 'العلامات',
         'title_singular' => 'علامة',
         'fields'         => [
             'id'                 => 'id',
@@ -559,10 +559,13 @@ return [
     'task' => [
         'title'          => 'المهام',
         'title_singular' => 'مهمة',
+        'show'           => [
+            'information' => 'معلومات المهمة',
+        ],
         'fields'         => [
             'id'                       => 'id',
             'id_helper'                => ' ',
-            'name'                     => 'الاسم',
+            'name'                     => 'اسم المهمة',
             'name_helper'              => ' ',
             'description'              => 'الوصف',
             'description_helper'       => ' ',
@@ -582,9 +585,9 @@ return [
             'assigned_to_helper'       => ' ',
             'short_description'        => 'وصف قصير',
             'short_description_helper' => ' ',
-            'attachment'               => 'المرفق',
+            'attachment'               => 'المرفقات',
             'attachment_helper'        => ' ',
-            'task_board'               => 'لوحة المهام',
+            'task_board'               => 'لوحة المهمة',
             'task_board_helper'        => ' ',
             'assigned_by'              => 'مُسند من',
             'assigned_by_helper'       => ' ',
@@ -593,7 +596,7 @@ return [
         ],
     ],
     'tasksCalendar' => [
-        'title'          => 'تقويم المهام',
+        'title'          => 'التقويم',
         'title_singular' => 'تقويم',
     ],
     'taskBoard' => [
@@ -613,7 +616,7 @@ return [
         ],
     ],
     'taskPriority' => [
-        'title'          => 'أولويات المهام',
+        'title'          => 'الأولويات',
         'title_singular' => 'أولوية',
         'fields'         => [
             'id'                 => 'id',

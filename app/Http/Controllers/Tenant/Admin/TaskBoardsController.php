@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\Admin\MassDestroyTaskBoardRequest;
 use App\Http\Requests\Tenant\Admin\StoreTaskBoardRequest;
 use App\Http\Requests\Tenant\Admin\UpdateTaskBoardRequest;
+use App\Models\Task;
 use App\Models\TaskBoard;
+use App\Models\TaskStatus;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +35,7 @@ class TaskBoardsController extends Controller
     {
         $taskBoard = TaskBoard::create($request->all());
 
-        return redirect()->route('admin.task-boards.index');
+        return redirect()->route('admin.task-boards.show', $taskBoard->id);
     }
 
     public function edit(TaskBoard $taskBoard)
@@ -54,9 +56,15 @@ class TaskBoardsController extends Controller
     {
         abort_if(Gate::denies('task_board_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $taskBoard->load('taskBoardTasks');
+        $groupedTasks = Task::where('task_board_id', $taskBoard->id)
+            ->orderBy('ordering', 'desc')
+            ->with('status', 'task_priority', 'tags', 'assigned_tos')
+            ->get()
+            ->groupBy('status_id');
 
-        return view('tenant.admin.taskBoards.show', compact('taskBoard'));
+        $taskStatuses = TaskStatus::all();
+
+        return view('tenant.admin.taskBoards.show', compact('taskBoard', 'groupedTasks', 'taskStatuses'));
     }
 
     public function destroy(TaskBoard $taskBoard)

@@ -12,23 +12,28 @@ class TaskStatusTableSeeder extends Seeder
         $taskStatuses = [
             [
                 'id'   => 1,
-                'name' => 'New',
+                'name' => 'جديد',
+                'badge_class' => 'primary',
             ],
             [
                 'id'   => 2,
-                'name' => 'Todo',
+                'name' => 'قيد التنفيذ',
+                'badge_class' => 'success',
             ],
             [
                 'id'   => 3,
-                'name' => 'On Going',
+                'name' => 'جاري التنفيذ',
+                'badge_class' => 'info',
             ],
             [
                 'id'   => 4,
-                'name' => 'In Review',
+                'name' => 'قيد المراجعة',
+                'badge_class' => 'secondary',
             ],
             [
                 'id'   => 5,
-                'name' => 'Completed',
+                'name' => 'منجز',
+                'badge_class' => 'warning',
             ],
         ];
 

@@ -15,12 +15,37 @@ use App\Models\TaskTag;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 
 class TaskController extends Controller
 {
     use MediaUploadingTrait;
+
+    public function updateStatus(Request $request)
+    { 
+        try {
+            DB::beginTransaction();
+            
+            // Update the main task's status
+            $task = Task::findOrFail($request->task_id);
+            $task->status_id = $request->status_id;
+            $task->save();
+            
+            // Update order for all tasks in the status
+            foreach ($request->order_data as $orderItem) {
+                Task::where('id', $orderItem['id'])
+                    ->update(['ordering' => $orderItem['order']]);
+            }
+            
+            DB::commit();
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
 
     public function index()
     {
@@ -61,6 +86,14 @@ class TaskController extends Controller
 
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $task->id]);
+        }
+
+        if($request->ajax()){
+            return response()->json([
+                'html' => view('tenant.admin.taskBoards.partials.task-card', ['task' => $task, 'taskStatus' => $task->status])->render(),
+                'append' => '#task-status-' . $task->status_id . '-tasks-draggable',
+                'message' => trans('global.flash.created', ['title' => trans('cruds.task.title_singular')])
+            ]);
         }
 
         return redirect()->route('admin.tasks.index');
@@ -104,6 +137,14 @@ class TaskController extends Controller
             if (count($media) === 0 || ! in_array($file, $media)) {
                 $task->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('attachment');
             }
+        }
+
+        if($request->ajax()){
+            return response()->json([
+                'html' => view('tenant.admin.taskBoards.partials.task-card', ['task' => $task, 'taskStatus' => $task->status])->render(),
+                'replace' => '[data-task-id="' . $task->id . '"]',
+                'message' => trans('global.flash.updated', ['title' => trans('cruds.task.title_singular')])
+            ]);
         }
 
         return redirect()->route('admin.tasks.index');

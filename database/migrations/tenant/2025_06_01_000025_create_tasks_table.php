@@ -14,6 +14,7 @@ class CreateTasksTable extends Migration
             $table->longText('short_description')->nullable();
             $table->longText('description')->nullable();
             $table->date('due_date')->nullable();
+            $table->integer('ordering')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

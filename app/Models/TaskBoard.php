@@ -35,4 +35,13 @@ class TaskBoard extends Model
     {
         return $this->hasMany(Task::class, 'task_board_id', 'id');
     }
+
+    public function usersOnBoard()
+    {
+        return User::select('users.*')
+            ->join('task_user', 'users.id', '=', 'task_user.user_id')
+            ->join('tasks', 'tasks.id', '=', 'task_user.task_id')
+            ->where('tasks.task_board_id', $this->id)
+            ->distinct();
+    }
 }

@@ -64,7 +64,7 @@
                     'isRequired' => false,
                     'type' => 'password',
                 ])
-                @include('utilities.form.multiselect', [
+                @include('utilities.form.multiselect2', [
                     'name' => 'roles',
                     'label' => 'cruds.user.fields.roles',
                     'isRequired' => true,

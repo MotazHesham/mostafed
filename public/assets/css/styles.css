@@ -20941,7 +20941,7 @@ p.list-description {
   max-height: 35rem;
 }
 .TASK-kanban-board #new-tasks .simplebar-content, .TASK-kanban-board #todo-tasks .simplebar-content, .TASK-kanban-board #inprogress-tasks .simplebar-content, .TASK-kanban-board #inreview-tasks .simplebar-content, .TASK-kanban-board #completed-tasks .simplebar-content {
-  padding: 0 1rem 0 0 !important;
+  padding-inline-end: 1rem !important;
 }
 .TASK-kanban-board .task-Null {
   position: relative;
@@ -20964,7 +20964,7 @@ p.list-description {
   margin: 0 auto;
 }
 .TASK-kanban-board .view-more-button {
-  margin-right: 1rem;
+  margin-inline-end: 1rem;
 }
 /* end::task-kanboard-board */
 /* Start::task-details */

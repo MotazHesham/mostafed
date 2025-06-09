@@ -25,8 +25,7 @@
     <script>
         var dropzoneConfig = {
             url: '{{ $url }}',
-            maxFilesize: 5, // MB
-            acceptedFiles: '.jpeg,.jpg,.png,.gif',
+            maxFilesize: 5, // MB 
             maxFiles: 1,
             addRemoveLinks: true,
             headers: {
