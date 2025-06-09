@@ -84,7 +84,9 @@ class ServiceStatusesController extends Controller
 
     public function update(UpdateServiceStatusRequest $request, ServiceStatus $serviceStatus)
     {
-        $serviceStatus->update($request->all());
+        $serviceStatus->update($request->except('lang','name'));
+        $serviceStatus->setTranslation('name', $request->lang, $request->name);
+        $serviceStatus->save();
 
         return redirect()->route('admin.service-statuses.index');
     }

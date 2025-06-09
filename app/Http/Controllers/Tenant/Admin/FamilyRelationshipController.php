@@ -81,7 +81,9 @@ class FamilyRelationshipController extends Controller
 
     public function update(UpdateFamilyRelationshipRequest $request, FamilyRelationship $familyRelationship)
     {
-        $familyRelationship->update($request->all());
+        $familyRelationship->update($request->except('lang','name'));
+        $familyRelationship->setTranslation('name', $request->lang, $request->name);
+        $familyRelationship->save();
 
         return redirect()->route('admin.family-relationships.index');
     }

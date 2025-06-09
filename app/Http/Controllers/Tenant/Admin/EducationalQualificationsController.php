@@ -77,8 +77,9 @@ class EducationalQualificationsController extends Controller
     }
 
     public function update(UpdateEducationalQualificationRequest $request, EducationalQualification $educationalQualification)
-    {
-        $educationalQualification->update($request->all());
+    { 
+        $educationalQualification->setTranslation('name', $request->lang, $request->name);
+        $educationalQualification->save();
 
         return redirect()->route('admin.educational-qualifications.index');
     }

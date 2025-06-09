@@ -1,19 +1,31 @@
 @extends('tenant.layouts.master')
 @section('content')
-    @can('economic_status_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.economic-statuses.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.economicStatus.title_singular') }}
-                </a>
-            </div>
-        </div>
-    @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.economicStatus.title_singular') }} {{ trans('global.list') }}
-        </div>
+    @php
+        $breadcrumbs = [
+            ['title' => trans('cruds.generalSetting.title'), 'url' => '#'],
+            [
+                'title' => trans('global.list') . ' ' . trans('cruds.economicStatus.title'),
+                'url' => route('admin.economic-statuses.index'),
+            ],
+        ];
+        $buttons = [
+            [
+                'title' => trans('global.arrange') . ' ' . trans('cruds.economicStatus.title'),
+                'url' => '#',
+                'onclick' => 'showAjaxModal("' . route('admin.arrange') . '",{model: "App\\\Models\\\EconomicStatus", name: "name", orderColumn: "order_level"})',
+                'class' => 'btn-teal',
+                'permission' => 'economic_status_access',
+            ],
+            [
+                'title' => trans('global.add') . ' ' . trans('cruds.economicStatus.title_singular'),
+                'url' => route('admin.economic-statuses.create'),
+                'permission' => 'economic_status_create',
+            ],
+        ];
+    @endphp
+    @include('tenant.partials.breadcrumb')
 
+    <div class="card">
         <div class="card-body">
             <table class=" table table-bordered table-striped table-hover ajaxTable w-100 datatable-EconomicStatus">
                 <thead>

@@ -1,11 +1,4 @@
-<?php
-
-if (!function_exists('tenantAsset')) {
-    function tenantAsset($asset)
-    {
-        return $asset;
-    }
-}
+<?php 
 
 
 if (!function_exists('formatFileSize')) {
@@ -17,5 +10,12 @@ if (!function_exists('formatFileSize')) {
         $pow = min($pow, count($units) - 1);
         $bytes /= pow(1024, $pow);
         return round($bytes, 2) . ' ' . $units[$pow];
+    }
+}
+
+if (!function_exists('currentEditingLang')) {
+    function currentEditingLang()
+    {
+        return request('lang', app()->getLocale());
     }
 }

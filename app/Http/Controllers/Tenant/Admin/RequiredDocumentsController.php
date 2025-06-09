@@ -77,8 +77,9 @@ class RequiredDocumentsController extends Controller
     }
 
     public function update(UpdateRequiredDocumentRequest $request, RequiredDocument $requiredDocument)
-    {
-        $requiredDocument->update($request->all());
+    { 
+        $requiredDocument->setTranslation('name', $request->lang, $request->name);
+        $requiredDocument->save();
 
         return redirect()->route('admin.required-documents.index');
     }

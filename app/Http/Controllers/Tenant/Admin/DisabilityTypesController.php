@@ -77,8 +77,9 @@ class DisabilityTypesController extends Controller
     }
 
     public function update(UpdateDisabilityTypeRequest $request, DisabilityType $disabilityType)
-    {
-        $disabilityType->update($request->all());
+    { 
+        $disabilityType->setTranslation('name', $request->lang, $request->name);
+        $disabilityType->save();
 
         return redirect()->route('admin.disability-types.index');
     }

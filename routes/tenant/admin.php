@@ -25,7 +25,11 @@ Route::get('/home', function () {
 });
 Auth::routes();
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Tenant\Admin', 'middleware' => ['auth']], function () {
+
     Route::get('/', 'HomeController@index')->name('home');
+    Route::post('/arrange', 'HomeController@arrange')->name('arrange');
+    Route::post('arrange/update', 'HomeController@updateArrange')->name('arrange.update');
+
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
     Route::resource('permissions', 'PermissionsController');

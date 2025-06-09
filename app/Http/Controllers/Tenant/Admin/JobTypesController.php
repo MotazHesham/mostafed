@@ -77,8 +77,9 @@ class JobTypesController extends Controller
     }
 
     public function update(UpdateJobTypeRequest $request, JobType $jobType)
-    {
-        $jobType->update($request->all());
+    { 
+        $jobType->setTranslation('name', $request->lang, $request->name);
+        $jobType->save();
 
         return redirect()->route('admin.job-types.index');
     }

@@ -45,6 +45,13 @@
                 padding: 0 0 0 10px;
             }
         </style>
+    @else
+        <style>
+            .main-menu i {
+                font-size: 1.1rem;
+                padding: 0 10px 0 0;
+            }
+        </style>
     @endif
 
 </head>

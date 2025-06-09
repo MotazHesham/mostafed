@@ -22,7 +22,7 @@
         <div class="btn-list">
             @foreach ($buttons as $button)
                 @can($button['permission'])
-                    <a href="{{ $button['url'] }}" class="btn btn-primary rounded-pill btn-wave">
+                    <a href="{{ $button['url'] }}" @isset($button['onclick']) onclick="{{ $button['onclick'] }}" @endisset class="btn {{ $button['class'] ?? 'btn-primary' }} rounded-pill btn-wave">
                         {{ $button['title'] }}
                     </a>
                 @endcan

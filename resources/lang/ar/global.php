@@ -343,6 +343,7 @@ return [
     'hijri'                          => 'هجري',
     'view_location'                  => 'عرض الموقع', 
     'total'                          => 'المجموع',
+    'arrange'                        => 'ترتيب',
     
     'flash' => [
         'created' => 'تم إنشاء :title بنجاح',

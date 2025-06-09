@@ -2,12 +2,12 @@
 
 return [
     'userManagement' => [
-        'title'          => 'User management',
-        'title_singular' => 'User management',
+        'title'          => 'System Users',
+        'title_singular' => 'System Users',
     ],
     'charityManagement' => [
-        'title'          => 'Charity Management',
-        'title_singular' => 'Charity Management',
+        'title'          => 'Charities',
+        'title_singular' => 'Charity',
     ],
     'permission' => [
         'title'          => 'Permissions',
@@ -104,12 +104,12 @@ return [
         ],
     ],
     'generalSetting' => [
-        'title'          => 'General Settings',
-        'title_singular' => 'General Setting',
+        'title'          => 'Settings',
+        'title_singular' => 'Setting',
     ],
     'countryManagment' => [
-        'title'          => 'Country Managment',
-        'title_singular' => 'Country Managment',
+        'title'          => 'Countries',
+        'title_singular' => 'Country',
     ],
     'region' => [
         'title'          => 'Regions',
@@ -314,8 +314,8 @@ return [
         ],
     ],
     'beneficiariesManagment' => [
-        'title'          => 'Beneficiaries Managment',
-        'title_singular' => 'Beneficiaries Managment',
+        'title'          => 'Beneficiaries',
+        'title_singular' => 'Beneficiary',
     ],
     'beneficiary' => [
         'title'          => 'Beneficiaries',
@@ -507,8 +507,8 @@ return [
         ],
     ],
     'taskManagement' => [
-        'title'          => 'Task management',
-        'title_singular' => 'Task management',
+        'title'          => 'Tasks',
+        'title_singular' => 'Task',
     ],
     'taskStatus' => [
         'title'          => 'Statuses',
@@ -623,8 +623,8 @@ return [
         ],
     ],
     'faqManagement' => [
-        'title'          => 'FAQ Management',
-        'title_singular' => 'FAQ Management',
+        'title'          => 'FAQs',
+        'title_singular' => 'FAQ',
     ],
     'faqCategory' => [
         'title'          => 'Categories',
@@ -893,8 +893,8 @@ return [
         ],
     ],
     'beneficiaryOrder' => [
-        'title'          => 'Beneficiary Requests',
-        'title_singular' => 'Beneficiary Request',
+        'title'          => 'Requests',
+        'title_singular' => 'Request',
         'fields'         => [
             'id'                    => 'ID',
             'id_helper'             => ' ',
@@ -951,8 +951,8 @@ return [
         ],
     ],
     'lettersManagment' => [
-        'title'          => 'Letters Managment',
-        'title_singular' => 'Letters Managment',
+        'title'          => 'Letters',
+        'title_singular' => 'Letter',
     ],
     'incomingLetter' => [
         'title'          => 'Incoming Letters',
@@ -1063,8 +1063,8 @@ return [
         ],
     ],
     'servicesManagment' => [
-        'title'          => 'Services Managment',
-        'title_singular' => 'Services Managment',
+        'title'          => 'Services',
+        'title_singular' => 'Service',
     ],
     'course' => [
         'title'          => 'Courses',
@@ -1163,8 +1163,8 @@ return [
         ],
     ],
     'beneficiaryOrdersManagement' => [
-        'title'          => 'Beneficiary Requests Management',
-        'title_singular' => 'Beneficiary Requests Management',
+        'title'          => 'Beneficiary Requests',
+        'title_singular' => 'Beneficiary Request',
     ],
     'archive' => [
         'title'          => 'Archives',
@@ -1215,8 +1215,8 @@ return [
         'title_singular' => 'Beneficiary Requests Rejected',
     ],
     'reportManagment' => [
-        'title'          => 'Report Managment',
-        'title_singular' => 'Report Managment',
+        'title'          => 'Reports',
+        'title_singular' => 'Report',
     ],
     'beneficiaryReport' => [
         'title'          => 'Beneficiary Report',
@@ -1253,8 +1253,8 @@ return [
         ],
     ],
     'archiveManagement' => [
-        'title'          => 'Archive Management',
-        'title_singular' => 'Archive Management',
+        'title'          => 'Archives',
+        'title_singular' => 'Archive',
     ],
     'storageLocation' => [
         'title'          => 'Storage Locations',

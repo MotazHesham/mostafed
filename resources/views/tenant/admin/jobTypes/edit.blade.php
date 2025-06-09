@@ -1,34 +1,38 @@
 @extends('tenant.layouts.master')
 @section('content')
+    @php
+        $breadcrumbs = [
+            ['title' => trans('cruds.generalSetting.title'), 'url' => '#'],
+            [
+                'title' => trans('global.list') . ' ' . trans('cruds.jobType.title'),
+                'url' => route('admin.job-types.index'),
+            ],
+            ['title' => trans('global.edit') . ' ' . trans('cruds.jobType.title_singular'), 'url' => '#'],
+        ];
+    @endphp
+    @include('tenant.partials.breadcrumb')
+    <div class="card">
+        <div class="card-header p-3">
+            @include('utilities.switchlang')
+        </div>
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.edit') }} {{ trans('cruds.jobType.title_singular') }}
+        <div class="card-body">
+            <form method="POST" action="{{ route('admin.job-types.update', [$jobType->id]) }}" enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
+                <input type="hidden" name="lang" value="{{ currentEditingLang() }}" id="">
+                @include('utilities.form.text', [
+                    'name' => 'name',
+                    'label' => 'cruds.jobType.fields.name',
+                    'isRequired' => true,
+                    'value' => $jobType->getTranslation('name', currentEditingLang()),
+                ])
+                <div class="form-group">
+                    <button class="btn btn-primary-light rounded-pill btn-wave" type="submit">
+                        {{ trans('global.save') }}
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="card-body">
-        <form method="POST" action="{{ route("admin.job-types.update", [$jobType->id]) }}" enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
-            <div class="form-group">
-                <label for="name">{{ trans('cruds.jobType.fields.name') }}</label>
-                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $jobType->name) }}">
-                @if($errors->has('name'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('name') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.jobType.fields.name_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary-light rounded-pill btn-wave" type="submit">
-                    {{ trans('global.save') }}
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-
 @endsection

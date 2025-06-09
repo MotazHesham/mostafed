@@ -77,8 +77,9 @@ class HealthConditionsController extends Controller
     }
 
     public function update(UpdateHealthConditionRequest $request, HealthCondition $healthCondition)
-    {
-        $healthCondition->update($request->all());
+    { 
+        $healthCondition->setTranslation('name', $request->lang, $request->name);
+        $healthCondition->save();
 
         return redirect()->route('admin.health-conditions.index');
     }

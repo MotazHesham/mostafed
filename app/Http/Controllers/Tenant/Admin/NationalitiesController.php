@@ -44,8 +44,9 @@ class NationalitiesController extends Controller
     }
 
     public function update(UpdateNationalityRequest $request, Nationality $nationality)
-    {
-        $nationality->update($request->all());
+    { 
+        $nationality->setTranslation('name', $request->lang, $request->name);
+        $nationality->save();
 
         return redirect()->route('admin.nationalities.index');
     }

@@ -1,19 +1,24 @@
 @extends('tenant.layouts.master')
 @section('content')
-    @can('required_document_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.required-documents.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.requiredDocument.title_singular') }}
-                </a>
-            </div>
-        </div>
-    @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.requiredDocument.title_singular') }} {{ trans('global.list') }}
-        </div>
+    @php
+        $breadcrumbs = [
+            ['title' => trans('cruds.generalSetting.title'), 'url' => '#'],
+            [
+                'title' => trans('global.list') . ' ' . trans('cruds.requiredDocument.title'),
+                'url' => route('admin.required-documents.index'),
+            ],
+        ];
+        $buttons = [
+            [
+                'title' => trans('global.add') . ' ' . trans('cruds.requiredDocument.title_singular'),
+                'url' => route('admin.required-documents.create'),
+                'permission' => 'required_document_create',
+            ],
+        ];
+    @endphp
+    @include('tenant.partials.breadcrumb')
 
+    <div class="card">
         <div class="card-body">
             <table class=" table table-bordered table-striped table-hover ajaxTable w-100 datatable-RequiredDocument">
                 <thead>
@@ -102,7 +107,7 @@
                     {
                         data: 'name',
                         name: 'name'
-                    }, 
+                    },
                     {
                         data: 'is_required',
                         name: 'is_required'

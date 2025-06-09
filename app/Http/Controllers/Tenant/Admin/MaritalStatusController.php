@@ -78,7 +78,8 @@ class MaritalStatusController extends Controller
 
     public function update(UpdateMaritalStatusRequest $request, MaritalStatus $maritalStatus)
     {
-        $maritalStatus->update($request->all());
+        $maritalStatus->setTranslation('name', $request->lang, $request->name);
+        $maritalStatus->save();
 
         return redirect()->route('admin.marital-statuses.index');
     }

@@ -64,10 +64,10 @@
 								</svg>
 						
 							</a>
-							<!-- End::header-link|dropdown-toggle -->
+							<!-- End::header-link|dropdown-toggle --> 
 							<ul class="main-header-dropdown dropdown-menu dropdown-menu-end" data-popper-placement="none">
 								<li>
-									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
+									<a class="dropdown-item d-flex align-items-center" href="{{ url()->current() }}?change_language=en">
 										<div class="d-flex align-items-center justify-content-between">
 											<div class="d-flex align-items-center">
 												<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
@@ -77,63 +77,15 @@
 											</div>
 										</div>
 									</a>
-								</li>
+								</li> 
 								<li>
-									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
+									<a class="dropdown-item d-flex align-items-center" href="{{ url()->current() }}?change_language=ar">
 										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{global_asset('assets/images/flags/spain_flag.jpg')}}" alt="img" >
-										</span>
-										español
-									</a>
-								</li>
-								<li>
-									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{global_asset('assets/images/flags/french_flag.jpg')}}" alt="img" >
-										</span>
-										français
-									</a>
-								</li>
-								<li>
-									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{global_asset('assets/images/flags/uae_flag.jpg')}}" alt="img" >
+											<img src="{{global_asset('assets/images/flags/sa_flag.png')}}" alt="img" >
 										</span>
 										عربي
 									</a>
-								</li>
-								<li>
-									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{global_asset('assets/images/flags/germany_flag.jpg')}}" alt="img" >
-										</span>
-										Deutsch
-									</a>
-								</li>
-								<li>
-									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{global_asset('assets/images/flags/china_flag.jpg')}}" alt="img" >
-										</span>
-										中国人
-									</a>
-								</li>
-								<li>
-									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{global_asset('assets/images/flags/italy_flag.jpg')}}" alt="img" >
-										</span>
-										Italiano
-									</a>
-								</li>
-								<li>
-									<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-										<span class="avatar avatar-rounded avatar-xs lh-1 me-2">
-											<img src="{{global_asset('assets/images/flags/russia_flag.jpg')}}" alt="img" >
-										</span>
-										Русский
-									</a>
-								</li>
+								</li> 
 							</ul>
 						</li>
 						<!-- End::header-element -->

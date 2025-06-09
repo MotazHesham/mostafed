@@ -72,6 +72,9 @@
           <!-- SweetAlert2 JS -->
           <script src="{{ global_asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
+          <!-- Sortable JS -->
+          <script src="{{global_asset('assets/libs/sortablejs/Sortable.min.js')}}"></script>
+
           <!-- datatables -->
           <script>
                $(function() {
@@ -293,6 +296,16 @@
                          $select2.find('option').prop('selected', '')
                          $select2.trigger('change')
                     })
+
+                    // Check for stored toast message
+                    const toastMessage = localStorage.getItem('toastMessage');
+                    const toastType = localStorage.getItem('toastType');
+                    if (toastMessage) {
+                         showToast(toastMessage, toastType, 'top');
+                         // Clear the stored message
+                         localStorage.removeItem('toastMessage');
+                         localStorage.removeItem('toastType');
+                    }
                });
           </script>
 
@@ -603,7 +616,45 @@
                          },
                     );
                }
+          </script> 
+
+          <!-- delete record -->
+          <script>
+               function deleteRecord(url, recordId) { 
+                    Swal.fire({
+                         title: '{{ trans('global.areYouSure') }}', 
+                         icon: 'warning',
+                         showCancelButton: true,
+                         confirmButtonColor: '#d33',
+                         cancelButtonColor: '#3085d6',
+                         cancelButtonText: '{{ trans('global.no') }}',
+                         confirmButtonText: '{{ trans('global.yes') }}',
+                    }).then((result) => {
+                         if (result.isConfirmed) { 
+                              var method = 'POST';
+                              var formData = new FormData();
+                              formData.append('_token', '{{ csrf_token() }}');
+                              formData.append('_method', 'DELETE'); 
+
+                              $.ajax({
+                                   url: url,
+                                   type: method,
+                                   data: formData,
+                                   processData: false,
+                                   contentType: false,
+                                   success: function(response) { 
+                                        localStorage.setItem('toastMessage', '{{ trans('global.flash.deleted', ['title' => '']) }}');
+                                        localStorage.setItem('toastType', 'success');
+                                        location.reload();
+                                   },
+                                   error: function(xhr, status, error) {
+                                        showToast('An error occurred. Please try again.', 'error', 'top');
+                                   }
+                              });
+                         }
+                    });
+               }
           </script>
-          
+
           @yield('scripts')
           @stack('stack-scripts')

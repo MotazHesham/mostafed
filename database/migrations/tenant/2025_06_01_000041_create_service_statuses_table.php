@@ -12,7 +12,7 @@ class CreateServiceStatusesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('badge_class');
-            $table->integer('ordering');
+            $table->integer('ordering')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

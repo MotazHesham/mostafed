@@ -343,6 +343,7 @@ return [
     'hijri'                          => 'Hijri',
     'view_location'                  => 'View Location', 
     'total'                          => 'Total',
+    'arrange'                        => 'Arrange',
     
     'flash' => [
         'created' => 'Created :title successfully',

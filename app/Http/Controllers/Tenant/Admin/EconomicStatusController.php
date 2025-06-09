@@ -81,7 +81,9 @@ class EconomicStatusController extends Controller
 
     public function update(UpdateEconomicStatusRequest $request, EconomicStatus $economicStatus)
     {
-        $economicStatus->update($request->all());
+        $economicStatus->update($request->except('lang','name'));
+        $economicStatus->setTranslation('name', $request->lang, $request->name);
+        $economicStatus->save();
 
         return redirect()->route('admin.economic-statuses.index');
     }

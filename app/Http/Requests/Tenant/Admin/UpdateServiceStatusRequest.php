@@ -24,13 +24,7 @@ class UpdateServiceStatusRequest extends FormRequest
             ],
             'badge_class' => [
                 'required',
-            ],
-            'ordering' => [
-                'required',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
-            ],
+            ], 
         ];
     }
 }
