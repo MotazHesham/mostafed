@@ -1,34 +1,43 @@
 @extends('tenant.layouts.master')
 @section('content')
+    @php
+        $breadcrumbs = [
+            ['title' => trans('cruds.generalSetting.title'), 'url' => '#'],
+            [
+                'title' => trans('global.list') . ' ' . trans('cruds.faqCategory.title'),
+                'url' => route('admin.faq-categories.index'),
+            ],
+            [
+                'title' => trans('global.edit') . ' ' . trans('cruds.faqCategory.title_singular'),
+                'url' => '#',
+            ],
+        ];
+    @endphp
+    @include('tenant.partials.breadcrumb')
+    <div class="card">
+        <div class="card-header p-3">
+            <h6 class="card-title">
+                {{ trans('global.edit') }} {{ trans('cruds.faqCategory.title_singular') }}
+            </h6>
+        </div>
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.edit') }} {{ trans('cruds.faqCategory.title_singular') }}
+        <div class="card-body">
+            <form method="POST" action="{{ route('admin.faq-categories.update', [$faqCategory->id]) }}"
+                enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
+                @include('utilities.form.text', [
+                    'name' => 'category',
+                    'label' => 'cruds.faqCategory.fields.category',
+                    'isRequired' => true,
+                    'value' => $faqCategory->category,
+                ])
+                <div class="form-group">
+                    <button class="btn btn-primary-light rounded-pill btn-wave" type="submit">
+                        {{ trans('global.save') }}
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="card-body">
-        <form method="POST" action="{{ route("admin.faq-categories.update", [$faqCategory->id]) }}" enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
-            <div class="form-group">
-                <label class="required" for="category">{{ trans('cruds.faqCategory.fields.category') }}</label>
-                <input class="form-control {{ $errors->has('category') ? 'is-invalid' : '' }}" type="text" name="category" id="category" value="{{ old('category', $faqCategory->category) }}" required>
-                @if($errors->has('category'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('category') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.faqCategory.fields.category_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary-light rounded-pill btn-wave" type="submit">
-                    {{ trans('global.save') }}
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-
 @endsection

@@ -635,7 +635,7 @@ return [
         'title_singular' => 'الأسئلة الشائعة',
     ],
     'faqCategory' => [
-        'title'          => 'فئات الأسئلة الشائعة',
+        'title'          => 'الفئات',
         'title_singular' => 'فئة',
         'fields'         => [
             'id'                => 'id',
@@ -671,7 +671,7 @@ return [
         ],
     ],
     'userQuery' => [
-        'title'          => 'استفسارات المستخدمين',
+        'title'          => 'الاستفسارات',
         'title_singular' => 'استفسار مستخدم',
         'fields'         => [
             'id'                => 'id',

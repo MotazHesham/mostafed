@@ -1,58 +1,56 @@
 @extends('tenant.layouts.master')
 @section('content')
+    @php
+        $breadcrumbs = [
+            ['title' => trans('cruds.generalSetting.title'), 'url' => '#'],
+            [
+                'title' => trans('global.list') . ' ' . trans('cruds.faqQuestion.title'),
+                'url' => route('admin.faq-questions.index'),
+            ],
+            [
+                'title' => trans('global.edit') . ' ' . trans('cruds.faqQuestion.title_singular'),
+                'url' => '#',
+            ],
+        ];
+    @endphp
+    @include('tenant.partials.breadcrumb')
+    <div class="card">
+        <div class="card-header p-3">
+            <h6 class="card-title">
+                {{ trans('global.edit') }} {{ trans('cruds.faqQuestion.title_singular') }}
+            </h6>
+        </div>
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.edit') }} {{ trans('cruds.faqQuestion.title_singular') }}
+        <div class="card-body">
+            <form method="POST" action="{{ route('admin.faq-questions.update', [$faqQuestion->id]) }}"
+                enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
+                @include('utilities.form.select', [
+                    'name' => 'category_id',
+                    'label' => 'cruds.faqQuestion.fields.category',
+                    'isRequired' => true,
+                    'options' => $categories,
+                    'value' => $faqQuestion->category_id,
+                ])
+                @include('utilities.form.textarea', [
+                    'name' => 'question',
+                    'label' => 'cruds.faqQuestion.fields.question',
+                    'isRequired' => true,
+                    'value' => $faqQuestion->question,
+                ])
+                @include('utilities.form.textarea', [
+                    'name' => 'answer',
+                    'label' => 'cruds.faqQuestion.fields.answer',
+                    'isRequired' => true,
+                    'value' => $faqQuestion->answer,
+                ])
+                <div class="form-group">
+                    <button class="btn btn-primary-light rounded-pill btn-wave" type="submit">
+                        {{ trans('global.save') }}
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="card-body">
-        <form method="POST" action="{{ route("admin.faq-questions.update", [$faqQuestion->id]) }}" enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
-            <div class="form-group">
-                <label class="required" for="category_id">{{ trans('cruds.faqQuestion.fields.category') }}</label>
-                <select class="form-control select2 {{ $errors->has('category') ? 'is-invalid' : '' }}" name="category_id" id="category_id" required>
-                    @foreach($categories as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('category_id') ? old('category_id') : $faqQuestion->category->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('category'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('category') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.faqQuestion.fields.category_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="question">{{ trans('cruds.faqQuestion.fields.question') }}</label>
-                <textarea class="form-control {{ $errors->has('question') ? 'is-invalid' : '' }}" name="question" id="question" required>{{ old('question', $faqQuestion->question) }}</textarea>
-                @if($errors->has('question'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('question') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.faqQuestion.fields.question_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="answer">{{ trans('cruds.faqQuestion.fields.answer') }}</label>
-                <textarea class="form-control {{ $errors->has('answer') ? 'is-invalid' : '' }}" name="answer" id="answer" required>{{ old('answer', $faqQuestion->answer) }}</textarea>
-                @if($errors->has('answer'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('answer') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.faqQuestion.fields.answer_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary-light rounded-pill btn-wave" type="submit">
-                    {{ trans('global.save') }}
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-
 @endsection
