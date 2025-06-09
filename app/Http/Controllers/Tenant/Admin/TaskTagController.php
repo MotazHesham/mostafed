@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyTaskTagRequest;
-use App\Http\Requests\StoreTaskTagRequest;
-use App\Http\Requests\UpdateTaskTagRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyTaskTagRequest;
+use App\Http\Requests\Tenant\Admin\StoreTaskTagRequest;
+use App\Http\Requests\Tenant\Admin\UpdateTaskTagRequest;
 use App\Models\TaskTag;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

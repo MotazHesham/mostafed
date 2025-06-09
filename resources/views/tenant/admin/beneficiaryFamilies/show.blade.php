@@ -45,37 +45,38 @@
             </div>                           
         </div>
     </div> 
-
-    <div class="p-3 border-bottom border-block-end-dashed d-flex align-items-center flex-wrap gap-4">
-        <p class="fs-14 mb-0 fw-medium">{{ trans('cruds.beneficiaryFamily.fields.identity_num') }}:</p>
-        <div class="badge bg-primary-transparent">{{ $beneficiaryFamily->identity_num }}</div>
-    </div>
-    <div class="p-3 border-bottom border-block-end-dashed d-flex align-items-center flex-wrap gap-4">
-        <p class="fs-14 mb-0 fw-medium">{{ trans('cruds.beneficiaryFamily.fields.dob') }}:</p>
-        <div class="badge bg-primary-transparent">{{ $beneficiaryFamily->dob }}</div>
-    </div>
-    <div class="p-3 border-bottom border-block-end-dashed d-flex align-items-center flex-wrap gap-4">
-        <p class="fs-14 mb-0 fw-medium">{{ trans('cruds.beneficiaryFamily.fields.gender') }}:</p>
-        <div class="badge bg-primary-transparent"> {{ App\Models\BeneficiaryFamily::GENDER_SELECT[$beneficiaryFamily->gender] ?? '' }}</div>
-    </div>
-    <div class="p-3 border-bottom border-block-end-dashed d-flex align-items-center flex-wrap gap-4">
-        <p class="fs-14 mb-0 fw-medium">{{ trans('cruds.beneficiaryFamily.fields.family_relationship') }}:</p>
-        <div class="badge bg-primary-transparent">{{ $beneficiaryFamily->family_relationship->name ?? '' }}</div>
-    </div> 
-    <div class="p-3 border-bottom border-block-end-dashed d-flex align-items-center flex-wrap gap-4">
-        <p class="fs-14 mb-0 fw-medium">{{ trans('cruds.beneficiaryFamily.fields.marital_status') }}:</p>
-        <div class="badge bg-primary-transparent">{{ $beneficiaryFamily->marital_status->name ?? '' }}</div>
-    </div>
-    <div class="p-3 border-bottom border-block-end-dashed d-flex align-items-center flex-wrap gap-4">
-        <p class="fs-14 mb-0 fw-medium">{{ trans('cruds.beneficiaryFamily.fields.health_condition') }}:</p>
-        <div class="badge bg-primary-transparent">{{ $beneficiaryFamily->health_condition->name ?? '' }} {{ $beneficiaryFamily->custom_health_condition ? '(' . $beneficiaryFamily->custom_health_condition . ')' : '' }}</div>
-    </div>
-    <div class="p-3 border-bottom border-block-end-dashed d-flex align-items-center flex-wrap gap-4">
-        <p class="fs-14 mb-0 fw-medium">{{ trans('cruds.beneficiaryFamily.fields.disability_type') }}:</p>
-        <div class="badge bg-primary-transparent">{{ $beneficiaryFamily->disability_type->name ?? '' }} {{ $beneficiaryFamily->custom_disability_type ? '(' . $beneficiaryFamily->custom_disability_type . ')' : '' }}</div>
-    </div>
-    <div class="p-3 border-bottom border-block-end-dashed d-flex align-items-center flex-wrap gap-4">
-        <p class="fs-14 mb-0 fw-medium">{{ trans('cruds.beneficiaryFamily.fields.can_work') }}:</p>
-        <div class="badge bg-primary-transparent">{{ App\Models\BeneficiaryFamily::CAN_WORK_SELECT[$beneficiaryFamily->can_work] ?? '' }}</div>
-    </div> 
+    <table class="table table-bordered">
+        <tr>
+            <td>{{ trans('cruds.beneficiaryFamily.fields.identity_num') }}</td>
+            <td> <span class="badge bg-primary-transparent">{{ $beneficiaryFamily->identity_num }}</span></td>
+        </tr>
+        <tr>
+            <td>{{ trans('cruds.beneficiaryFamily.fields.dob') }}</td>
+            <td> <span class="badge bg-primary-transparent">{{ $beneficiaryFamily->dob }}</span></td>
+        </tr>
+        <tr>
+            <td>{{ trans('cruds.beneficiaryFamily.fields.gender') }}</td>
+            <td> <span class="badge bg-primary-transparent">{{ App\Models\BeneficiaryFamily::GENDER_SELECT[$beneficiaryFamily->gender] ?? '' }}</span></td>
+        </tr>
+        <tr>
+            <td>{{ trans('cruds.beneficiaryFamily.fields.family_relationship') }}</td>
+            <td> <span class="badge bg-primary-transparent">{{ $beneficiaryFamily->family_relationship->name ?? '' }}</span></td>
+        </tr>
+        <tr>
+            <td>{{ trans('cruds.beneficiaryFamily.fields.marital_status') }}</td>
+            <td> <span class="badge bg-primary-transparent">{{ $beneficiaryFamily->marital_status->name ?? '' }}</span></td>
+        </tr>
+        <tr>
+            <td>{{ trans('cruds.beneficiaryFamily.fields.health_condition') }}</td>
+            <td> <span class="badge bg-primary-transparent">{{ $beneficiaryFamily->health_condition->name ?? '' }} {{ $beneficiaryFamily->custom_health_condition ? '(' . $beneficiaryFamily->custom_health_condition . ')' : '' }}</span></td>
+        </tr>
+        <tr>
+            <td>{{ trans('cruds.beneficiaryFamily.fields.disability_type') }}</td>
+            <td> <span class="badge bg-primary-transparent">{{ $beneficiaryFamily->disability_type->name ?? '' }} {{ $beneficiaryFamily->custom_disability_type ? '(' . $beneficiaryFamily->custom_disability_type . ')' : '' }}</span></td>
+        </tr>
+        <tr>
+            <td>{{ trans('cruds.beneficiaryFamily.fields.can_work') }}</td>
+            <td> <span class="badge bg-primary-transparent">{{ App\Models\BeneficiaryFamily::CAN_WORK_SELECT[$beneficiaryFamily->can_work] ?? '' }}</span></td>
+        </tr>
+    </table> 
 </div>

@@ -3,18 +3,22 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyBeneficiaryRequest;
-use App\Http\Requests\StoreBeneficiaryRequest;
-use App\Http\Requests\UpdateBeneficiaryRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyBeneficiaryRequest;
+use App\Http\Requests\Tenant\Admin\StoreBeneficiaryRequest;
+use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryRequest;
 use App\Models\Beneficiary;
+use App\Models\BeneficiaryFile;
 use App\Models\DisabilityType;
 use App\Models\District;
+use App\Models\EconomicStatus;
 use App\Models\EducationalQualification;
 use App\Models\HealthCondition;
 use App\Models\JobType;
 use App\Models\MaritalStatus;
 use App\Models\Nationality;
+use App\Models\RequiredDocument;
 use App\Models\User;
+use App\Services\BeneficiaryService;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,6 +26,11 @@ use Yajra\DataTables\Facades\DataTables;
 
 class BeneficiariesController extends Controller
 {
+
+    public function __construct(
+        protected BeneficiaryService $beneficiaryService
+    ) {}
+
     public function index(Request $request)
     {
         abort_if(Gate::denies('beneficiary_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -78,26 +87,14 @@ class BeneficiariesController extends Controller
 
     public function create()
     {
-        abort_if(Gate::denies('beneficiary_create'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
+        abort_if(Gate::denies('beneficiary_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('tenant.admin.beneficiaries.create');
     }
 
     public function store(StoreBeneficiaryRequest $request)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'phone' => $request->phone,
-            'identity_num' => $request->identity_num, 
-            'approved' => 1,
-            'user_type' => 'beneficiary',
-        ]);
-
-        $beneficiary = Beneficiary::create([
-            'user_id' => $user->id, 
-        ]);
+        $beneficiary = $this->beneficiaryService->createBeneficiary($request);
 
         if ($request->has('next')) {
             return redirect()->route('admin.beneficiaries.edit', $beneficiary->id);
@@ -108,7 +105,7 @@ class BeneficiariesController extends Controller
 
     public function edit(Beneficiary $beneficiary)
     {
-        abort_if(Gate::denies('beneficiary_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
+        abort_if(Gate::denies('beneficiary_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $nationalities = Nationality::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -126,15 +123,38 @@ class BeneficiariesController extends Controller
 
         $specialists = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $incomes = EconomicStatus::where('type', 'income')->orderBy('order_level','desc')->get();
+        $expenses = EconomicStatus::where('type', 'expense')->orderBy('order_level','desc')->get();
+
+        $requiredDocuments = RequiredDocument::all();
+
         $beneficiary->load('user', 'nationality', 'marital_status', 'job_type', 'educational_qualification', 'district', 'health_condition', 'disability_type', 'specialist');
 
         $user = $beneficiary->user;
-        return view('tenant.admin.beneficiaries.edit', compact('beneficiary', 'disability_types', 'districts', 'educational_qualifications', 'health_conditions', 'job_types', 'marital_statuses', 'nationalities', 'specialists', 'user'));
+        return view(
+            'tenant.admin.beneficiaries.edit',
+            compact(
+                'beneficiary',
+                'requiredDocuments',
+                'disability_types',
+                'districts',
+                'educational_qualifications',
+                'health_conditions',
+                'job_types',
+                'marital_statuses',
+                'nationalities',
+                'specialists',
+                'user',
+                'incomes',
+                'expenses'
+            )
+        );
     }
 
     public function update(UpdateBeneficiaryRequest $request, Beneficiary $beneficiary)
     {
-        $beneficiary->update($request->all());
+
+        $this->beneficiaryService->updateBeneficiary($beneficiary, $request);
 
         return redirect()->route('admin.beneficiaries.index');
     }
@@ -145,7 +165,38 @@ class BeneficiariesController extends Controller
 
         $beneficiary->load('user', 'nationality', 'marital_status', 'job_type', 'educational_qualification', 'district', 'health_condition', 'disability_type', 'specialist', 'beneficiaryBeneficiaryOrders');
 
-        return view('tenant.admin.beneficiaries.show', compact('beneficiary'));
+        $user = $beneficiary->user;
+
+        $nationalities = Nationality::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $marital_statuses = MaritalStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $job_types = JobType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $educational_qualifications = EducationalQualification::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $districts = District::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $health_conditions = HealthCondition::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $disability_types = DisabilityType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $incomes = EconomicStatus::where('type', 'income')->orderBy('order_level','desc')->get();
+        $expenses = EconomicStatus::where('type', 'expense')->orderBy('order_level','desc')->get();
+        
+        return view('tenant.admin.beneficiaries.show', compact(
+            'beneficiary',
+            'user',
+            'nationalities',
+            'marital_statuses',
+            'job_types',
+            'educational_qualifications',
+            'districts',
+            'health_conditions',
+            'disability_types',
+            'incomes',
+            'expenses'
+        ));
     }
 
     public function destroy(Beneficiary $beneficiary)

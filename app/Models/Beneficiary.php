@@ -19,6 +19,13 @@ class Beneficiary extends Model
         'no'  => 'لا',
     ];
 
+    public const PROFILE_STATUS_SELECT = [
+        'uncompleted' => 'غير مكتمل',
+        'pending' => 'قيد المراجعة',
+        'approved' => 'موافق عليه',
+        'rejected' => 'مرفوض',
+    ];
+
     protected $dates = [
         'dob',
         'created_at',
@@ -32,6 +39,7 @@ class Beneficiary extends Model
         'marital_status_id',
         'job_type_id',
         'educational_qualification_id',
+        'profile_status',
         'dob',
         'address',
         'latitude',
@@ -46,7 +54,9 @@ class Beneficiary extends Model
         'custom_disability_type',
         'can_work',
         'incomes',
+        'total_incomes',
         'expenses',
+        'total_expenses',
         'is_archived',
         'specialist_id',
         'created_at',
@@ -67,6 +77,11 @@ class Beneficiary extends Model
     public function beneficiaryFamilies()
     {
         return $this->hasMany(BeneficiaryFamily::class, 'beneficiary_id', 'id');
+    }
+
+    public function beneficiaryFiles()
+    {
+        return $this->hasMany(BeneficiaryFile::class, 'beneficiary_id', 'id');
     }
 
     public function user()
@@ -122,5 +137,18 @@ class Beneficiary extends Model
     public function specialist()
     {
         return $this->belongsTo(User::class, 'specialist_id');
+    }
+
+    public function economicCategory()
+    {
+        if($this->total_incomes < 5000){
+            return 'أ';
+        }elseif($this->total_incomes >= 5000 && $this->total_incomes < 8000){
+            return 'ب';
+        }elseif($this->total_incomes >= 8000 && $this->total_incomes < 12000){
+            return 'ج';
+        }elseif($this->total_incomes > 12000){
+            return 'د';
+        }
     }
 }

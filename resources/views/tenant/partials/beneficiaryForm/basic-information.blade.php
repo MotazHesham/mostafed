@@ -2,14 +2,14 @@
     @include('utilities.form.text', [
         'name' => 'name',
         'label' => 'cruds.user.fields.name',
-        'isRequired' => false,
+        'isRequired' => true,
         'grid' => 'col-md-6',
         'value' => $user->name ?? '',
     ])
     @include('utilities.form.select', [
         'name' => 'nationality_id',
         'label' => 'cruds.beneficiary.fields.nationality',
-        'isRequired' => false,
+        'isRequired' => true,
         'options' => $nationalities,
         'grid' => 'col-md-6',
         'value' => $beneficiary->nationality_id ?? '',
@@ -21,12 +21,13 @@
         'label' => 'cruds.beneficiary.fields.dob',
         'isRequired' => false,
         'grid' => 'col-md-6',
+        'hijri' => true,
         'value' => $beneficiary->dob ?? '',
     ])
     @include('utilities.form.select', [
         'name' => 'marital_status_id',
         'label' => 'cruds.beneficiary.fields.marital_status',
-        'isRequired' => false,
+        'isRequired' => true,
         'options' => $marital_statuses,
         'grid' => 'col-md-6',
         'value' => $beneficiary->marital_status_id ?? '',
@@ -34,7 +35,7 @@
     @include('utilities.form.text', [
         'name' => 'address',
         'label' => 'cruds.beneficiary.fields.address',
-        'isRequired' => false,
+        'isRequired' => true,
         'grid' => 'col-md-6',
         'value' => $beneficiary->address ?? '',
     ])
@@ -49,7 +50,7 @@
     @include('utilities.form.select', [
         'name' => 'district_id',
         'label' => 'cruds.beneficiary.fields.district',
-        'isRequired' => false,
+        'isRequired' => true,
         'options' => $districts,
         'grid' => 'col-md-3',
         'value' => $beneficiary->district_id ?? '',

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Central\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroyFrontPartnerRequest;
-use App\Http\Requests\StoreFrontPartnerRequest;
-use App\Http\Requests\UpdateFrontPartnerRequest;
+use App\Http\Requests\Central\MassDestroyFrontPartnerRequest;
+use App\Http\Requests\Central\StoreFrontPartnerRequest;
+use App\Http\Requests\Central\UpdateFrontPartnerRequest;
 use App\Models\FrontPartner;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

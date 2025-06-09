@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyFaqQuestionRequest;
-use App\Http\Requests\StoreFaqQuestionRequest;
-use App\Http\Requests\UpdateFaqQuestionRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyFaqQuestionRequest;
+use App\Http\Requests\Tenant\Admin\StoreFaqQuestionRequest;
+use App\Http\Requests\Tenant\Admin\UpdateFaqQuestionRequest;
 use App\Models\FaqCategory;
 use App\Models\FaqQuestion;
 use Illuminate\Support\Facades\Gate;

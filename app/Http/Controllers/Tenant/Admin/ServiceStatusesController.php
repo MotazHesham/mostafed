@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyServiceStatusRequest;
-use App\Http\Requests\StoreServiceStatusRequest;
-use App\Http\Requests\UpdateServiceStatusRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyServiceStatusRequest;
+use App\Http\Requests\Tenant\Admin\StoreServiceStatusRequest;
+use App\Http\Requests\Tenant\Admin\UpdateServiceStatusRequest;
 use App\Models\ServiceStatus;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

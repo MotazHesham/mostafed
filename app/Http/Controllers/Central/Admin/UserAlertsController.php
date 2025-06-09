@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Central\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyUserAlertRequest;
-use App\Http\Requests\StoreUserAlertRequest;
+use App\Http\Requests\Central\MassDestroyUserAlertRequest;
+use App\Http\Requests\Central\StoreUserAlertRequest;
 use App\Models\User;
 use App\Models\UserAlert;
 use Illuminate\Support\Facades\Gate;

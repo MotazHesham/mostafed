@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Translatable\HasTranslations;
 
 class BeneficiaryFile extends Model implements HasMedia
 {
     use SoftDeletes, InteractsWithMedia, HasFactory;
+    use HasTranslations;
 
     protected $appends = [
         'file',
@@ -20,6 +22,7 @@ class BeneficiaryFile extends Model implements HasMedia
 
     public $table = 'beneficiary_files';
 
+    public array $translatable = ['name'];
     protected $dates = [
         'created_at',
         'updated_at',

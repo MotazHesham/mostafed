@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyFaqCategoryRequest;
-use App\Http\Requests\StoreFaqCategoryRequest;
-use App\Http\Requests\UpdateFaqCategoryRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyFaqCategoryRequest;
+use App\Http\Requests\Tenant\Admin\StoreFaqCategoryRequest;
+use App\Http\Requests\Tenant\Admin\UpdateFaqCategoryRequest;
 use App\Models\FaqCategory;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

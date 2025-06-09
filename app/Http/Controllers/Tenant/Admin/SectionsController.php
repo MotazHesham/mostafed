@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroySectionRequest;
-use App\Http\Requests\StoreSectionRequest;
-use App\Http\Requests\UpdateSectionRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroySectionRequest;
+use App\Http\Requests\Tenant\Admin\StoreSectionRequest;
+use App\Http\Requests\Tenant\Admin\UpdateSectionRequest;
 use App\Models\Department;
 use App\Models\Section;
 use Illuminate\Support\Facades\Gate;

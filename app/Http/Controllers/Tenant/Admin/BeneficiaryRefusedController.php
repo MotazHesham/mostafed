@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyBeneficiaryRefusedRequest;
-use App\Http\Requests\StoreBeneficiaryRefusedRequest;
-use App\Http\Requests\UpdateBeneficiaryRefusedRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyBeneficiaryRefusedRequest;
+use App\Http\Requests\Tenant\Admin\StoreBeneficiaryRefusedRequest;
+use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryRefusedRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

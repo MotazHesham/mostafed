@@ -1,6 +1,9 @@
 <div class="form-group mb-3 {{ $grid ?? '' }}">
     <label class="form-label" for="{{ $name }}">
         {{ trans($label) }}
+        @if(isset($hijri) && $hijri == true)
+            <span class="text-muted">({{ trans('global.hijri') }})</span>
+        @endif
         @if ($isRequired)
             <span class="text-danger">*</span>
         @endif
@@ -22,5 +25,9 @@
 </div>
 
 <script>
-    initializeFlatpickr('{{ $id }}');
+    @if(isset($hijri) && $hijri == true)
+        initializeHijriDatePicker('{{ $id }}');
+    @else
+        initializeFlatpickr('{{ $id }}');
+    @endif
 </script>

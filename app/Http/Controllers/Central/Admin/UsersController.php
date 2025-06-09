@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Central\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyUserRequest;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\Central\MassDestroyUserRequest;
+use App\Http\Requests\Central\StoreUserRequest;
+use App\Http\Requests\Central\UpdateUserRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;

@@ -10,7 +10,8 @@ class CreateRequiredDocumentsTable extends Migration
     {
         Schema::create('required_documents', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name'); 
+            $table->boolean('is_required')->default(false); 
             $table->timestamps();
             $table->softDeletes();
         });

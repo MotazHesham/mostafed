@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyEconomicStatusRequest;
-use App\Http\Requests\StoreEconomicStatusRequest;
-use App\Http\Requests\UpdateEconomicStatusRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyEconomicStatusRequest;
+use App\Http\Requests\Tenant\Admin\StoreEconomicStatusRequest;
+use App\Http\Requests\Tenant\Admin\UpdateEconomicStatusRequest;
 use App\Models\EconomicStatus;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

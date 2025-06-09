@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyLettersOrganizationRequest;
-use App\Http\Requests\StoreLettersOrganizationRequest;
-use App\Http\Requests\UpdateLettersOrganizationRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyLettersOrganizationRequest;
+use App\Http\Requests\Tenant\Admin\StoreLettersOrganizationRequest;
+use App\Http\Requests\Tenant\Admin\UpdateLettersOrganizationRequest;
 use App\Models\LettersOrganization;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

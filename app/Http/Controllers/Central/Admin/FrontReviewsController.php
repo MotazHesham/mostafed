@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Central\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroyFrontReviewRequest;
-use App\Http\Requests\StoreFrontReviewRequest;
-use App\Http\Requests\UpdateFrontReviewRequest;
+use App\Http\Requests\Central\MassDestroyFrontReviewRequest;
+use App\Http\Requests\Central\StoreFrontReviewRequest;
+use App\Http\Requests\Central\UpdateFrontReviewRequest;
 use App\Models\FrontReview;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

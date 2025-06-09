@@ -10,6 +10,7 @@ class CreateBeneficiariesTable extends Migration
     {
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('profile_status')->default('uncompleted');
             $table->date('dob')->nullable();
             $table->string('address')->nullable();
             $table->string('latitude')->nullable();
@@ -19,7 +20,9 @@ class CreateBeneficiariesTable extends Migration
             $table->string('floor_number')->nullable();
             $table->string('can_work')->nullable();
             $table->longText('incomes')->nullable();
+            $table->decimal('total_incomes', 15, 2)->nullable();
             $table->longText('expenses')->nullable();
+            $table->decimal('total_expenses', 15, 2)->nullable(); 
             $table->string('custom_health_condition')->nullable();
             $table->string('custom_disability_type')->nullable();
             $table->boolean('is_archived')->default(0);

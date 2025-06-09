@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateUserQueryRequest;
+use App\Http\Requests\Tenant\Admin\UpdateUserQueryRequest;
 use App\Models\User;
 use App\Models\UserQuery;
 use Illuminate\Support\Facades\Gate;

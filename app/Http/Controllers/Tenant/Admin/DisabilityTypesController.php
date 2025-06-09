@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyDisabilityTypeRequest;
-use App\Http\Requests\StoreDisabilityTypeRequest;
-use App\Http\Requests\UpdateDisabilityTypeRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyDisabilityTypeRequest;
+use App\Http\Requests\Tenant\Admin\StoreDisabilityTypeRequest;
+use App\Http\Requests\Tenant\Admin\UpdateDisabilityTypeRequest;
 use App\Models\DisabilityType;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

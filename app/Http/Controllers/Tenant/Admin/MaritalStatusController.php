@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyMaritalStatusRequest;
-use App\Http\Requests\StoreMaritalStatusRequest;
-use App\Http\Requests\UpdateMaritalStatusRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyMaritalStatusRequest;
+use App\Http\Requests\Tenant\Admin\StoreMaritalStatusRequest;
+use App\Http\Requests\Tenant\Admin\UpdateMaritalStatusRequest;
 use App\Models\MaritalStatus;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

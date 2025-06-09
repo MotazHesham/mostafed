@@ -21,9 +21,10 @@
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <form class="wizard wizard-tab horizontal" method="POST" action="{{ route('admin.beneficiaries.store') }}"
+                    <form class="wizard wizard-tab horizontal" method="POST" action="{{ route('admin.beneficiaries.update', $beneficiary->id) }}"
                         enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <aside class="wizard-content container">
                             <div class=" wizard-step "
                                 data-title="{{ trans('cruds.beneficiary.form_steps.login_information') }}"
@@ -74,7 +75,7 @@
                 highlight_time: 1000,
             };
             const wizard = new Wizard1(args, {
-                validate: true,
+                validate: false,
             });
             wizard.init();
             /* Form Wizard 1 */ 

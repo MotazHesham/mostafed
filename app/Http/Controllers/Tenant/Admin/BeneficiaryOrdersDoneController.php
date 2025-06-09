@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyBeneficiaryOrdersDoneRequest;
-use App\Http\Requests\StoreBeneficiaryOrdersDoneRequest;
-use App\Http\Requests\UpdateBeneficiaryOrdersDoneRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyBeneficiaryOrdersDoneRequest;
+use App\Http\Requests\Tenant\Admin\StoreBeneficiaryOrdersDoneRequest;
+use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryOrdersDoneRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

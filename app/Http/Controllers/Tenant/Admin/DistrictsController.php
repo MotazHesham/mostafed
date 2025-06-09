@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyDistrictRequest;
-use App\Http\Requests\StoreDistrictRequest;
-use App\Http\Requests\UpdateDistrictRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyDistrictRequest;
+use App\Http\Requests\Tenant\Admin\StoreDistrictRequest;
+use App\Http\Requests\Tenant\Admin\UpdateDistrictRequest;
 use App\Models\District;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

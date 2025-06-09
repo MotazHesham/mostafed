@@ -340,6 +340,9 @@ return [
     'please_specify'                 => 'يرجى تحديد',
     'save_and_complete'              => 'حفظ وإكمال البيانات',
     'no_data_found'                  => 'لا يوجد بيانات',
+    'hijri'                          => 'هجري',
+    'view_location'                  => 'عرض الموقع', 
+    'total'                          => 'المجموع',
     
     'flash' => [
         'created' => 'تم إنشاء :title بنجاح',

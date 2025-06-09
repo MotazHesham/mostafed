@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroyTaskRequest;
-use App\Http\Requests\StoreTaskRequest;
-use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyTaskRequest;
+use App\Http\Requests\Tenant\Admin\StoreTaskRequest;
+use App\Http\Requests\Tenant\Admin\UpdateTaskRequest;
 use App\Models\Task;
 use App\Models\TaskBoard;
 use App\Models\TaskPriority;

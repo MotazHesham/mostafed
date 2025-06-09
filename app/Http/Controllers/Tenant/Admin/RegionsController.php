@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyRegionRequest;
-use App\Http\Requests\StoreRegionRequest;
-use App\Http\Requests\UpdateRegionRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyRegionRequest;
+use App\Http\Requests\Tenant\Admin\StoreRegionRequest;
+use App\Http\Requests\Tenant\Admin\UpdateRegionRequest;
 use App\Models\City;
 use App\Models\Region;
 use Illuminate\Support\Facades\Gate;

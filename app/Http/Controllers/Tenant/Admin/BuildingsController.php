@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyBuildingRequest;
-use App\Http\Requests\StoreBuildingRequest;
-use App\Http\Requests\UpdateBuildingRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyBuildingRequest;
+use App\Http\Requests\Tenant\Admin\StoreBuildingRequest;
+use App\Http\Requests\Tenant\Admin\UpdateBuildingRequest;
 use App\Models\Building;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

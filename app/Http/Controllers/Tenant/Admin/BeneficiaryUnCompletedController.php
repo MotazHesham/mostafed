@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyBeneficiaryUnCompletedRequest;
-use App\Http\Requests\StoreBeneficiaryUnCompletedRequest;
-use App\Http\Requests\UpdateBeneficiaryUnCompletedRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyBeneficiaryUnCompletedRequest;
+use App\Http\Requests\Tenant\Admin\StoreBeneficiaryUnCompletedRequest;
+use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryUnCompletedRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

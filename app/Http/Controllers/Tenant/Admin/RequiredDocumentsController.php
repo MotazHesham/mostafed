@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyRequiredDocumentRequest;
-use App\Http\Requests\StoreRequiredDocumentRequest;
-use App\Http\Requests\UpdateRequiredDocumentRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyRequiredDocumentRequest;
+use App\Http\Requests\Tenant\Admin\StoreRequiredDocumentRequest;
+use App\Http\Requests\Tenant\Admin\UpdateRequiredDocumentRequest;
 use App\Models\RequiredDocument;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

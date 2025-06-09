@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyJobTypeRequest;
-use App\Http\Requests\StoreJobTypeRequest;
-use App\Http\Requests\UpdateJobTypeRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyJobTypeRequest;
+use App\Http\Requests\Tenant\Admin\StoreJobTypeRequest;
+use App\Http\Requests\Tenant\Admin\UpdateJobTypeRequest;
 use App\Models\JobType;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

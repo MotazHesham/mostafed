@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroyOutgoingLetterRequest;
-use App\Http\Requests\StoreOutgoingLetterRequest;
-use App\Http\Requests\UpdateOutgoingLetterRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyOutgoingLetterRequest;
+use App\Http\Requests\Tenant\Admin\StoreOutgoingLetterRequest;
+use App\Http\Requests\Tenant\Admin\UpdateOutgoingLetterRequest;
 use App\Models\IncomingLetter;
 use App\Models\OutgoingLetter;
 use App\Models\User;

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyTaskPriorityRequest;
-use App\Http\Requests\StoreTaskPriorityRequest;
-use App\Http\Requests\UpdateTaskPriorityRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyTaskPriorityRequest;
+use App\Http\Requests\Tenant\Admin\StoreTaskPriorityRequest;
+use App\Http\Requests\Tenant\Admin\UpdateTaskPriorityRequest;
 use App\Models\TaskPriority;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

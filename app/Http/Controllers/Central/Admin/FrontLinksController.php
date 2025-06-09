@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Central\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyFrontLinkRequest;
-use App\Http\Requests\StoreFrontLinkRequest;
-use App\Http\Requests\UpdateFrontLinkRequest;
+use App\Http\Requests\Central\MassDestroyFrontLinkRequest;
+use App\Http\Requests\Central\StoreFrontLinkRequest;
+use App\Http\Requests\Central\UpdateFrontLinkRequest;
 use App\Models\FrontLink;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

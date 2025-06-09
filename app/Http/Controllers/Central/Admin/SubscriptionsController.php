@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Central\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroySubscriptionRequest;
-use App\Http\Requests\StoreSubscriptionRequest;
-use App\Http\Requests\UpdateSubscriptionRequest;
+use App\Http\Requests\Central\MassDestroySubscriptionRequest;
+use App\Http\Requests\Central\StoreSubscriptionRequest;
+use App\Http\Requests\Central\UpdateSubscriptionRequest;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

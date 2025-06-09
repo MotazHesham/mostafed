@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyEducationalQualificationRequest;
-use App\Http\Requests\StoreEducationalQualificationRequest;
-use App\Http\Requests\UpdateEducationalQualificationRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyEducationalQualificationRequest;
+use App\Http\Requests\Tenant\Admin\StoreEducationalQualificationRequest;
+use App\Http\Requests\Tenant\Admin\UpdateEducationalQualificationRequest;
 use App\Models\EducationalQualification;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

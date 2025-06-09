@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyBeneficiaryReportRequest;
-use App\Http\Requests\StoreBeneficiaryReportRequest;
-use App\Http\Requests\UpdateBeneficiaryReportRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyBeneficiaryReportRequest;
+use App\Http\Requests\Tenant\Admin\StoreBeneficiaryReportRequest;
+use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryReportRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

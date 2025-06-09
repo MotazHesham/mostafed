@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyLetterArchiveRequest;
-use App\Http\Requests\StoreLetterArchiveRequest;
-use App\Http\Requests\UpdateLetterArchiveRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyLetterArchiveRequest;
+use App\Http\Requests\Tenant\Admin\StoreLetterArchiveRequest;
+use App\Http\Requests\Tenant\Admin\UpdateLetterArchiveRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

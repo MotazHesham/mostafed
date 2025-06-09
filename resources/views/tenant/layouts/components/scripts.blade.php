@@ -28,8 +28,14 @@
           <!-- Date & Time Picker JS -->
           <script src="{{global_asset('assets/libs/flatpickr/flatpickr.min.js')}}"></script>
 
+
           <!-- Jquery Cdn -->
           <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+          
+          <!-- Hijri Date Picker JS -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/moment-hijri@2.1.2/moment-hijri.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap-hijri-datepicker@1.0.2/dist/js/bootstrap-hijri-datetimepicker.min.js"></script>
 
           <!-- Datatables Cdn -->
           <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -64,8 +70,9 @@
           <script src="{{global_asset('assets/libs/toastify-js/src/toastify.js')}}"></script>
 
           <!-- SweetAlert2 JS -->
-          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script src="{{ global_asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
+          <!-- datatables -->
           <script>
                $(function() {
                     let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
@@ -170,6 +177,8 @@
 
                });
           </script>
+
+          <!-- ajax modal -->
           <script>
                
                function showAjaxModal(url,data) {
@@ -286,15 +295,47 @@
                     })
                });
           </script>
+
+          <!-- flatpickr -->
           <script> 
                function initializeFlatpickr(id) { 
                     if (document.getElementById(id) && !document.getElementById(id)._flatpickr) {
                          flatpickr("#" + id, {
                               dateFormat: '{{ config('panel.date_format') }}',
+                              locale: '{{ app()->getLocale() }}',
+                              plugins: [
+                                   hijriCalendarPlugin(luxon.DateTime, {
+                                        calendarType: 'hijri',
+                                        hijriMode: true,
+                                        hijriToggle: false
+                                   }),
+                              ]
                          });
                     }
                } 
+               function initializeHijriDatePicker(id) {
+                    if (document.getElementById(id)) {
+                         $("#" + id).hijriDatePicker({
+                              locale: "ar-sa",
+                              format: "DD-MM-YYYY",
+                              hijriFormat: "iDD/iMM/iYYYY",
+                              dayViewHeaderFormat: "MMMM YYYY",
+                              hijriDayViewHeaderFormat: "iMMMM iYYYY",
+                              showSwitcher: false,
+                              allowInputToggle: true,
+                              showTodayButton: false,
+                              useCurrent: true,
+                              isRTL: false, 
+                              keepOpen: false,
+                              hijri: true, 
+                              showClear: true,
+                              showTodayButton: true,
+                              showClose: true,
+                         });
+                    }
+               }
           </script>
+          <!-- show toast -->
           <script>
                function showToast(message, type = 'success', position = 'top') {
                     backgroundColor = 'var(--primary-color)';
@@ -318,6 +359,7 @@
                }
           </script>
 
+          <!-- modal ajax submit -->
           <script>
                function modalAjaxSubmit(e) {
                     if (e) {
@@ -428,5 +470,140 @@
                     });
                }
           </script>
+
+          <!-- filepond -->
+          <script>
+               
+               FilePond.registerPlugin(
+                    FilePondPluginImagePreview,
+                    FilePondPluginFileValidateSize,
+                    FilePondPluginFileValidateType
+               );
+
+               function initFilePond(id, url, name, preview = null, file_name = null, check = false) {  
+                    var element = document.getElementById(id + '-filepond');
+                    var form = element.closest('form');
+                    if (check){  
+                         if (window['pond' + id]) return;
+                    }
+                    window['pond' + id] = FilePond.create(
+                         element, {
+                              labelIdle: 'Drag & Drop your picture or <span class="filepond--label-action">Browse</span>',
+                              imagePreviewHeight: 170,
+                              stylePanelLayout: 'compact circle',
+                              styleLoadIndicatorPosition: 'center bottom',
+                              styleButtonRemoveItemPosition: 'center bottom',
+
+                              // Disable all image transformations to preserve original file
+                              allowImageTransform: false,
+                              allowImageResize: false,
+                              allowImageCrop: false,
+                              allowImageEdit: false,
+
+                              acceptedFileTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/jpg'],
+                              maxFileSize: '5MB',
+                              maxFiles: 1,
+                              allowRevert: true,
+                              allowRemove: true,
+                              allowImagePreview: true,
+
+                              labelFileTypeNotAllowed: 'File of invalid type. Only JPEG, PNG, GIF are allowed.',
+                              fileValidateTypeLabelExpectedTypes: 'Expects {allButLastType} or {lastType}',
+                              labelMaxFileSizeExceeded: 'File is too large',
+                              labelMaxFileSize: 'Maximum file size is 5MB',
+
+                              files: preview ? [ 
+                                   {
+                                        source: preview,
+                                        options: {
+                                             type: 'local',
+                                        }
+                                   } 
+                              ] : [],
+
+                              // Server configuration for AJAX upload
+                              server: {
+                                   process: (fieldName, file, metadata, load, error, progress, abort) => {
+                                        var formData = new FormData();
+
+                                        // Upload the original file as-is without any modifications
+                                        formData.append('file', file, file.name);
+                                        formData.append('size', 5);
+                                        formData.append('width', 4096);
+                                        formData.append('height', 4096);
+
+                                        var request = new XMLHttpRequest();
+                                        request.open('POST', url);
+                                        request.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+
+                                        request.upload.onprogress = (e) => {
+                                             progress(e.lengthComputable, e.loaded, e.total);
+                                        };
+
+                                        request.onload = function() {
+                                             if (request.status >= 200 && request.status < 300) {
+                                                  var response = JSON.parse(request.responseText);
+
+                                                  // Remove existing hidden input if any
+                                                  var existingInput = form.querySelector(
+                                                       `input[name="${name}"]`);
+                                                  if (existingInput) {
+                                                       existingInput.remove();
+                                                  }
+
+                                                  // Create new hidden input with response data
+                                                  var input = document.createElement('input');
+                                                  input.type = 'hidden';
+                                                  input.name = name;
+                                                  input.value = response.name;
+                                                  form.appendChild(input);
+
+                                                  load(response.name);
+                                             } else {
+                                                  error('Upload failed');
+                                                  console.log(request.responseText);
+                                             }
+                                        };
+
+                                        request.onerror = function() {
+                                             error('Upload failed');
+                                        };
+
+                                        request.send(formData);
+
+                                        return {
+                                             abort: () => {
+                                                  request.abort();
+                                                  abort();
+                                             }
+                                        };
+                                   },
+                                   revert: (uniqueFileId, load, error) => {
+                                        var input = form.querySelector(
+                                             `input[name="${name}"]`);
+                                        if (input) {
+                                             input.remove();
+                                        }
+                                        load();
+                                   },
+                                   load: (source, load) => {
+                                        // source here comes from the files array, see my first post
+                                        fetch(source).then(res => res.blob()).then(load);
+                                   },
+                              },
+                              oninit: () => {
+                                   if(preview && file_name) {
+                                        var input = document.createElement('input');
+                                        input.type = 'hidden';
+                                        input.name = name;
+                                        input.value = file_name ?? '';
+                                        form.appendChild(input);
+                                   }
+                              }
+                         },
+                    );
+               }
+          </script>
+          
           @yield('scripts')
           @stack('stack-scripts')

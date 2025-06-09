@@ -2,18 +2,26 @@
     @include('utilities.form.select', [
         'name' => 'educational_qualification_id',
         'label' => 'cruds.beneficiary.fields.educational_qualification',
-        'isRequired' => false,
+        'isRequired' => true,
         'options' => $educational_qualifications,
-        'grid' => 'col-md-6',
+        'grid' => 'col-md-4',
         'value' => $beneficiary->educational_qualification_id ?? '',
     ])
     @include('utilities.form.select', [
         'name' => 'job_type_id',
         'label' => 'cruds.beneficiary.fields.job_type',
-        'isRequired' => false,
+        'isRequired' => true,
         'options' => $job_types,
-        'grid' => 'col-md-6',
+        'grid' => 'col-md-4',
         'value' => $beneficiary->job_type_id ?? '',
+    ])
+    @include('utilities.form.select', [
+        'name' => 'can_work',
+        'label' => 'cruds.beneficiary.fields.can_work',
+        'isRequired' => true,
+        'options' => ['' => trans('global.pleaseSelect')] + App\Models\Beneficiary::CAN_WORK_SELECT,
+        'grid' => 'col-md-4',
+        'value' => $beneficiary->can_work ?? '',
     ])
     <div class="col-md-12">
         <div class="row">
@@ -21,7 +29,7 @@
             @include('utilities.form.select', [
                 'name' => 'has_health_condition',
                 'label' => 'cruds.beneficiary.fields.has_health_condition',
-                'isRequired' => false,
+                'isRequired' => true,
                 'options' => [
                     '' => trans('global.pleaseSelect'),
                     '1' => trans('global.yes'),
@@ -57,7 +65,7 @@
             @include('utilities.form.select', [
                 'name' => 'has_disability',
                 'label' => 'cruds.beneficiary.fields.has_disability',
-                'isRequired' => false,
+                'isRequired' => true,
                 'options' => [
                     '' => trans('global.pleaseSelect'),
                     '1' => trans('global.yes'),
@@ -87,74 +95,96 @@
             </div>
         </div>
     </div>
-    @include('utilities.form.select', [
-        'name' => 'can_work',
-        'label' => 'cruds.beneficiary.fields.can_work',
-        'isRequired' => false,
-        'options' => ['' => trans('global.pleaseSelect')] + App\Models\Beneficiary::CAN_WORK_SELECT,
-        'grid' => 'col-md-4',
-        'value' => $beneficiary->can_work ?? '',
-    ])
 </div>
 @section('scripts')
     @parent
     <script>
+        handleHealthConditionToggle('{{ $beneficiary->health_condition_id ? '1' : '0' }}');
+        handleDisabilityToggle('{{ $beneficiary->disability_type_id ? '1' : '0' }}'); 
+        handleHealthConditionTypeChange('{{ $beneficiary->health_condition->name ?? '' }}');
+        handleDisabilityTypeChange('{{ $beneficiary->disability_type->name ?? '' }}');
+        
         /* Health Condition Toggle */
-        var hasHealthConditionSelect = document.getElementById('has_health_condition');
-        var healthConditionWrapper = document.getElementById('health_condition_wrapper');
-        var healthConditionSelect = document.getElementById('health_condition_id');
-        var customHealthConditionWrapper = document.getElementById('custom_health_condition_wrapper');
-
-        if (hasHealthConditionSelect && healthConditionWrapper) {
-            hasHealthConditionSelect.addEventListener('change', function() {
-                if (this.value === '1') {
-                    healthConditionWrapper.style.display = 'block';
-                } else {
-                    healthConditionWrapper.style.display = 'none';
-                    customHealthConditionWrapper.style.display = 'none';
-                }
-            });
+        function handleHealthConditionToggle(value) {
+            var HealthConditionWrapper = document.getElementById('health_condition_wrapper');
+            var CustomHealthConditionWrapper = document.getElementById('custom_health_condition_wrapper');
+            
+            if (value === '1') {
+                HealthConditionWrapper.style.display = 'block';
+            } else {
+                HealthConditionWrapper.style.display = 'none';
+                CustomHealthConditionWrapper.style.display = 'none';
+                document.getElementById('health_condition_id').value = '';
+                document.getElementById('custom_health_condition').value = '';
+            }
         }
-
-        if (healthConditionSelect && customHealthConditionWrapper) {
-            healthConditionSelect.addEventListener('change', function() {
-                var selectedText = this.options[this.selectedIndex].text.trim().toLowerCase();
-                if (selectedText == 'other' || selectedText == 'أخرى') {
-                    customHealthConditionWrapper.style.display = 'block';
-                } else {
-                    customHealthConditionWrapper.style.display = 'none';
-                }
-            });
+    
+        function handleHealthConditionTypeChange(value) {
+            var CustomHealthConditionWrapper = document.getElementById('custom_health_condition_wrapper');
+            
+            if (value == 'other' || value == 'أخرى') {
+                CustomHealthConditionWrapper.style.display = 'block';
+            } else {
+                CustomHealthConditionWrapper.style.display = 'none';
+                document.getElementById('custom_health_condition').value = '';
+            }
         }
-        /* Health Condition Toggle */
-
+    
         /* Disability Type Toggle */
-        var hasDisabilitySelect = document.getElementById('has_disability');
-        var disabilityTypeWrapper = document.getElementById('disability_type_wrapper');
-        var disabilityTypeSelect = document.getElementById('disability_type_id');
-        var customDisabilityTypeWrapper = document.getElementById('custom_disability_type_wrapper');
-
-        if (hasDisabilitySelect && disabilityTypeWrapper) {
-            hasDisabilitySelect.addEventListener('change', function() {
-                if (this.value === '1') {
-                    disabilityTypeWrapper.style.display = 'block';
-                } else {
-                    disabilityTypeWrapper.style.display = 'none';
-                    customDisabilityTypeWrapper.style.display = 'none';
-                }
+        function handleDisabilityToggle(value) {
+            var DisabilityTypeWrapper = document.getElementById('disability_type_wrapper');
+            var CustomDisabilityTypeWrapper = document.getElementById('custom_disability_type_wrapper');
+            
+            if (value === '1') {
+                DisabilityTypeWrapper.style.display = 'block';
+            } else {
+                DisabilityTypeWrapper.style.display = 'none';
+                CustomDisabilityTypeWrapper.style.display = 'none';
+                document.getElementById('disability_type_id').value = '';
+                document.getElementById('custom_disability_type').value = '';
+            }
+        }
+    
+        function handleDisabilityTypeChange(value) {
+            var CustomDisabilityTypeWrapper = document.getElementById('custom_disability_type_wrapper');
+            
+            if (value == 'other' || value == 'أخرى') {
+                CustomDisabilityTypeWrapper.style.display = 'block';
+            } else {
+                CustomDisabilityTypeWrapper.style.display = 'none';
+                document.getElementById('custom_disability_type').value = '';
+            }
+        }
+    
+        var HasHealthConditionSelect = document.getElementById('has_health_condition');
+        var HealthConditionSelect = document.getElementById('health_condition_id');
+        var HasDisabilitySelect = document.getElementById('has_disability');
+        var DisabilityTypeSelect = document.getElementById('disability_type_id');
+    
+        if (HasHealthConditionSelect) {
+            HasHealthConditionSelect.addEventListener('change', function() {
+                handleHealthConditionToggle(this.value);
             });
         }
-
-        if (disabilityTypeSelect && customDisabilityTypeWrapper) {
-            disabilityTypeSelect.addEventListener('change', function() {
+    
+        if (HealthConditionSelect) {
+            HealthConditionSelect.addEventListener('change', function() {
                 var selectedText = this.options[this.selectedIndex].text.trim().toLowerCase();
-                if (selectedText == 'other' || selectedText == 'أخرى') {
-                    customDisabilityTypeWrapper.style.display = 'block';
-                } else {
-                    customDisabilityTypeWrapper.style.display = 'none';
-                }
+                handleHealthConditionTypeChange(selectedText);
             });
         }
-        /* Disability Type Toggle */
+    
+        if (HasDisabilitySelect) {
+            HasDisabilitySelect.addEventListener('change', function() {
+                handleDisabilityToggle(this.value);
+            });
+        }
+    
+        if (DisabilityTypeSelect) {
+            DisabilityTypeSelect.addEventListener('change', function() {
+                var selectedText = this.options[this.selectedIndex].text.trim().toLowerCase();
+                handleDisabilityTypeChange(selectedText);
+            });
+        } 
     </script>
 @endsection

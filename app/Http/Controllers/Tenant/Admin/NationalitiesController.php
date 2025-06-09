@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyNationalityRequest;
-use App\Http\Requests\StoreNationalityRequest;
-use App\Http\Requests\UpdateNationalityRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyNationalityRequest;
+use App\Http\Requests\Tenant\Admin\StoreNationalityRequest;
+use App\Http\Requests\Tenant\Admin\UpdateNationalityRequest;
 use App\Models\Nationality;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

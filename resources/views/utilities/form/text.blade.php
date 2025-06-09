@@ -16,5 +16,9 @@
             {{ $errors->first($name) }}
         </div>
     @endif
-    <span class="help-block">{{ trans($label . '_helper') }}</span>
+    @if (isset($helperBlock))
+        <span class="help-block">{{ trans($helperBlock) }}</span>
+    @else
+        <span class="help-block">{{ trans($label . '_helper') }}</span>
+    @endif
 </div>

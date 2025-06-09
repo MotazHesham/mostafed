@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyHealthConditionRequest;
-use App\Http\Requests\StoreHealthConditionRequest;
-use App\Http\Requests\UpdateHealthConditionRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyHealthConditionRequest;
+use App\Http\Requests\Tenant\Admin\StoreHealthConditionRequest;
+use App\Http\Requests\Tenant\Admin\UpdateHealthConditionRequest;
 use App\Models\HealthCondition;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

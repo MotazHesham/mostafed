@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroyBeneficiaryOrderRequest;
-use App\Http\Requests\StoreBeneficiaryOrderRequest;
-use App\Http\Requests\UpdateBeneficiaryOrderRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyBeneficiaryOrderRequest;
+use App\Http\Requests\Tenant\Admin\StoreBeneficiaryOrderRequest;
+use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryOrderRequest;
 use App\Models\Beneficiary;
 use App\Models\BeneficiaryOrder;
 use App\Models\Service;

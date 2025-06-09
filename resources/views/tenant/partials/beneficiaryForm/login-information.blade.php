@@ -4,7 +4,7 @@
             @include('utilities.form.text', [
                 'name' => 'identity_num',
                 'label' => 'cruds.user.fields.identity_num',
-                'isRequired' => false,
+                'isRequired' => true,
                 'grid' => 'col-md-6',
                 'value' => $user->identity_num ?? '',
             ])
@@ -19,7 +19,7 @@
             @include('utilities.form.text', [
                 'name' => 'phone',
                 'label' => 'cruds.user.fields.phone',
-                'isRequired' => false,
+                'isRequired' => true,
                 'grid' => 'col-md-6',
                 'value' => $user->phone ?? '',
             ])
@@ -46,7 +46,7 @@
             'url' => route('admin.users.storeMedia'),
             'label' => 'cruds.user.fields.photo',
             'isRequired' => false,
-            'value' => $user->photo ?? '',
+            'model' => $user ?? '',
         ])
     </div>
 </div>

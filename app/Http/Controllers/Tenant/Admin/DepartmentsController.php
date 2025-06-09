@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyDepartmentRequest;
-use App\Http\Requests\StoreDepartmentRequest;
-use App\Http\Requests\UpdateDepartmentRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyDepartmentRequest;
+use App\Http\Requests\Tenant\Admin\StoreDepartmentRequest;
+use App\Http\Requests\Tenant\Admin\UpdateDepartmentRequest;
 use App\Models\Department;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

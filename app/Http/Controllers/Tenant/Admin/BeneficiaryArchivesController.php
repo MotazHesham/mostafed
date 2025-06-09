@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyBeneficiaryArchiveRequest;
-use App\Http\Requests\StoreBeneficiaryArchiveRequest;
-use App\Http\Requests\UpdateBeneficiaryArchiveRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyBeneficiaryArchiveRequest;
+use App\Http\Requests\Tenant\Admin\StoreBeneficiaryArchiveRequest;
+use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryArchiveRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

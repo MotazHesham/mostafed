@@ -27,9 +27,17 @@ class EconomicStatus extends Model
         'expense' => 'مصروف',
     ];
 
+    public const DATA_TYPE_SELECT = [
+        'number' => 'رقم/ مبلغ',
+        'text'   => 'نص',
+    ];
+
     protected $fillable = [
         'name',
         'type',
+        'data_type',
+        'is_required',
+        'order_level',
         'created_at',
         'updated_at',
         'deleted_at',

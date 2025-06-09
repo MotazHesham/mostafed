@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Central\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyFrontAchievementRequest;
-use App\Http\Requests\StoreFrontAchievementRequest;
-use App\Http\Requests\UpdateFrontAchievementRequest;
+use App\Http\Requests\Central\MassDestroyFrontAchievementRequest;
+use App\Http\Requests\Central\StoreFrontAchievementRequest;
+use App\Http\Requests\Central\UpdateFrontAchievementRequest;
 use App\Models\FrontAchievement;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

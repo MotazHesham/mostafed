@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyFamilyRelationshipRequest;
-use App\Http\Requests\StoreFamilyRelationshipRequest;
-use App\Http\Requests\UpdateFamilyRelationshipRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyFamilyRelationshipRequest;
+use App\Http\Requests\Tenant\Admin\StoreFamilyRelationshipRequest;
+use App\Http\Requests\Tenant\Admin\UpdateFamilyRelationshipRequest;
 use App\Models\FamilyRelationship;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

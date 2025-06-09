@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroyIncomingLetterRequest;
-use App\Http\Requests\StoreIncomingLetterRequest;
-use App\Http\Requests\UpdateIncomingLetterRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyIncomingLetterRequest;
+use App\Http\Requests\Tenant\Admin\StoreIncomingLetterRequest;
+use App\Http\Requests\Tenant\Admin\UpdateIncomingLetterRequest;
 use App\Models\IncomingLetter;
 use App\Models\LettersOrganization;
 use App\Models\OutgoingLetter;

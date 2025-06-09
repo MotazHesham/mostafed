@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Central\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroySettingRequest;
-use App\Http\Requests\StoreSettingRequest;
-use App\Http\Requests\UpdateSettingRequest;
+use App\Http\Requests\Central\MassDestroySettingRequest;
+use App\Http\Requests\Central\StoreSettingRequest;
+use App\Http\Requests\Central\UpdateSettingRequest;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyArchiveRequest;
-use App\Http\Requests\StoreArchiveRequest;
-use App\Http\Requests\UpdateArchiveRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyArchiveRequest;
+use App\Http\Requests\Tenant\Admin\StoreArchiveRequest;
+use App\Http\Requests\Tenant\Admin\UpdateArchiveRequest;
 use App\Models\Archive;
 use App\Models\StorageLocation;
 use App\Models\User;

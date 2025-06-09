@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyCourseStudentRequest;
-use App\Http\Requests\StoreCourseStudentRequest;
-use App\Http\Requests\UpdateCourseStudentRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyCourseStudentRequest;
+use App\Http\Requests\Tenant\Admin\StoreCourseStudentRequest;
+use App\Http\Requests\Tenant\Admin\UpdateCourseStudentRequest;
 use App\Models\Beneficiary;
 use App\Models\BeneficiaryFamily;
 use App\Models\Course;

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroyCourseRequest;
-use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyCourseRequest;
+use App\Http\Requests\Tenant\Admin\StoreCourseRequest;
+use App\Http\Requests\Tenant\Admin\UpdateCourseRequest;
 use App\Models\Course;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

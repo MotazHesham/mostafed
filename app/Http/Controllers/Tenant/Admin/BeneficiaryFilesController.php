@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroyBeneficiaryFileRequest;
-use App\Http\Requests\StoreBeneficiaryFileRequest;
-use App\Http\Requests\UpdateBeneficiaryFileRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyBeneficiaryFileRequest;
+use App\Http\Requests\Tenant\Admin\StoreBeneficiaryFileRequest;
+use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryFileRequest;
 use App\Models\Beneficiary;
 use App\Models\BeneficiaryFile;
 use App\Models\RequiredDocument;

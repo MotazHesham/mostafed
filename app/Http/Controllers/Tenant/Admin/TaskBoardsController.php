@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyTaskBoardRequest;
-use App\Http\Requests\StoreTaskBoardRequest;
-use App\Http\Requests\UpdateTaskBoardRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyTaskBoardRequest;
+use App\Http\Requests\Tenant\Admin\StoreTaskBoardRequest;
+use App\Http\Requests\Tenant\Admin\UpdateTaskBoardRequest;
 use App\Models\TaskBoard;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

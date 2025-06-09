@@ -12,8 +12,9 @@
             <i class="fas fa-map-marker-alt me-2"></i>{{ trans('global.select_location') }}
         </button>
         <span id="locationDisplay" class="text-muted">
-            @if(old('latitude') || (isset($value) && $value))
+            @if(isset($latitude) || isset($longitude))
                 {{ trans('global.location_selected') }}
+                ({{ $latitude ?? '' }}, {{ $longitude ?? '' }})
             @else
                 {{ trans('global.no_location_selected') }}
             @endif

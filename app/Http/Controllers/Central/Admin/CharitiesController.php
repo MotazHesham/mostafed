@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Central\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroyCharityRequest;
-use App\Http\Requests\StoreCharityRequest;
-use App\Http\Requests\UpdateCharityRequest;
+use App\Http\Requests\Central\MassDestroyCharityRequest;
+use App\Http\Requests\Central\StoreCharityRequest;
+use App\Http\Requests\Central\UpdateCharityRequest;
 use App\Models\Charity;
 use App\Models\Tenant;
 use Illuminate\Support\Facades\Gate;

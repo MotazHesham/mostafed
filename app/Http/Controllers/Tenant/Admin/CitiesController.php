@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyCityRequest;
-use App\Http\Requests\StoreCityRequest;
-use App\Http\Requests\UpdateCityRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyCityRequest;
+use App\Http\Requests\Tenant\Admin\StoreCityRequest;
+use App\Http\Requests\Tenant\Admin\UpdateCityRequest;
 use App\Models\City;
 use App\Models\District;
 use Illuminate\Support\Facades\Gate;

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Central\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroySliderRequest;
-use App\Http\Requests\StoreSliderRequest;
-use App\Http\Requests\UpdateSliderRequest;
+use App\Http\Requests\Central\MassDestroySliderRequest;
+use App\Http\Requests\Central\StoreSliderRequest;
+use App\Http\Requests\Central\UpdateSliderRequest;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

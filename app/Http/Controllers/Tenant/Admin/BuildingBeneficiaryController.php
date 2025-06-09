@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyBuildingBeneficiaryRequest;
-use App\Http\Requests\StoreBuildingBeneficiaryRequest;
-use App\Http\Requests\UpdateBuildingBeneficiaryRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyBuildingBeneficiaryRequest;
+use App\Http\Requests\Tenant\Admin\StoreBuildingBeneficiaryRequest;
+use App\Http\Requests\Tenant\Admin\UpdateBuildingBeneficiaryRequest;
 use App\Models\Beneficiary;
 use App\Models\Building;
 use App\Models\BuildingBeneficiary;

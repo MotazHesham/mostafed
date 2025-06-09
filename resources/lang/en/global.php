@@ -340,7 +340,10 @@ return [
     'please_specify'                 => 'Please specify',
     'save_and_complete'              => 'Save and complete',
     'no_data_found'                  => 'No data found',
-
+    'hijri'                          => 'Hijri',
+    'view_location'                  => 'View Location', 
+    'total'                          => 'Total',
+    
     'flash' => [
         'created' => 'Created :title successfully',
         'updated' => 'Updated :title successfully',

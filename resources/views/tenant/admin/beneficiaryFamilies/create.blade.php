@@ -50,6 +50,7 @@
                 'id' => 'dobFamily',
                 'label' => 'cruds.beneficiaryFamily.fields.dob',
                 'isRequired' => true,
+                'hijri' => true,
                 'grid' => 'col-md-6', 
             ])
             @include('utilities.form.text', [
@@ -186,6 +187,8 @@
             } else {
                 modalHealthConditionWrapper.style.display = 'none';
                 modalCustomHealthConditionWrapper.style.display = 'none';
+                document.getElementById('modal_health_condition_id').value = '';
+                document.getElementById('modal_custom_health_condition').value = '';
             }
         });
     }
@@ -197,6 +200,7 @@
                 modalCustomHealthConditionWrapper.style.display = 'block';
             } else {
                 modalCustomHealthConditionWrapper.style.display = 'none';
+                document.getElementById('modal_custom_health_condition').value = '';
             }
         });
     }
@@ -215,6 +219,8 @@
             } else {
                 modalDisabilityTypeWrapper.style.display = 'none';
                 modalCustomDisabilityTypeWrapper.style.display = 'none';
+                document.getElementById('modal_disability_type_id').value = '';
+                document.getElementById('modal_custom_disability_type').value = '';
             }
         });
     }
@@ -226,6 +232,7 @@
                 modalCustomDisabilityTypeWrapper.style.display = 'block';
             } else {
                 modalCustomDisabilityTypeWrapper.style.display = 'none';
+                document.getElementById('modal_custom_disability_type').value = '';
             }
         });
     }

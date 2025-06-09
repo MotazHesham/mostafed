@@ -30,7 +30,7 @@
             @include('utilities.form.text', [
                 'name' => 'name',
                 'label' => 'cruds.beneficiaryFamily.fields.name',
-                'isRequired' => false,
+                'isRequired' => true,
                 'grid' => 'col-md-6',
                 'value' => $beneficiaryFamily->name ?? '',
             ])  
@@ -45,7 +45,7 @@
             @include('utilities.form.select', [
                 'name' => 'gender',
                 'label' => 'cruds.beneficiaryFamily.fields.gender',
-                'isRequired' => false,
+                'isRequired' => true,
                 'grid' => 'col-md-6',
                 'options' => ['' => trans('global.pleaseSelect')] + App\Models\BeneficiaryFamily::GENDER_SELECT,
                 'value' => $beneficiaryFamily->gender ?? '',
@@ -54,21 +54,22 @@
                 'name' => 'dob',
                 'id' => 'dobFamily',
                 'label' => 'cruds.beneficiaryFamily.fields.dob',
-                'isRequired' => false,
+                'isRequired' => true,
                 'grid' => 'col-md-6',
                 'value' => $beneficiaryFamily->dob ?? '',
+                'hijri' => true,
             ])
             @include('utilities.form.text', [
                 'name' => 'phone',
                 'label' => 'cruds.beneficiaryFamily.fields.phone',
-                'isRequired' => false,
+                'isRequired' => true,
                 'grid' => 'col-md-6',
                 'value' => $beneficiaryFamily->phone ?? '',
             ])
             @include('utilities.form.text', [
                 'name' => 'email',
                 'label' => 'cruds.beneficiaryFamily.fields.email',
-                'isRequired' => false,
+                'isRequired' => true,
                 'grid' => 'col-md-6',
                 'type' => 'email',
                 'value' => $beneficiaryFamily->email ?? '',
@@ -76,7 +77,7 @@
             @include('utilities.form.select-ajax', [
                 'name' => 'family_relationship_id',
                 'label' => 'cruds.beneficiaryFamily.fields.family_relationship',
-                'isRequired' => false,
+                'isRequired' => true,
                 'grid' => 'col-md-6',
                 'options' => $family_relationships,
                 'value' => $beneficiaryFamily->family_relationship_id ?? '',
@@ -84,7 +85,7 @@
             @include('utilities.form.select', [
                 'name' => 'marital_status_id',
                 'label' => 'cruds.beneficiaryFamily.fields.marital_status',
-                'isRequired' => false,
+                'isRequired' => true,
                 'grid' => 'col-md-6',
                 'options' => $marital_statuses,
                 'value' => $beneficiaryFamily->marital_status_id ?? '',
@@ -92,7 +93,7 @@
             @include('utilities.form.select', [
                 'name' => 'can_work',
                 'label' => 'cruds.beneficiaryFamily.fields.can_work',
-                'isRequired' => false,
+                'isRequired' => true,
                 'grid' => 'col-md-6',
                 'options' => ['' => trans('global.pleaseSelect')] + App\Models\BeneficiaryFamily::CAN_WORK_SELECT,
                 'value' => $beneficiaryFamily->can_work ?? '',
@@ -119,9 +120,7 @@
                             'id' => 'modal_health_condition_id',
                             'label' => 'cruds.beneficiaryFamily.fields.health_condition',
                             'isRequired' => false,
-                            'options' => $health_conditions->toArray() + [
-                                'other' => trans('global.other'),
-                            ],
+                            'options' => $health_conditions->toArray(),
                             'grid' => '',
                             'value' => $beneficiaryFamily->health_condition_id ?? '',
                         ])
@@ -160,9 +159,7 @@
                             'id' => 'modal_disability_type_id',
                             'label' => 'cruds.beneficiaryFamily.fields.disability_type',
                             'isRequired' => false,
-                            'options' => $disability_types->toArray() + [
-                                'other' => trans('global.other'),
-                            ],
+                            'options' => $disability_types->toArray(),
                             'grid' => '',
                             'value' => $beneficiaryFamily->disability_type_id ?? '',
                         ])
@@ -194,13 +191,13 @@
 </form>
 
 <script>
-    handleHealthConditionToggle('{{ $beneficiaryFamily->health_condition_id ? '1' : '0' }}');
-    handleDisabilityToggle('{{ $beneficiaryFamily->disability_type_id ? '1' : '0' }}'); 
-    handleHealthConditionTypeChange('{{ $beneficiaryFamily->health_condition->name ?? '' }}');
-    handleDisabilityTypeChange('{{ $beneficiaryFamily->disability_type->name ?? '' }}');
+    modalhandleHealthConditionToggle('{{ $beneficiaryFamily->health_condition_id ? '1' : '0' }}');
+    modalhandleDisabilityToggle('{{ $beneficiaryFamily->disability_type_id ? '1' : '0' }}'); 
+    modalhandleHealthConditionTypeChange('{{ $beneficiaryFamily->health_condition->name ?? '' }}');
+    modalhandleDisabilityTypeChange('{{ $beneficiaryFamily->disability_type->name ?? '' }}');
     
     /* Health Condition Toggle */
-    function handleHealthConditionToggle(value) {
+    function modalhandleHealthConditionToggle(value) {
         var modalHealthConditionWrapper = document.getElementById('modal_health_condition_wrapper');
         var modalCustomHealthConditionWrapper = document.getElementById('modal_custom_health_condition_wrapper');
         
@@ -209,21 +206,24 @@
         } else {
             modalHealthConditionWrapper.style.display = 'none';
             modalCustomHealthConditionWrapper.style.display = 'none';
+            document.getElementById('modal_health_condition_id').value = '';
+            document.getElementById('modal_custom_health_condition').value = '';
         }
     }
 
-    function handleHealthConditionTypeChange(value) {
+    function modalhandleHealthConditionTypeChange(value) {
         var modalCustomHealthConditionWrapper = document.getElementById('modal_custom_health_condition_wrapper');
         
         if (value == 'other' || value == 'أخرى') {
             modalCustomHealthConditionWrapper.style.display = 'block';
         } else {
             modalCustomHealthConditionWrapper.style.display = 'none';
+            document.getElementById('modal_custom_health_condition').value = '';
         }
     }
 
     /* Disability Type Toggle */
-    function handleDisabilityToggle(value) {
+    function modalhandleDisabilityToggle(value) {
         var modalDisabilityTypeWrapper = document.getElementById('modal_disability_type_wrapper');
         var modalCustomDisabilityTypeWrapper = document.getElementById('modal_custom_disability_type_wrapper');
         
@@ -232,16 +232,19 @@
         } else {
             modalDisabilityTypeWrapper.style.display = 'none';
             modalCustomDisabilityTypeWrapper.style.display = 'none';
+            document.getElementById('modal_disability_type_id').value = '';
+            document.getElementById('modal_custom_disability_type').value = '';
         }
     }
 
-    function handleDisabilityTypeChange(value) {
+    function modalhandleDisabilityTypeChange(value) {
         var modalCustomDisabilityTypeWrapper = document.getElementById('modal_custom_disability_type_wrapper');
         
         if (value == 'other' || value == 'أخرى') {
             modalCustomDisabilityTypeWrapper.style.display = 'block';
         } else {
             modalCustomDisabilityTypeWrapper.style.display = 'none';
+            document.getElementById('modal_custom_disability_type').value = '';
         }
     }
 
@@ -252,25 +255,27 @@
 
     if (modalHasHealthConditionSelect) {
         modalHasHealthConditionSelect.addEventListener('change', function() {
-            handleHealthConditionToggle(this.value);
+            modalhandleHealthConditionToggle(this.value);
         });
     }
 
     if (modalHealthConditionSelect) {
         modalHealthConditionSelect.addEventListener('change', function() {
-            handleHealthConditionTypeChange(this.value);
+            var selectedText = this.options[this.selectedIndex].text.trim().toLowerCase();
+            modalhandleHealthConditionTypeChange(selectedText);
         });
     }
 
     if (modalHasDisabilitySelect) {
         modalHasDisabilitySelect.addEventListener('change', function() {
-            handleDisabilityToggle(this.value);
+            modalhandleDisabilityToggle(this.value);
         });
     }
 
     if (modalDisabilityTypeSelect) {
         modalDisabilityTypeSelect.addEventListener('change', function() {
-            handleDisabilityTypeChange(this.value);
+            var selectedText = this.options[this.selectedIndex].text.trim().toLowerCase();
+            modalhandleDisabilityTypeChange(selectedText);
         });
     } 
 </script>

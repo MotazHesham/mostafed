@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyStorageLocationRequest;
-use App\Http\Requests\StoreStorageLocationRequest;
-use App\Http\Requests\UpdateStorageLocationRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyStorageLocationRequest;
+use App\Http\Requests\Tenant\Admin\StoreStorageLocationRequest;
+use App\Http\Requests\Tenant\Admin\UpdateStorageLocationRequest;
 use App\Models\StorageLocation;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

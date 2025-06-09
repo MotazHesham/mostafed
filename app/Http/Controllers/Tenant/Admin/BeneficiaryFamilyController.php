@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\MassDestroyBeneficiaryFamilyRequest;
-use App\Http\Requests\StoreBeneficiaryFamilyRequest;
-use App\Http\Requests\UpdateBeneficiaryFamilyRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyBeneficiaryFamilyRequest;
+use App\Http\Requests\Tenant\Admin\StoreBeneficiaryFamilyRequest;
+use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryFamilyRequest;
 use App\Models\Beneficiary;
 use App\Models\BeneficiaryFamily;
 use App\Models\DisabilityType;

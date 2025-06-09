@@ -1,215 +1,113 @@
 @extends('tenant.layouts.master')
+@section('styles')
+    <style>
+        .profile-card .profile-banner-img::before {
+            opacity: 0.5;
+        }
+
+        .profile-card .profile-banner-img {
+            max-height: 300px;
+            overflow: hidden;
+        }
+    </style>
+@endsection
 @section('content')
+    @php
+        $breadcrumbs = [
+            ['title' => trans('cruds.beneficiariesManagment.title'), 'url' => '#'],
+            [
+                'title' => trans('global.list') . ' ' . trans('cruds.beneficiary.title'),
+                'url' => route('admin.beneficiaries.index'),
+            ],
+            ['title' => trans('global.show') . ' ' . trans('cruds.beneficiary.title_singular')],
+        ];
+    @endphp
+    @include('tenant.partials.breadcrumb')
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.beneficiary.title') }}
-    </div>
-
-    <div class="card-body">
-        <div class="form-group">
-            <div class="form-group">
-                <a class="btn btn-light mt-3 mb-3" href="{{ route('admin.beneficiaries.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
-            </div>
-            <table class="table table-bordered table-striped">
-                <tbody>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.id') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.user') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->user->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.nationality') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->nationality->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.marital_status') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->marital_status->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.job_type') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->job_type->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.educational_qualification') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->educational_qualification->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.dob') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->dob }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.address') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->address }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.latitude') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->latitude }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.longitude') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->longitude }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.district') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->district->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.street') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->street }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.building_number') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->building_number }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.floor_number') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->floor_number }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.health_condition') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->health_condition->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.disability_type') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->disability_type->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.can_work') }}
-                        </th>
-                        <td>
-                            {{ App\Models\Beneficiary::CAN_WORK_SELECT[$beneficiary->can_work] ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.incomes') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->incomes }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.expenses') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->expenses }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.is_archived') }}
-                        </th>
-                        <td>
-                            <input type="checkbox" disabled="disabled" {{ $beneficiary->is_archived ? 'checked' : '' }}>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.beneficiary.fields.specialist') }}
-                        </th>
-                        <td>
-                            {{ $beneficiary->specialist->name ?? '' }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="form-group">
-                <a class="btn btn-light mt-3 mb-3" href="{{ route('admin.beneficiaries.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card profile-card">
+                <div class="profile-banner-img">
+                    <img src="{{ global_asset('assets/profile-cover.png') }}" class="card-img-top" alt="...">
+                </div>
+                <div class="card-body pb-0 position-relative">
+                    <div class="row profile-content">
+                        <div class="col-xl-9">
+                            <div class="card custom-card overflow-hidden border">
+                                <div class="card-body">
+                                    <ul class="nav nav-tabs tab-style-6 mb-3 p-0" id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link w-100 text-start active" id="profile-about-tab"
+                                                data-bs-toggle="tab" data-bs-target="#profile-about-tab-pane" type="button"
+                                                role="tab" aria-controls="profile-about-tab-pane"
+                                                aria-selected="true">{{ trans('cruds.beneficiary.profile.about') }}</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link w-100 text-start" id="edit-profile-tab"
+                                                data-bs-toggle="tab" data-bs-target="#edit-profile-tab-pane" type="button"
+                                                role="tab" aria-controls="edit-profile-tab-pane"
+                                                aria-selected="true">{{ trans('cruds.beneficiary.profile.edit_profile') }}</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link w-100 text-start" id="family-info-tab"
+                                                data-bs-toggle="tab" data-bs-target="#family-info-tab-pane" type="button"
+                                                role="tab" aria-controls="family-info-tab-pane"
+                                                aria-selected="false">{{ trans('cruds.beneficiary.profile.family_info') }}</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link w-100 text-start" id="economic-info-tab"
+                                                data-bs-toggle="tab" data-bs-target="#economic-info-tab-pane" type="button"
+                                                role="tab" aria-controls="economic-info-tab-pane"
+                                                aria-selected="false">{{ trans('cruds.beneficiary.profile.economic_info') }}</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link w-100 text-start" id="documents-tab"
+                                                data-bs-toggle="tab" data-bs-target="#documents-tab-pane" type="button"
+                                                role="tab" aria-controls="documents-tab-pane"
+                                                aria-selected="false">{{ trans('cruds.beneficiary.profile.documents') }}</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link w-100 text-start" id="timeline-tab" data-bs-toggle="tab"
+                                                data-bs-target="#timeline-tab-pane" type="button" role="tab"
+                                                aria-controls="timeline-tab-pane"
+                                                aria-selected="false">{{ trans('cruds.beneficiary.profile.timeline') }}</button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="profile-tabs">
+                                        <div class="tab-pane show active p-0 border-0" id="profile-about-tab-pane"
+                                            role="tabpanel" aria-labelledby="profile-about-tab" tabindex="0">
+                                            @include('tenant.admin.beneficiaries.partials.about')
+                                        </div>
+                                        <div class="tab-pane p-0 border-0" id="edit-profile-tab-pane" role="tabpanel"
+                                            aria-labelledby="edit-profile-tab" tabindex="0">
+                                            @include('tenant.admin.beneficiaries.partials.edit-info')
+                                        </div>
+                                        <div class="tab-pane" id="family-info-tab-pane" role="tabpanel"
+                                            aria-labelledby="family-info-tab" tabindex="0">
+                                            @include('tenant.partials.beneficiaryForm.family-information')
+                                        </div>
+                                        <div class="tab-pane" id="economic-info-tab-pane" role="tabpanel"
+                                            aria-labelledby="economic-info-tab" tabindex="0">
+                                            @include('tenant.admin.beneficiaries.partials.economic-information')
+                                        </div>
+                                        <div class="tab-pane" id="timeline-tab-pane" role="tabpanel"
+                                            aria-labelledby="timeline-tab" tabindex="0">
+                                            @include('tenant.admin.beneficiaries.partials.timeline')
+                                        </div>
+                                        <div class="tab-pane" id="documents-tab-pane" role="tabpanel"
+                                            aria-labelledby="documents-tab" tabindex="0">
+                                            @include('tenant.admin.beneficiaries.partials.documents')
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            @include('tenant.admin.beneficiaries.partials.sidebar')
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.relatedData') }}
-    </div>
-    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="#beneficiary_beneficiary_orders" role="tab" data-toggle="tab">
-                {{ trans('cruds.beneficiaryOrder.title') }}
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="beneficiary_beneficiary_orders">
-            @includeIf('admin.beneficiaries.relationships.beneficiaryBeneficiaryOrders', ['beneficiaryOrders' => $beneficiary->beneficiaryBeneficiaryOrders])
-        </div>
-    </div>
-</div>
-
 @endsection

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyServiceRequest;
-use App\Http\Requests\StoreServiceRequest;
-use App\Http\Requests\UpdateServiceRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyServiceRequest;
+use App\Http\Requests\Tenant\Admin\StoreServiceRequest;
+use App\Http\Requests\Tenant\Admin\UpdateServiceRequest;
 use App\Models\Service;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;

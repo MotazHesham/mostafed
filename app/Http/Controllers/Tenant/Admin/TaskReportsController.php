@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Tenant\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyTaskReportRequest;
-use App\Http\Requests\StoreTaskReportRequest;
-use App\Http\Requests\UpdateTaskReportRequest;
+use App\Http\Requests\Tenant\Admin\MassDestroyTaskReportRequest;
+use App\Http\Requests\Tenant\Admin\StoreTaskReportRequest;
+use App\Http\Requests\Tenant\Admin\UpdateTaskReportRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

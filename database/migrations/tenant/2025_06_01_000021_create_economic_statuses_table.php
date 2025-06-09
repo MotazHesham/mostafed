@@ -12,6 +12,9 @@ class CreateEconomicStatusesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('type');
+            $table->string('data_type');
+            $table->boolean('is_required')->default(false);
+            $table->integer('order_level')->default(0); 
             $table->timestamps();
             $table->softDeletes();
         });
