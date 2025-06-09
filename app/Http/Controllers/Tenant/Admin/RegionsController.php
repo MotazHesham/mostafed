@@ -50,7 +50,7 @@ class RegionsController extends Controller
             $table->editColumn('cities', function ($row) {
                 $labels = [];
                 foreach ($row->cities as $city) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $city->name);
+                    $labels[] = sprintf('<span class="badge bg-info label-many">%s</span>', $city->name);
                 }
 
                 return implode(' ', $labels);
@@ -93,8 +93,10 @@ class RegionsController extends Controller
     }
 
     public function update(UpdateRegionRequest $request, Region $region)
-    {
-        $region->update($request->all());
+    { 
+        $region->setTranslation('name', $request->lang, $request->name);
+        $region->save();
+        
         $region->cities()->sync($request->input('cities', []));
 
         return redirect()->route('admin.regions.index');

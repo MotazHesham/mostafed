@@ -50,7 +50,7 @@ class CitiesController extends Controller
             $table->editColumn('districts', function ($row) {
                 $labels = [];
                 foreach ($row->districts as $district) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $district->name);
+                    $labels[] = sprintf('<span class="badge bg-info label-many">%s</span>', $district->name);
                 }
 
                 return implode(' ', $labels);
@@ -93,8 +93,9 @@ class CitiesController extends Controller
     }
 
     public function update(UpdateCityRequest $request, City $city)
-    {
-        $city->update($request->all());
+    { 
+        $city->setTranslation('name', $request->lang, $request->name);
+        $city->save();
         $city->districts()->sync($request->input('districts', []));
 
         return redirect()->route('admin.cities.index');

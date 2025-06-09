@@ -77,8 +77,9 @@ class DistrictsController extends Controller
     }
 
     public function update(UpdateDistrictRequest $request, District $district)
-    {
-        $district->update($request->all());
+    { 
+        $district->setTranslation('name', $request->lang, $request->name);
+        $district->save();
 
         return redirect()->route('admin.districts.index');
     }
