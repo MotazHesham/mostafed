@@ -2,7 +2,7 @@
 @section('content')
     @php
         $breadcrumbs = [
-            ['title' => trans('cruds.generalSetting.title'), 'url' => '#'],
+            ['title' => trans('cruds.taskManagement.title'), 'url' => '#'],
             [
                 'title' => trans('global.list') . ' ' . trans('cruds.taskBoard.title'),
                 'url' => route('admin.task-boards.index'),

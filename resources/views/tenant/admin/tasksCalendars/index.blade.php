@@ -1,44 +1,86 @@
 @extends('tenant.layouts.master')
 @section('content')
+    @php
+        $breadcrumbs = [
+            ['title' => trans('cruds.taskManagement.title'), 'url' => '#'],
+            [
+                'title' => trans('cruds.tasksCalendar.title'),
+                'url' => route('admin.tasks-calendars.index'),
+            ],
+        ];
+    @endphp
+    @include('tenant.partials.breadcrumb')
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.tasksCalendar.title') }}
+    <div class="row"> 
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title">Full Calendar</div>
+                </div>
+                <div class="card-body">
+                    <div id='calendar2'></div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="card-body">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" />
-        <div id="calendar"></div>
-
-    </div>
-</div>
-
-
-
 @endsection
 
 @section('scripts')
-@parent
-<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js'></script>
-<script>
-    $(document).ready(function() {
-            // page is now ready, initialize the calendar...
-            $('#calendar').fullCalendar({
-                // put your options and callbacks here
-                events : [
-@foreach($events as $event)
-@if($event->due_date)
-                            {
-                                title : '{{ $event->name }}',
-                                start : '{{ \Carbon\Carbon::createFromFormat(config('panel.date_format'),$event->due_date)->format('Y-m-d') }}',
-                                url : '{{ url('admin/tasks').'/'.$event->id.'/edit' }}'
-                            },
-@endif
-@endforeach
-                ]
-            })
-        });
-</script>
+    @parent
 
-@stop
+    <!-- Moment JS -->
+    <script src="{{ global_asset('assets/libs/moment/moment.js') }}"></script>
+
+    <!-- Fullcalendar JS -->
+    <script src="{{ global_asset('assets/libs/fullcalendar/index.global.min.js') }}"></script>
+    <script>
+        (function() {
+            "use strict";
+            //_____Calendar Events Intialization
+
+            var events = [
+                { 
+                    events: [
+                        @foreach($events as $event)
+                            @if($event->due_date)
+                                {
+                                    title : '{{ $event->name }}',
+                                    start : '{{ \Carbon\Carbon::createFromFormat(config('panel.date_format'),$event->due_date)->format('Y-m-d') }}',
+                                    url : '{{ url('admin/tasks').'/'.$event->id }}',
+                                    className: "bg-{{ $event->status->badge_class ?? 'secondary' }}",
+                                },
+                            @endif
+                        @endforeach
+                    ]
+                }
+            ]; 
+
+            //________ FullCalendar 
+            
+            var calendarEl = document.getElementById('calendar2');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                },
+                defaultView: 'month',
+                navLinks: true, // can click day/week names to navigate views 
+                selectMirror: true,
+                droppable: true, // this allows things to be dropped onto the calendar  
+                dayMaxEvents: true, // allow "more" link when too many events
+                eventSources: events,
+
+            });
+            calendar.render();
+
+            // for activity scroll
+            var myElement1 = document.getElementById('full-calendar-activity');
+            new SimpleBar(myElement1, {
+                autoHide: true
+            });
+
+        })();
+    </script>
+@endsection

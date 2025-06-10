@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class TaskController extends Controller
 {
@@ -47,13 +48,81 @@ class TaskController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('task_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
+        if ($request->ajax()) {
+            $query = Task::with(['status', 'task_priority', 'tags', 'assigned_tos', 'task_board'])->select(sprintf('%s.*', (new Task)->table));
+            $table = DataTables::of($query);
 
-        $tasks = Task::with(['status', 'task_priority', 'tags', 'assigned_tos', 'task_board', 'assigned_by', 'media'])->get();
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
 
-        return view('tenant.admin.tasks.index', compact('tasks'));
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'task_show';
+                $editGate      = false;
+                $deleteGate    = false;
+                $crudRoutePart = 'tasks';
+
+                return view('tenant.partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('created_at', function ($row) {
+                return $row->created_at ? $row->created_at->format('d-m-Y') : '';
+            });
+            $table->editColumn('status', function ($row) {
+                if ($row->status) {
+                    return '<span class="fw-medium text-' . $row->status->badge_class . '">' . $row->status->name . '</span>';
+                }
+                return '';
+            });
+            $table->editColumn('due_date', function ($row) {
+                return $row->due_date ? $row->due_date : '';
+            });
+            $table->editColumn('task_priority', function ($row) {
+                if ($row->task_priority) {
+                    return '<span class="' . $row->task_priority->badge_class . '">' . $row->task_priority->name . '</span>';
+                }
+                return '';
+            });
+            $table->editColumn('assigned_tos', function ($row) {
+                $html = '';
+                foreach ($row->assigned_tos as $assigned_to) {
+                    $html .= view('utilities.user-avatar', ['user' => $assigned_to])->render();
+                }
+                return $html;
+            });
+            $table->editColumn('task_board', function ($row) {
+                return $row->task_board ? $row->task_board->name : '';
+            });
+            $table->editColumn('tags', function ($row) {
+                $labels = []; 
+                foreach ($row->tags as $tag) {
+                    $labels[] = sprintf('<span class="badge bg-%s">%s</span>', $tag->badge_class, $tag->name);
+                }
+
+                return implode(' ', $labels);
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'status', 'task_priority', 'assigned_tos', 'task_board', 'tags']);
+
+            return $table->make(true);
+        }
+
+        return view('tenant.admin.tasks.index');
     }
 
     public function create()

@@ -62,7 +62,7 @@ class TaskBoardsController extends Controller
             ->get()
             ->groupBy('status_id');
 
-        $taskStatuses = TaskStatus::all();
+        $taskStatuses = TaskStatus::orderBy('ordering', 'desc')->orderBy('id', 'desc')->get();
 
         return view('tenant.admin.taskBoards.show', compact('taskBoard', 'groupedTasks', 'taskStatuses'));
     }
