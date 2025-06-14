@@ -1,5 +1,5 @@
 <div class="form-group mb-3">
-    <label class="mb-2" for="{{ $name }}">
+    <label class="mb-2 form-label" for="{{ $name }}">
         {{ trans($label) }}
         @if ($isRequired)
             <span class="text-danger">*</span>

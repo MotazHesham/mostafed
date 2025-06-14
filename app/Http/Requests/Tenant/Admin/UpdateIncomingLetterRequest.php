@@ -16,14 +16,11 @@ class UpdateIncomingLetterRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'letter_number' => [
-                'string',
-                'nullable',
-            ],
+        return [ 
             'external_number' => [
                 'string',
                 'nullable',
+                'unique:incoming_letters,external_number,' . $this->incoming_letter->id,
             ],
             'letter_date' => [
                 'required',

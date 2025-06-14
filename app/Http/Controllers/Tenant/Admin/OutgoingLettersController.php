@@ -8,6 +8,7 @@ use App\Http\Requests\Tenant\Admin\MassDestroyOutgoingLetterRequest;
 use App\Http\Requests\Tenant\Admin\StoreOutgoingLetterRequest;
 use App\Http\Requests\Tenant\Admin\UpdateOutgoingLetterRequest;
 use App\Models\IncomingLetter;
+use App\Models\LettersOrganization;
 use App\Models\OutgoingLetter;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -25,7 +26,7 @@ class OutgoingLettersController extends Controller
         abort_if(Gate::denies('outgoing_letter_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = OutgoingLetter::with(['recevier', 'incoming_letter', 'created_by'])->select(sprintf('%s.*', (new OutgoingLetter)->table));
+            $query = OutgoingLetter::where('is_archived', false)->with(['recevier', 'incoming_letter', 'created_by'])->select(sprintf('%s.*', (new OutgoingLetter)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -101,15 +102,19 @@ class OutgoingLettersController extends Controller
         abort_if(Gate::denies('outgoing_letter_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $receviers = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        
+        $letter_organizations = LettersOrganization::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $incoming_letters = IncomingLetter::pluck('letter_number', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('tenant.admin.outgoingLetters.create', compact('incoming_letters', 'receviers'));
+        return view('tenant.admin.outgoingLetters.create', compact('incoming_letters', 'receviers', 'letter_organizations'));
     }
 
     public function store(StoreOutgoingLetterRequest $request)
     {
-        $outgoingLetter = OutgoingLetter::create($request->all());
+        $validatedRequest = $request->validated();
+        $validatedRequest['created_by_id'] = auth()->id();
+        $outgoingLetter = OutgoingLetter::create($validatedRequest);
 
         foreach ($request->input('attachments', []) as $file) {
             $outgoingLetter->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('attachments');
@@ -130,9 +135,11 @@ class OutgoingLettersController extends Controller
 
         $incoming_letters = IncomingLetter::pluck('letter_number', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $letter_organizations = LettersOrganization::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $outgoingLetter->load('recevier', 'incoming_letter', 'created_by');
 
-        return view('tenant.admin.outgoingLetters.edit', compact('incoming_letters', 'outgoingLetter', 'receviers'));
+        return view('tenant.admin.outgoingLetters.edit', compact('incoming_letters', 'outgoingLetter', 'receviers', 'letter_organizations'));
     }
 
     public function update(UpdateOutgoingLetterRequest $request, OutgoingLetter $outgoingLetter)

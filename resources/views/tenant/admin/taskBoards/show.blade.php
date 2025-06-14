@@ -153,27 +153,7 @@
     <div class="modal fade" id="add-task" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-                <form method="POST" action="{{ route('admin.tasks.store') }}" enctype="multipart/form-data"
-                    onsubmit="modalAjaxSubmit(event, 'add-task')">
-                    @csrf
-                    <input type="hidden" name="assigned_by_id" value="{{ auth()->user()->id }}">
-                    <input type="hidden" name="task_board_id" value="{{ $taskBoard->id }}">
-                    <input type="hidden" name="status_id" id="status_id" value="{{ $taskStatus->id }}">
-                    <div class="modal-header">
-                        <h6 class="modal-title">{{ trans('global.create') }} {{ trans('cruds.task.title_singular') }}</h6>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row gy-2">
-                            @include('tenant.admin.tasks.create')
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn m-0 me-2 btn-success-light"
-                            data-bs-dismiss="modal">{{ trans('global.cancel') }}</button>
-                        <button type="submit" class="btn m-0 btn-primary">{{ trans('global.save') }}</button>
-                    </div>
-                </form>
+                
             </div>
         </div>
     </div>
@@ -194,9 +174,19 @@
     <!-- Dragula JS -->
     <script src="{{ global_asset('assets/libs/dragula/dragula.min.js') }}"></script>
     <script>
-        function addTask(statusId) {
-            $('#status_id').val(statusId);
-            $('#add-task').modal('show');
+        function addTask(statusId) { 
+            $.ajax({
+                url: '{{ route('admin.tasks.create') }}',
+                method: 'GET',
+                data: {
+                    status_id: statusId,
+                    task_board_id: '{{ $taskBoard->id }}',
+                },
+                success: function(response) {
+                    $('#add-task').modal('show');
+                    $('#add-task .modal-content').html(response);
+                }
+            });
         }
 
         function editTask(taskId) {

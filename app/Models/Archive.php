@@ -7,6 +7,7 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Archive extends Model
 {
@@ -27,6 +28,8 @@ class Archive extends Model
         'archive_reason',
         'metadata',
         'storage_location_id',
+        'archiveable_id',
+        'archiveable_type',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -55,5 +58,10 @@ class Archive extends Model
     public function storage_location()
     {
         return $this->belongsTo(StorageLocation::class, 'storage_location_id');
+    }
+    
+    public function archiveable(): MorphTo
+    {
+        return $this->morphTo();
     }
 }

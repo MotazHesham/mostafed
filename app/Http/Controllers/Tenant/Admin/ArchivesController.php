@@ -91,9 +91,23 @@ class ArchivesController extends Controller
 
     public function store(StoreArchiveRequest $request)
     {
-        $archive = Archive::create($request->all());
+        $model = 'App\Models\\' . $request->archiveable_model;
+        $validatedRequest = $request->validated();
+        $validatedRequest['archiveable_type'] = $model;
+        $validatedRequest['archiveable_id'] = $request->archiveable_id;
+        $validatedRequest['archived_by_id'] = auth()->user()->id;
+        $validatedRequest['storage_location_id'] = $request->storage_location_id;
+        $validatedRequest['archived_at'] = now()->format(config('panel.date_format') . ' ' . config('panel.time_format'));
+        $validatedRequest['metadata'] = $request->metadata;
+        $validatedRequest['archive_reason'] = $request->archive_reason;
 
-        return redirect()->route('admin.archives.index');
+        Archive::create($validatedRequest);
+
+        $archiveable = $model::find($request->archiveable_id);
+        $archiveable->is_archived = true;
+        $archiveable->save();
+
+        return redirect()->back();
     }
 
     public function edit(Archive $archive)

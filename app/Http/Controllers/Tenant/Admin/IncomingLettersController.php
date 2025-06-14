@@ -26,7 +26,7 @@ class IncomingLettersController extends Controller
         abort_if(Gate::denies('incoming_letter_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = IncomingLetter::with(['recevier', 'letter_organization', 'outgoing_letter', 'created_by'])->select(sprintf('%s.*', (new IncomingLetter)->table));
+            $query = IncomingLetter::where('is_archived', false)->with(['recevier', 'letter_organization', 'outgoing_letter', 'created_by'])->select(sprintf('%s.*', (new IncomingLetter)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -37,13 +37,23 @@ class IncomingLettersController extends Controller
                 $editGate      = 'incoming_letter_edit';
                 $deleteGate    = 'incoming_letter_delete';
                 $crudRoutePart = 'incoming-letters';
-
+                $prependButtons = [
+                    [
+                        'gate' => 'archive_create',
+                        'title' => trans('global.archive'),
+                        'url' => '#',
+                        'color' => 'success',
+                        'icon' => 'ri-inbox-archive-line',
+                        'attributes' => 'onclick="addToArchive(' . $row->id . ',\'IncomingLetter\')"',
+                    ]
+                ];
                 return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
                     'crudRoutePart',
-                    'row'
+                    'row',
+                    'prependButtons'
                 ));
             });
 
@@ -119,7 +129,9 @@ class IncomingLettersController extends Controller
 
     public function store(StoreIncomingLetterRequest $request)
     {
-        $incomingLetter = IncomingLetter::create($request->all());
+        $validatedRequest = $request->validated();
+        $validatedRequest['created_by_id'] = auth()->id();
+        $incomingLetter = IncomingLetter::create($validatedRequest);
 
         foreach ($request->input('attachments', []) as $file) {
             $incomingLetter->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('attachments');

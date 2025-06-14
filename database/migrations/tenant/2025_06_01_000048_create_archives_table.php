@@ -13,6 +13,7 @@ class CreateArchivesTable extends Migration
             $table->datetime('archived_at')->nullable();
             $table->longText('archive_reason')->nullable();
             $table->longText('metadata')->nullable();
+            $table->nullableMorphs('archiveable');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -88,7 +88,7 @@ class StorageLocationsController extends Controller
     {
         abort_if(Gate::denies('storage_location_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $parents = StorageLocation::pluck('code', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $parents = StorageLocation::where('id', '!=', $storageLocation->id)->get()->pluck('code', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $storageLocation->load('parent');
 

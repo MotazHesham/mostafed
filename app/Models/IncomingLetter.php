@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Observers\IncomingLetterObserver;
 use Carbon\Carbon;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -59,6 +61,12 @@ class IncomingLetter extends Model implements HasMedia
         'updated_at',
         'deleted_at',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        IncomingLetter::observe(IncomingLetterObserver::class);
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {
@@ -114,5 +122,10 @@ class IncomingLetter extends Model implements HasMedia
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');
+    }
+    
+    public function archives(): MorphMany
+    {
+        return $this->morphMany(Archive::class, 'archiveable');
     }
 }

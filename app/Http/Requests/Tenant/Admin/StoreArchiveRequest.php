@@ -16,15 +16,7 @@ class StoreArchiveRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'archived_at' => [
-                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
-                'nullable',
-            ],
-            'archived_by_id' => [
-                'required',
-                'integer',
-            ],
+        return [ 
         ];
     }
 }

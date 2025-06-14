@@ -345,7 +345,8 @@ return [
     'total'                          => 'Total',
     'arrange'                        => 'Arrange',
     'view_list'                      => 'View list',
-    
+    'archive'                        => 'Archive',
+
     'flash' => [
         'created' => 'Created :title successfully',
         'updated' => 'Updated :title successfully',

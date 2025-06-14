@@ -23,6 +23,7 @@ use Database\Seeders\Tenant\JobTypeSeeder;
 use Database\Seeders\Tenant\TaskBoards;
 use Database\Seeders\Tenant\TaskPrioritySeeder;
 use Database\Seeders\Tenant\TaskTagsSeeder;
+use Database\Seeders\Tenant\GenerativeNumberSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseTenantSeeder extends Seeder
@@ -36,6 +37,7 @@ class DatabaseTenantSeeder extends Seeder
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
             TaskStatusTableSeeder::class,
+            GenerativeNumberSeeder::class,
             NationalitiesSeeder::class,
             MaritalStatusSeeder::class,
             FamilyRelationshipSeeder::class,

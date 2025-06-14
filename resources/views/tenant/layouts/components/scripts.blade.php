@@ -75,6 +75,15 @@
           <!-- Sortable JS -->
           <script src="{{global_asset('assets/libs/sortablejs/Sortable.min.js')}}"></script>
 
+          <!-- Quill Editor JS -->
+          <script src="{{global_asset('assets/libs/quill/quill.js')}}"></script>
+          
+          @include('utilities.archiving')
+          <script>
+               $(document).ready(function () {
+                    window._token = $('meta[name="csrf-token"]').attr('content')
+               });
+          </script>
           <!-- datatables -->
           <script>
                $(function() {
@@ -314,7 +323,8 @@
                function initializeFlatpickr(id) { 
                     if (document.getElementById(id) && !document.getElementById(id)._flatpickr) {
                          flatpickr("#" + id, {
-                              dateFormat: '{{ config('panel.date_format') }}', 
+                              dateFormat: '{{ config('panel.date_format') }}',
+                              allowInput: true
                          });
                     }
                } 
@@ -401,6 +411,8 @@
                                         $(response.append).append(response.html);
                                    }else if(response.replace){
                                         $(response.replace).replaceWith(response.html);
+                                   }else if(response.reload) {
+                                        location.reload();
                                    }
                               }
                               
@@ -412,6 +424,19 @@
                               if(response.message) {
                                    showToast(response.message, 'success', 'top');
                               }
+                              
+                              // Reset the form
+                              form[0].reset();
+                              // Clear any select2 fields
+                              form.find('select.select2').val(null).trigger('change');
+                              // Clear any file inputs
+                              form.find('input[type="file"]').val('');
+                              // Clear any filepond instances
+                              form.find('.filepond--root').each(function() {
+                                   if (this.pond) {
+                                        this.pond.removeFiles();
+                                   }
+                              });
                          },
                          error: function(xhr, status, error){
                               if (xhr.status === 422) {

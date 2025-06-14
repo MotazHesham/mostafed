@@ -1,5 +1,7 @@
-<?php 
+<?php
 
+use App\Models\GenerativeNumber;
+use Illuminate\Support\Facades\DB;
 
 if (!function_exists('formatFileSize')) {
     function formatFileSize($bytes)
@@ -45,6 +47,24 @@ if (!function_exists('getEnglishEquivalent')) {
     }
 }
 
+if (!function_exists("generativeNumber")) {
+    function generativeNumber($model, $type = null)
+    {
+        return DB::transaction(function () use ($model, $type) {
+            $generativeNumber = GenerativeNumber::where('model', $model)
+                ->where('type', $type)
+                ->lockForUpdate()
+                ->first();
+                
+            $newNumber = $generativeNumber->number + 1;
+            
+            $generativeNumber->number = $newNumber;
+            $generativeNumber->save();
+
+            return $generativeNumber->prefix . '-' . $newNumber;
+        });
+    }
+}
 
 if (!function_exists('getRandomColor')) {
     function getRandomColor($name) {

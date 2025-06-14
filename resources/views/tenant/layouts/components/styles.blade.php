@@ -50,6 +50,10 @@
 <!-- Sweetalerts CSS -->
 <link rel="stylesheet" href="{{ global_asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
 
+<!-- Quill Editor CSS -->
+<link rel="stylesheet" href="{{ global_asset('assets/libs/quill/quill.snow.css') }}">
+<link rel="stylesheet" href="{{ global_asset('assets/libs/quill/quill.bubble.css') }}">
+
 <style>
     /* Datatables */
     .dataTables_wrapper .dt-buttons {

@@ -345,6 +345,7 @@ return [
     'total'                          => 'المجموع',
     'arrange'                        => 'ترتيب',
     'view_list'                      => 'عرض القائمة',
+    'archive'                        => 'أرشفة',
     
     'flash' => [
         'created' => 'تم إنشاء :title بنجاح',

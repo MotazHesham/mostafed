@@ -16,14 +16,11 @@ class StoreIncomingLetterRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'letter_number' => [
-                'string',
-                'nullable',
-            ],
+        return [ 
             'external_number' => [
                 'string',
                 'nullable',
+                'unique:incoming_letters,external_number',
             ],
             'letter_date' => [
                 'required',

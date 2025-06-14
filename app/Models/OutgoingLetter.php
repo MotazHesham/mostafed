@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\OutgoingLetterObserver;
 use Carbon\Carbon;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,10 +54,17 @@ class OutgoingLetter extends Model implements HasMedia
         'incoming_letter_id',
         'is_archived',
         'created_by_id',
+        'letter_organization_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        OutgoingLetter::observe(OutgoingLetterObserver::class);
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {
@@ -107,5 +115,10 @@ class OutgoingLetter extends Model implements HasMedia
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    public function letter_organization()
+    {
+        return $this->belongsTo(LettersOrganization::class, 'letter_organization_id');
     }
 }

@@ -125,23 +125,14 @@ class TaskController extends Controller
         return view('tenant.admin.tasks.index');
     }
 
-    public function create()
+    public function create(Request $request)
     {
         abort_if(Gate::denies('task_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
+        $status_id = $request->status_id;
+        $task_board_id = $request->task_board_id;
 
-        $statuses = TaskStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $task_priorities = TaskPriority::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $tags = TaskTag::pluck('name', 'id');
-
-        $assigned_tos = User::pluck('name', 'id');
-
-        $task_boards = TaskBoard::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $assigned_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('tenant.admin.tasks.create', compact('assigned_bies', 'assigned_tos', 'statuses', 'tags', 'task_boards', 'task_priorities'));
+        return view('tenant.admin.tasks.create', compact('status_id', 'task_board_id'));
     }
 
     public function store(StoreTaskRequest $request)
