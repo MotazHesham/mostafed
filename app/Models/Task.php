@@ -11,6 +11,8 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Utils\LogsModelActivity;
+use Spatie\Activitylog\Contracts\Activity;
+
 class Task extends Model implements HasMedia
 {
     use SoftDeletes, InteractsWithMedia, HasFactory;
@@ -98,4 +100,40 @@ class Task extends Model implements HasMedia
     {
         return $this->belongsTo(User::class, 'assigned_by_id');
     }
+    
+    public function getActivityDescriptionForEvent($eventName){
+        if ($eventName == 'created') {
+            return 'تم أضافة مهمة جديدة';
+        } elseif ($eventName == 'updated') {
+            return "تم تحديث بيانات مهمة";
+        } elseif ($eventName == 'deleted') {
+            return 'تم حذف بيانات مهمة';
+        }
+    } 
+    public function getLogNameToUse(): ?string
+    {
+        return 'task_activity';
+    }
+    public function getLogAttributes()
+    {
+        return [
+            'name',
+            'short_description',
+            'description',
+            'due_date',
+            'ordering',
+            'status->id',
+            'status->name',
+            'task_priority->id',
+            'task_priority->name',
+            'task_board->id',
+            'task_board->name',
+            'assigned_by->id',
+            'assigned_by->name',
+            'tags->id',
+            'tags->name',
+            'assigned_tos->id',
+            'assigned_tos->name',
+        ];
+    } 
 }

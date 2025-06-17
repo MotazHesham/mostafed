@@ -566,6 +566,7 @@ return [
         'title_singular' => 'Task',
         'show'           => [
             'information' => 'Task Information',
+            'activity' => 'Activity',
         ],
         'fields'         => [
             'id'                       => 'ID',

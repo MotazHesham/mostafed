@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Tenant\Admin;
 
+use App\Helpers\ActivityLogHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\Tenant\Admin\MassDestroyTaskRequest;
 use App\Http\Requests\Tenant\Admin\StoreTaskRequest;
 use App\Http\Requests\Tenant\Admin\UpdateTaskRequest;
+use App\Models\CustomActivityLog;
 use App\Models\Task;
 use App\Models\TaskBoard;
 use App\Models\TaskPriority;
@@ -183,8 +185,60 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, Task $task)
     {
         $task->update($request->all());
-        $task->tags()->sync($request->input('tags', []));
-        $task->assigned_tos()->sync($request->input('assigned_tos', []));
+
+        $tagsSyncResult = $task->tags()->sync($request->input('tags', []));
+        $properties = [];
+        if (!empty($tagsSyncResult['attached'])) {
+            $tags = TaskTag::whereIn('id', $tagsSyncResult['attached'])->get();
+            $description = "تم إضافة علامة ";
+            $tmpArray = [];
+            foreach ($tags as $tag) {
+                $tmpArray[] = "<span class='" . $tag->badge_class . "' mb-3'>" . $tag->name . "</span>";
+            }
+            $properties['attributes']['tag'] = implode(' ', $tmpArray);
+            ActivityLogHelper::logModelActivity( $task, $description, $properties,
+                'task_activity', 'updated', 
+            );
+        }
+        if (!empty($tagsSyncResult['detached'])) {
+            $tags = TaskTag::whereIn('id', $tagsSyncResult['detached'])->get();
+            $description = "تم حذف علامة ";
+            $tmpArray = [];
+            foreach ($tags as $tag) {
+                $tmpArray[] = "<span class='" . $tag->badge_class . "' mb-3'>" . $tag->name . "</span>";
+            }
+            $properties['attributes']['tag'] = implode(' ', $tmpArray);
+            ActivityLogHelper::logModelActivity( $task, $description, $properties,
+                'task_activity', 'updated', 
+            );
+        }
+
+        $assignedTosSyncResult = $task->assigned_tos()->sync($request->input('assigned_tos', [])); 
+        $properties = [];
+        if (!empty($assignedTosSyncResult['attached'])) {
+            $assignedTos = User::whereIn('id', $assignedTosSyncResult['attached'])->get();
+            $description = "تم إضافة عضو ";
+            $tmpArray = [];
+            foreach ($assignedTos as $assigned_to) {
+                $tmpArray[] = "<span class='badge bg-success-transparent mb-3'>" . $assigned_to->name . "</span>";
+            }
+            $properties['attributes']['assigned_to'] = implode(' ', $tmpArray);
+            ActivityLogHelper::logModelActivity( $task, $description, $properties,
+                'task_activity', 'updated', 
+            );
+        }
+        if (!empty($assignedTosSyncResult['detached'])) {
+            $assignedTos = User::whereIn('id', $assignedTosSyncResult['detached'])->get();
+            $description = "تم حذف عضو ";
+            $tmpArray = [];
+            foreach ($assignedTos as $assigned_to) {
+                $tmpArray[] = "<span class='badge bg-danger-transparent mb-3'>" . $assigned_to->name . "</span>";
+            }
+            $properties['attributes']['assigned_to'] = implode(' ', $tmpArray);
+            ActivityLogHelper::logModelActivity( $task, $description, $properties,
+                'task_activity', 'updated', 
+            );
+        }
         if (count($task->attachment) > 0) {
             foreach ($task->attachment as $media) {
                 if (! in_array($media->file_name, $request->input('attachment', []))) {
@@ -216,7 +270,14 @@ class TaskController extends Controller
 
         $task->load('status', 'task_priority', 'tags', 'assigned_tos', 'task_board', 'assigned_by');
 
-        return view('tenant.admin.tasks.show', compact('task'));
+        $activityLogs = CustomActivityLog::inLog('task_activity')->orderBy('id', 'desc')->paginate(15);
+        if (request()->ajax()) {
+            return response()->json([
+                'html' => view('tenant.partials.activity', compact('activityLogs'))->render(),
+                'hasMorePages' => $activityLogs->hasMorePages()
+            ]);
+        }
+        return view('tenant.admin.tasks.show', compact('task', 'activityLogs'));
     }
 
     public function destroy(Task $task)

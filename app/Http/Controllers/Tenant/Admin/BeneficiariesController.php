@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\Admin\MassDestroyBeneficiaryRequest;
 use App\Http\Requests\Tenant\Admin\StoreBeneficiaryRequest;
 use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryRequest;
-use App\Models\Beneficiary;
-use App\Models\BeneficiaryFile;
+use App\Models\Beneficiary; 
 use App\Models\CustomActivityLog;
 use App\Models\DisabilityType;
 use App\Models\District;
@@ -184,10 +183,13 @@ class BeneficiariesController extends Controller
         $incomes = EconomicStatus::where('type', 'income')->orderBy('order_level','desc')->get();
         $expenses = EconomicStatus::where('type', 'expense')->orderBy('order_level','desc')->get();
         
-        $activityLogs = CustomActivityLog::inLog('beneficiary_activity')->orderBy('id', 'desc')->paginate(15);
+        $activityLogs = CustomActivityLog::inLog('beneficiary_activity')->orderBy('id', 'desc')->paginate(10);
         
-        if (request()->ajax()) {
-            return view('tenant.admin.beneficiaries.partials.activity', compact('beneficiary', 'activityLogs'));
+        if (request()->ajax()) { 
+            return response()->json([
+                'html' => view('tenant.partials.activity', compact('activityLogs'))->render(),
+                'hasMorePages' => $activityLogs->hasMorePages()
+            ]);
         }
         
         return view('tenant.admin.beneficiaries.show', compact(

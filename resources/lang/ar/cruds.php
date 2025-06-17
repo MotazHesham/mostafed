@@ -566,6 +566,7 @@ return [
         'title_singular' => 'مهمة',
         'show'           => [
             'information' => 'معلومات المهمة',
+            'activity' => 'النشاط',
         ],
         'fields'         => [
             'id'                       => 'id',

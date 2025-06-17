@@ -1,6 +1,18 @@
 @extends('tenant.layouts.master')
 @section('content')
 
+    @php
+        $breadcrumbs = [
+            ['title' => trans('cruds.task.title'), 'url' => '#'],
+            [
+                'title' => trans('global.list') . ' ' . trans('cruds.task.title'),
+                'url' => route('admin.tasks.index'),
+            ],
+            ['title' => trans('global.show') . ' ' . trans('cruds.task.title_singular')],
+        ];
+    @endphp
+    @include('tenant.partials.breadcrumb')
+
     <div class="row">
         <div class="col-xl-6">
             <div class="card custom-card">
@@ -27,6 +39,27 @@
                     </div>
                 </div>
             </div>
+            <div class="card custom-card">
+                <div class="card-header justify-content-between">
+                    <ul class="nav nav-tabs tab-style-7 scaleX profile-settings-tab" id="myTab4" role="tablist">
+                        <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-link border border-dashed rounded-bottom-0 px-3 active" id="task-activity"
+                                data-bs-toggle="tab" data-bs-target="#task-activity-pane" type="button" role="tab"
+                                aria-controls="task-activity-pane" aria-selected="true">{{ trans('cruds.task.show.activity') }}</button>
+                        </li> 
+                    </ul>
+                </div>
+                <div class="card-body tab-content">
+                    <div class="tab-pane show active overflow-hidden p-0 border-0" id="task-activity-pane" role="tabpanel"
+                        aria-labelledby="task-activity" tabindex="0">
+                        <ul class="list-unstyled profile-timeline" id="activity-timeline" style="max-height: 35rem;">
+                            @include('tenant.partials.activity', compact('activityLogs'))
+                        </ul>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
             <div class="card custom-card overflow-hidden">
                 <div class="card-header">
                     <div class="card-title">
@@ -70,137 +103,6 @@
                             </li>
                         @endif
                     </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-6">
-            <div class="card custom-card">
-                <div class="card-header justify-content-between">
-                    <ul class="nav nav-tabs tab-style-7 scaleX profile-settings-tab" id="myTab4" role="tablist">
-                        <li class="nav-item flex-fill" role="presentation">
-                            <button class="nav-link border border-dashed rounded-bottom-0 px-3 active" id="task-activity"
-                                data-bs-toggle="tab" data-bs-target="#task-activity-pane" type="button" role="tab"
-                                aria-controls="task-activity-pane" aria-selected="true">Task Activity</button>
-                        </li> 
-                    </ul>
-                </div>
-                <div class="card-body tab-content">
-                    <div class="tab-pane show active overflow-hidden p-0 border-0" id="task-activity-pane" role="tabpanel"
-                        aria-labelledby="task-activity" tabindex="0">
-                        <ul class="list-unstyled profile-timeline mb-3">
-                            <li>
-                                <div>
-                                    <span class="avatar avatar-sm avatar-rounded profile-timeline-avatar">
-                                        <img src="{{ global_asset('assets/images/faces/7.jpg') }}" alt="Oliver">
-                                    </span>
-                                    <p class="text-muted mb-2">
-                                        <span class="text-default">
-                                            <span class="fw-medium">Oliver</span> shared a document with
-                                            <span class="fw-medium">you</span>.
-                                        </span>
-                                        <span class="float-end fs-11 badge bg-light text-muted">14, June 2024 -
-                                            10:45</span>
-                                    </p>
-                                    <p class="text-muted mb-2 fs-12">
-                                        "We've finalized the project specifications and the client has approved the initial
-                                        designs. Moving forward with the development phase."
-                                    </p>
-                                    <p class="profile-activity-media mb-0">
-                                        <a aria-label="anchor" href="javascript:void(0);">
-                                            <img src="{{ global_asset('assets/images/media/file-manager/3.png') }}"
-                                                alt="Document">
-                                        </a>
-                                        <span class="fs-11 text-muted">512.34KB</span>
-                                    </p>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <span class="avatar avatar-sm bg-info avatar-rounded profile-timeline-avatar">
-                                        S
-                                    </span>
-                                    <p class="text-muted mb-2">
-                                        <span class="text-default">
-                                            <span class="fw-medium">You</span> shared a post with 6 people, including
-                                            <span class="fw-medium">Ava, Sophia, Mia, Lucas</span>.
-                                        </span>
-                                        <span class="float-end fs-11 badge bg-light text-muted">10, June 2024 -
-                                            14:23</span>
-                                    </p>
-                                    <p class="profile-activity-media mb-2">
-                                        <a aria-label="anchor" href="javascript:void(0);">
-                                            <img src="{{ global_asset('assets/images/media/media-19.jpg') }}"
-                                                alt="Post Image">
-                                        </a>
-                                    </p>
-                                    <div>
-                                        <div class="avatar-list-stacked">
-                                            <span class="avatar avatar-xs avatar-rounded">
-                                                <img src="{{ global_asset('assets/images/faces/3.jpg') }}" alt="User 1">
-                                            </span>
-                                            <span class="avatar avatar-xs avatar-rounded">
-                                                <img src="{{ global_asset('assets/images/faces/9.jpg') }}"
-                                                    alt="User 2">
-                                            </span>
-                                            <span class="avatar avatar-xs avatar-rounded">
-                                                <img src="{{ global_asset('assets/images/faces/12.jpg') }}"
-                                                    alt="User 3">
-                                            </span>
-                                            <span class="avatar avatar-xs avatar-rounded">
-                                                <img src="{{ global_asset('assets/images/faces/14.jpg') }}"
-                                                    alt="User 4">
-                                            </span>
-                                            4 People reacted
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <span class="avatar avatar-sm avatar-rounded profile-timeline-avatar">
-                                        <img src="{{ global_asset('assets/images/faces/5.jpg') }}" alt="Liam">
-                                    </span>
-                                    <p class="text-muted mb-2">
-                                        <span class="text-default">
-                                            <span class="fw-medium">Liam</span> commented on your post.
-                                        </span>
-                                        <span class="float-end fs-11 badge bg-light text-muted">12, June 2024 -
-                                            09:15</span>
-                                    </p>
-                                    <p class="text-muted mb-0 fs-12">
-                                        "The updates to the project plan look great. I'll review the milestones and get back
-                                        to you by end of day."
-                                    </p>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="p-3 mt-2 bg-light rounded">
-                            <div class="d-sm-flex align-items-center lh-1">
-                                <div class="me-sm-3 mb-2 mb-sm-0">
-                                    <span class="avatar avatar-md avatar-rounded">
-                                        <img src="{{ global_asset('assets/images/faces/9.jpg') }}" alt="">
-                                    </span>
-                                </div>
-                                <div class="flex-fill me-sm-2">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control shadow-none border"
-                                            placeholder="Post Anything"
-                                            aria-label="Recipient's username with two button addons">
-                                        <button type="button" aria-label="button"
-                                            class="btn btn-outline-light border btn-wave"><i
-                                                class="bi bi-emoji-smile"></i></button>
-                                        <button type="button" aria-label="button"
-                                            class="btn btn-outline-light border btn-wave"><i
-                                                class="bi bi-paperclip"></i></button>
-                                        <button type="button" aria-label="button"
-                                            class="btn btn-outline-light border btn-wave"><i
-                                                class="bi bi-camera"></i></button>
-                                        <button class="btn btn-primary btn-wave" type="button">Post</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
                 </div>
             </div>
             <div class="card custom-card overflow-hidden">
@@ -292,4 +194,59 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    new SimpleBar(document.getElementById('activity-timeline'), {
+        autoHide: true
+    }); 
+    // State management object
+    const state = {
+        currentPage: 1,
+        isLoading: false,
+        hasMorePages: true
+    };
+        
+    function loadMoreActivities(timeline, observer, loadingIndicator,) { 
+        if (state.isLoading || !state.hasMorePages) return; 
+        const taskId = '{{ $task->id }}';
+        
+        state.isLoading = true;
+        loadingIndicator.style.display = 'block';
+        state.currentPage++;
+
+        $.ajax({
+            url: `/admin/tasks/${taskId}`,
+            type: 'GET',
+            data: {
+                page: state.currentPage
+            },
+            success: function(response) { 
+                $('#activity-timeline .simplebar-content').append(response.html);
+                loadingIndicator.style.display = 'none';
+
+                if (!response.hasMorePages) {
+                    // No more content
+                    state.hasMorePages = false;
+                    loadingIndicator.style.display = 'none';
+                    // Unobserve the last item since we won't need to load more
+                    const items = timeline.querySelectorAll('li');
+                    if (items.length > 0) {
+                        observer.unobserve(items[items.length - 1]);
+                    }
+                }else{ 
+                    observeLastItem(observer);
+                }
+                    
+                state.isLoading = false;
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading more activities:', error);
+                loadingIndicator.style.display = 'none';
+                state.isLoading = false;
+            }
+        });
+    } 
+    </script> 
 @endsection

@@ -96,7 +96,9 @@
                                         </div>
                                         <div class="tab-pane" id="activity-tab-pane" role="tabpanel"
                                             aria-labelledby="activity-tab" tabindex="0">
-                                            @include('tenant.partials.activity', ['activityLogs' => $activityLogs])
+                                            <ul class="list-unstyled profile-timeline" id="activity-timeline" style="max-height: 35rem;">
+                                                @include('tenant.partials.activity', ['activityLogs' => $activityLogs])
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -117,50 +119,52 @@
 <script>
     new SimpleBar(document.getElementById('activity-timeline'), {
         autoHide: true
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        const loadMoreBtn = document.getElementById('load-more-activities');
-        if (!loadMoreBtn) return;
-    
-        loadMoreBtn.addEventListener('click', function() {
-            const button = this;
-            const page = parseInt(button.dataset.page) + 1;
-            const beneficiaryId = '{{ $beneficiary->id }}';
-            
-            button.disabled = true;
-            button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
-    
-            fetch(`/admin/beneficiaries/${beneficiaryId}?page=${page}`, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
+    }); 
+
+    // State management object
+    const state = {
+        currentPage: 1,
+        isLoading: false,
+        hasMorePages: true
+    };
+        
+    function loadMoreActivities(timeline, observer, loadingIndicator) {
+        if (state.isLoading || !state.hasMorePages) return;
+        const beneficiaryId = '{{ $beneficiary->id }}';
+        
+        state.isLoading = true;
+        loadingIndicator.style.display = 'block';
+        state.currentPage++;
+
+        $.ajax({
+            url: `/admin/beneficiaries/${beneficiaryId}`,
+            type: 'GET',
+            data: {
+                page: state.currentPage
+            },
+            success: function(response) {
+                $('#activity-timeline .simplebar-content').append(response.html);
+                loadingIndicator.style.display = 'none';
+                if (!response.hasMorePages) {
+                    // No more content
+                    state.hasMorePages = false;
+                    loadingIndicator.style.display = 'none';
+                    // Unobserve the last item since we won't need to load more
+                    const items = timeline.querySelectorAll('li');
+                    if (items.length > 0) {
+                        observer.unobserve(items[items.length - 1]);
+                    }
+                } else {
+                    observeLastItem(observer);
                 }
-            })
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const newItems = doc.querySelectorAll('#activity-timeline li');
-                
-                const timeline = document.getElementById('activity-timeline');
-                newItems.forEach(item => {
-                    timeline.appendChild(item);
-                });
-    
-                button.dataset.page = page;
-                button.disabled = false;
-                button.innerHTML = 'Load More';
-    
-                // Hide button if no more pages
-                if (!doc.querySelector('#load-more-activities')) {
-                    button.parentElement.remove();
-                }
-            })
-            .catch(error => {
+                state.isLoading = false;
+            },
+            error: function(xhr, status, error) {
                 console.error('Error loading more activities:', error);
-                button.disabled = false;
-                button.innerHTML = 'Load More';
-            });
+                loadingIndicator.style.display = 'none';
+                state.isLoading = false;
+            }
         });
-    });
-    </script> 
+    } 
+</script>
 @endsection
