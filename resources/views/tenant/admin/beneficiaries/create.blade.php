@@ -25,32 +25,32 @@
                     @include('utilities.form.text', [
                         'name' => 'name',
                         'label' => 'cruds.user.fields.name',
-                        'isRequired' => false,
+                        'isRequired' => true,
                         'grid' => 'col-md-6',
                     ])
                     @include('utilities.form.text', [
                         'name' => 'identity_num',
                         'label' => 'cruds.user.fields.identity_num',
-                        'isRequired' => false,
+                        'isRequired' => true,
                         'grid' => 'col-md-6',
                     ])
                     @include('utilities.form.text', [
                         'name' => 'email',
                         'label' => 'cruds.user.fields.email',
-                        'isRequired' => false,
+                        'isRequired' => true,
                         'type' => 'email',
                         'grid' => 'col-md-6',
                     ])
                     @include('utilities.form.text', [
                         'name' => 'phone',
                         'label' => 'cruds.user.fields.phone',
-                        'isRequired' => false,
+                        'isRequired' => true,
                         'grid' => 'col-md-6',
                     ]) 
                     @include('utilities.form.text', [
                         'name' => 'password',
                         'label' => 'cruds.user.fields.password',
-                        'isRequired' => false,
+                        'isRequired' => true,
                         'type' => 'password',
                         'grid' => 'col-md-6',
                     ])

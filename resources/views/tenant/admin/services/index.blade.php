@@ -2,16 +2,20 @@
 @section('content')
     @php
         $breadcrumbs = [
-            ['title' => trans('cruds.generalSetting.title'), 'url' => '#'],
+            ['title' => trans('cruds.servicesManagment.title'), 'url' => '#'],
             [
                 'title' => trans('global.list') . ' ' . trans('cruds.service.title'),
-                'url' => route('admin.services.index'),
+                'url' => route('admin.services.list'),
+            ],
+            [
+                'title' => \App\Models\Service::TYPE_SELECT[request('type')],
+                'url' => '#',
             ],
         ];
         $buttons = [
             [
                 'title' => trans('global.add') . ' ' . trans('cruds.service.title_singular'),
-                'url' => route('admin.services.create'),
+                'url' => route('admin.services.create', ['type' => request('type')]),
                 'permission' => 'service_create',
             ],
         ];
@@ -29,10 +33,7 @@
                         </th>
                         <th>
                             {{ trans('cruds.service.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.service.fields.type') }}
-                        </th>
+                        </th> 
                         <th>
                             {{ trans('cruds.service.fields.title') }}
                         </th>
@@ -108,7 +109,12 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: "{{ route('admin.services.index') }}",
+                ajax: {
+                    url: "{{ route('admin.services.index') }}",
+                    data: {
+                        type: "{{ request('type') }}"
+                    }
+                },
                 columns: [{
                         data: 'placeholder',
                         name: 'placeholder'
@@ -116,11 +122,7 @@
                     {
                         data: 'id',
                         name: 'id'
-                    },
-                    {
-                        data: 'type',
-                        name: 'type'
-                    },
+                    }, 
                     {
                         data: 'title',
                         name: 'title'

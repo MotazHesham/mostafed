@@ -16,16 +16,16 @@ class UpdateBeneficiaryOrderFollowupRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'beneficiary_followup_id' => [
-                'required',
-                'integer',
-            ],
+        return [ 
             'comment' => [
                 'required',
             ],
             'attachments' => [
                 'array',
+            ],
+            'date' => [
+                'required',
+                'date_format:' . config('panel.date_format'),
             ],
         ];
     }

@@ -316,6 +316,27 @@
                          localStorage.removeItem('toastType');
                     }
                });
+               
+               function updateStatuses(el, type, model) {
+                    if (el.checked) {
+                         var status = 1;
+                    } else {
+                         var status = 0;
+                    }
+                    $.post('{{ route('admin.updateStatuses') }}', {
+                         _token: '{{ csrf_token() }}',
+                         id: el.value,
+                         status: status,
+                         type: type,
+                         model: model,
+                    }, function(data) {
+                         if (data == 1) {
+                              showToast('{{ trans("global.flash.success") }}', 'success', 'top');
+                         } else {
+                              showToast('{{ trans("global.flash.error") }}', 'danger', 'top');
+                         }
+                    });
+               }
           </script>
 
           <!-- flatpickr -->

@@ -22,8 +22,8 @@ class Course extends Model implements HasMedia
     ];
 
     public const ATTEND_TYPE_SELECT = [
-        'online' => 'online',
-        'attend' => 'attend',
+        'online' => 'أونلاين',
+        'attend' => 'حضوري',
     ];
 
     protected $dates = [

@@ -11,6 +11,7 @@ class CreateBeneficiaryOrdersTable extends Migration
         Schema::create('beneficiary_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('service_type')->nullable();
+            $table->string('title')->nullable();
             $table->longText('description');
             $table->string('accept_status')->nullable();
             $table->longText('note')->nullable();

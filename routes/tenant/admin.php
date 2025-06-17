@@ -27,6 +27,7 @@ Auth::routes();
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Tenant\Admin', 'middleware' => ['auth']], function () {
 
     Route::get('/', 'HomeController@index')->name('home');
+    Route::post('updateStatuses', 'HomeController@updateStatuses')->name('updateStatuses');
     Route::post('/arrange', 'HomeController@arrange')->name('arrange');
     Route::post('arrange/update', 'HomeController@updateArrange')->name('arrange.update');
 
@@ -99,6 +100,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Tenant\Admi
 
     // Beneficiaries
     Route::delete('beneficiaries/destroy', 'BeneficiariesController@massDestroy')->name('beneficiaries.massDestroy');
+    Route::put('beneficiaries/update-status/{beneficiary}', 'BeneficiariesController@updateStatus')->name('beneficiaries.update-status');
     Route::resource('beneficiaries', 'BeneficiariesController');
 
     // Disability Types
@@ -208,12 +210,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Tenant\Admi
 
     // Services
     Route::delete('services/destroy', 'ServicesController@massDestroy')->name('services.massDestroy');
+    Route::get('services/list', 'ServicesController@list')->name('services.list');
     Route::resource('services', 'ServicesController');
 
     // Beneficiary Orders
     Route::delete('beneficiary-orders/destroy', 'BeneficiaryOrdersController@massDestroy')->name('beneficiary-orders.massDestroy');
     Route::post('beneficiary-orders/media', 'BeneficiaryOrdersController@storeMedia')->name('beneficiary-orders.storeMedia');
     Route::post('beneficiary-orders/ckmedia', 'BeneficiaryOrdersController@storeCKEditorImages')->name('beneficiary-orders.storeCKEditorImages');
+    Route::put('beneficiary-orders/update-status/{beneficiaryOrder}', 'BeneficiaryOrdersController@updateStatus')->name('beneficiary-orders.update-status');
     Route::resource('beneficiary-orders', 'BeneficiaryOrdersController');
 
     // Service Statuses
@@ -293,8 +297,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Tenant\Admi
     // Beneficiary Order Followups
     Route::delete('beneficiary-order-followups/destroy', 'BeneficiaryOrderFollowupsController@massDestroy')->name('beneficiary-order-followups.massDestroy');
     Route::post('beneficiary-order-followups/media', 'BeneficiaryOrderFollowupsController@storeMedia')->name('beneficiary-order-followups.storeMedia');
-    Route::post('beneficiary-order-followups/ckmedia', 'BeneficiaryOrderFollowupsController@storeCKEditorImages')->name('beneficiary-order-followups.storeCKEditorImages');
-    Route::resource('beneficiary-order-followups', 'BeneficiaryOrderFollowupsController');
+    Route::post('beneficiary-order-followups/ckmedia', 'BeneficiaryOrderFollowupsController@storeCKEditorImages')->name('beneficiary-order-followups.storeCKEditorImages'); 
+    Route::post('beneficiary-order-followups/create', 'BeneficiaryOrderFollowupsController@create')->name('beneficiary-order-followups.create');
+    Route::post('beneficiary-order-followups/store', 'BeneficiaryOrderFollowupsController@store')->name('beneficiary-order-followups.store');
+    Route::post('beneficiary-order-followups/edit', 'BeneficiaryOrderFollowupsController@edit')->name('beneficiary-order-followups.edit');
+    Route::put('beneficiary-order-followups/update/{beneficiaryOrderFollowup}', 'BeneficiaryOrderFollowupsController@update')->name('beneficiary-order-followups.update');
+    Route::post('beneficiary-order-followups/destroy', 'BeneficiaryOrderFollowupsController@destroy')->name('beneficiary-order-followups.destroy');
 
     // Storage Locations
     Route::delete('storage-locations/destroy', 'StorageLocationsController@massDestroy')->name('storage-locations.massDestroy');

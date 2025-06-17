@@ -29,9 +29,7 @@
                     <td> 
                         <div class="d-flex align-items-center gap-2">
                             <div class="lh-1">
-                                <span class="avatar avatar-rounded avatar-sm">
-                                    <img src="{{ $family->photo ? $family->photo->getUrl('preview') : global_asset('assets/images/faces/3.jpg') }}" alt="img">
-                                </span>
+                                @include('utilities.user-avatar', ['user' => $family])
                             </div>
                             <div>
                                 <a href="javascript:void(0)" onclick="showAjaxOffcanvas('{{ route('admin.beneficiary-families.show') }}',{id: {{ $family->id }}})">

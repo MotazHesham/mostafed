@@ -40,37 +40,37 @@
                                             <button class="nav-link w-100 text-start active" id="profile-about-tab"
                                                 data-bs-toggle="tab" data-bs-target="#profile-about-tab-pane" type="button"
                                                 role="tab" aria-controls="profile-about-tab-pane"
-                                                aria-selected="true">{{ trans('cruds.beneficiary.profile.about') }}</button>
+                                                aria-selected="true"><i class="ti ti-user me-2 text-dark"></i>{{ trans('cruds.beneficiary.profile.about') }}</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link w-100 text-start" id="edit-profile-tab"
-                                                data-bs-toggle="tab" data-bs-target="#edit-profile-tab-pane" type="button"
-                                                role="tab" aria-controls="edit-profile-tab-pane"
-                                                aria-selected="true">{{ trans('cruds.beneficiary.profile.edit_profile') }}</button>
+                                            <button class="nav-link w-100 text-start" id="profile-status-tab"
+                                                data-bs-toggle="tab" data-bs-target="#profile-status-tab-pane" type="button"
+                                                role="tab" aria-controls="profile-status-tab-pane"
+                                                aria-selected="true"><i class="ti ti-edit me-2 text-info"></i>{{ trans('cruds.beneficiary.profile.profile_status_info') }}</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link w-100 text-start" id="family-info-tab"
                                                 data-bs-toggle="tab" data-bs-target="#family-info-tab-pane" type="button"
                                                 role="tab" aria-controls="family-info-tab-pane"
-                                                aria-selected="false">{{ trans('cruds.beneficiary.profile.family_info') }}</button>
+                                                aria-selected="false"><i class="ti ti-users me-2 text-success"></i>{{ trans('cruds.beneficiary.profile.family_info') }}</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link w-100 text-start" id="economic-info-tab"
                                                 data-bs-toggle="tab" data-bs-target="#economic-info-tab-pane" type="button"
                                                 role="tab" aria-controls="economic-info-tab-pane"
-                                                aria-selected="false">{{ trans('cruds.beneficiary.profile.economic_info') }}</button>
+                                                aria-selected="false"><i class="ti ti-wallet me-2 text-warning"></i>{{ trans('cruds.beneficiary.profile.economic_info') }}</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link w-100 text-start" id="documents-tab"
                                                 data-bs-toggle="tab" data-bs-target="#documents-tab-pane" type="button"
                                                 role="tab" aria-controls="documents-tab-pane"
-                                                aria-selected="false">{{ trans('cruds.beneficiary.profile.documents') }}</button>
+                                                aria-selected="false"><i class="ti ti-files me-2 text-danger"></i>{{ trans('cruds.beneficiary.profile.documents') }}</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link w-100 text-start" id="activity-tab" data-bs-toggle="tab"
                                                 data-bs-target="#activity-tab-pane" type="button" role="tab"
                                                 aria-controls="activity-tab-pane"
-                                                aria-selected="false">{{ trans('cruds.beneficiary.profile.activity') }}</button>
+                                                aria-selected="false"><i class="ti ti-activity me-2 text-secondary"></i>{{ trans('cruds.beneficiary.profile.activity') }}</button>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="profile-tabs">
@@ -78,9 +78,9 @@
                                             role="tabpanel" aria-labelledby="profile-about-tab" tabindex="0">
                                             @include('tenant.admin.beneficiaries.partials.about')
                                         </div>
-                                        <div class="tab-pane p-0 border-0" id="edit-profile-tab-pane" role="tabpanel"
-                                            aria-labelledby="edit-profile-tab" tabindex="0">
-                                            @include('tenant.admin.beneficiaries.partials.edit-info')
+                                        <div class="tab-pane p-0 border-0" id="profile-status-tab-pane" role="tabpanel"
+                                            aria-labelledby="profile-status-tab" tabindex="0">
+                                            @include('tenant.admin.beneficiaries.partials.profile-status')
                                         </div>
                                         <div class="tab-pane" id="family-info-tab-pane" role="tabpanel"
                                             aria-labelledby="family-info-tab" tabindex="0">
@@ -125,7 +125,7 @@
     const state = {
         currentPage: 1,
         isLoading: false,
-        hasMorePages: true
+        hasMorePages:'{{ $activityLogs->hasMorePages()  ? true : false }}'
     };
         
     function loadMoreActivities(timeline, observer, loadingIndicator) {

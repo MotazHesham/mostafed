@@ -11,40 +11,20 @@ class ServiceStatusSeeder extends Seeder
     {
         $serviceStatuses = [
             [
-                'name' => ['ar' => 'جديدة', 'en' => 'New'],
+                'name' => ['ar' => 'تم قبول الطلب وسيتم تقديم الخدمة', 'en' => 'Request Accepted'],
                 'badge_class' => 'primary',
                 'ordering' => 1,
             ],
             [
-                'name' => ['ar' => 'قيد المراجعة', 'en' => 'Under Review'],
+                'name' => ['ar' => 'تم احالة الطلب للأخصائية', 'en' => 'Referral to Specialist'],
                 'badge_class' => 'primary',
                 'ordering' => 2,
             ],
             [
-                'name' => ['ar' => 'قيد التنفيذ', 'en' => 'In Progress'],
+                'name' => ['ar' => 'تم استلام الطلب وجاري دراسته', 'en' => 'Under Study'],
                 'badge_class' => 'primary',
                 'ordering' => 3,
-            ],
-            [
-                'name' => ['ar' => 'مكتملة', 'en' => 'Completed'],
-                'badge_class' => 'primary',
-                'ordering' => 4,
-            ],
-            [
-                'name' => ['ar' => 'معلقة', 'en' => 'Pending'],
-                'badge_class' => 'primary',
-                'ordering' => 5,
-            ],
-            [
-                'name' => ['ar' => 'مرفوضة', 'en' => 'Rejected'],
-                'badge_class' => 'primary',
-                'ordering' => 6,
-            ],
-            [
-                'name' => ['ar' => 'ملغية', 'en' => 'Cancelled'],
-                'badge_class' => 'primary',
-                'ordering' => 7,
-            ],
+            ], 
         ];
 
         foreach ($serviceStatuses as $serviceStatus) {

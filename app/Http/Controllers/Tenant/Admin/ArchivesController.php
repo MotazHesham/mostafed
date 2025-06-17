@@ -28,9 +28,9 @@ class ArchivesController extends Controller
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $viewGate      = 'archive_show';
-                $editGate      = 'archive_edit';
-                $deleteGate    = 'archive_delete';
+                $viewGate      = false;
+                $editGate      = false;
+                $deleteGate    = false;
                 $crudRoutePart = 'archives';
 
                 return view('tenant.partials.datatablesActions', compact(
@@ -45,9 +45,24 @@ class ArchivesController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-
+            $table->editColumn('archiveable_type', function ($row) {
+                return $row->archiveable_type ? Archive::ARCHIVEABLE_TYPES[$row->archiveable_type] : '';
+            });
             $table->addColumn('archived_by_name', function ($row) {
                 return $row->archived_by ? $row->archived_by->name : '';
+            });
+            $table->editColumn('archiveable_id', function ($row) { 
+                if($row->archiveable_type == 'App\Models\Beneficiary'){
+                    return  '<a class="btn btn-link" href="'.route('admin.beneficiaries.show', $row->archiveable_id).'">'.$row->archiveable_id.'</a>';
+                }elseif($row->archiveable_type == 'App\Models\IncomingLetter'){
+                    return  '<a class="btn btn-link" href="'.route('admin.incoming-letters.show', $row->archiveable_id).'">'.$row->archiveable_id.'</a>';
+                }elseif($row->archiveable_type == 'App\Models\OutgoingLetter'){
+                    return  '<a class="btn btn-link" href="'.route('admin.outgoing-letters.show', $row->archiveable_id).'">'.$row->archiveable_id.'</a>';
+                }elseif($row->archiveable_type == 'App\Models\BeneficiaryOrder'){
+                    return '<a class="btn btn-link" href="'.route('admin.beneficiary-orders.show', $row->archiveable_id).'">'.$row->archiveable_id.'</a>';
+                }else{
+                    return 'NAN';
+                } 
             });
 
             $table->editColumn('archive_reason', function ($row) {
@@ -70,7 +85,7 @@ class ArchivesController extends Controller
                 return $row->storage_location ? (is_string($row->storage_location) ? $row->storage_location : $row->storage_location->type) : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'archived_by', 'storage_location']);
+            $table->rawColumns(['actions', 'placeholder', 'archived_by', 'storage_location' , 'archiveable_id']);
 
             return $table->make(true);
         }

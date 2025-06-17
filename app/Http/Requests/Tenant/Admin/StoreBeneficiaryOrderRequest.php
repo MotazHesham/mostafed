@@ -23,15 +23,7 @@ class StoreBeneficiaryOrderRequest extends FormRequest
             ],
             'description' => [
                 'required',
-            ],
-            'status_id' => [
-                'required',
-                'integer',
-            ],
-            'specialist_id' => [
-                'required',
-                'integer',
-            ],
+            ], 
         ];
     }
 }

@@ -10,7 +10,7 @@
             <p class="fs-12 mb-0 text-muted">
                 <span class="me-3">
                     <i class="ri-map-pin-line me-1 align-middle"></i>
-                    {{ $beneficiary->district->name }}
+                    {{ $beneficiary->district->name ?? '' }}
                 </span>
                 <span>
                     <i class="ri-building-line me-1 align-middle"></i>
@@ -69,10 +69,14 @@
                         :</span><span class="text-muted">{{ $beneficiary->nationality->name ?? '-' }}</span>
                 </div>
             </li>
-            <li class="list-group-item pt-2 border-0">
+            <li class="list-group-item pt-2 border-0 d-flex justify-content-between">
                 <div><span class="fw-medium me-2">{{ trans('cruds.beneficiary.fields.marital_status') }}
                         :</span><span
                         class="badge bg-success-transparent">{{ $beneficiary->marital_status->name ?? '-' }}</span>
+                </div> 
+                <div><span class="fw-medium me-2">{{ trans('cruds.beneficiary.fields.profile_status') }}
+                        :</span><span
+                        class="badge bg-danger-transparent">{{ $beneficiary->profile_status ? \App\Models\Beneficiary::PROFILE_STATUS_SELECT[$beneficiary->profile_status] : '-' }}</span>
                 </div>
             </li>
         </ul>

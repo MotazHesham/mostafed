@@ -347,7 +347,9 @@ return [
     'view_list'                      => 'View list',
     'archive'                        => 'Archive',
     'loadMore'                       => 'Load more',
-
+    'last_updated'                   => 'Last updated',
+    'finish'                         => 'Finish',
+    
     'flash' => [
         'created' => 'Created :title successfully',
         'updated' => 'Updated :title successfully',

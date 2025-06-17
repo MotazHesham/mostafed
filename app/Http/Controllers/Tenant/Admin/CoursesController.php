@@ -64,7 +64,12 @@ class CoursesController extends Controller
             });
 
             $table->editColumn('published', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->published ? 'checked' : null) . '>';
+                $value = $row->published ? 'checked' : '';  
+                return '<div class="custom-toggle-switch toggle-md ms-2">
+                    <input onchange="updateStatuses(this, \'published\', \'' . addslashes("App\Models\Course") . '\')" 
+                        value="' . $row->id . '"  id="published-' . $row->id . '" type="checkbox" ' . $value . '>
+                    <label for="published-' . $row->id . '" class="label-success mb-2"></label>
+                </div>';
             });
             $table->editColumn('photo', function ($row) {
                 if ($photo = $row->photo) {

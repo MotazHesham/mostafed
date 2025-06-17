@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\Admin\MassDestroyBeneficiaryRequest;
 use App\Http\Requests\Tenant\Admin\StoreBeneficiaryRequest;
 use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryRequest;
-use App\Models\Beneficiary; 
+use App\Models\Beneficiary;
 use App\Models\CustomActivityLog;
 use App\Models\DisabilityType;
 use App\Models\District;
@@ -30,30 +30,76 @@ class BeneficiariesController extends Controller
     public function __construct(
         protected BeneficiaryService $beneficiaryService
     ) {}
+    public function updateStatus(Beneficiary $beneficiary, Request $request)
+    {
+        $beneficiary->update($request->all());
+
+        return redirect()->route('admin.beneficiaries.show', $beneficiary->id);
+    }
 
     public function index(Request $request)
     {
         abort_if(Gate::denies('beneficiary_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Beneficiary::with(['user', 'nationality', 'marital_status', 'job_type', 'educational_qualification', 'district', 'health_condition', 'disability_type', 'specialist'])->select(sprintf('%s.*', (new Beneficiary)->table));
+            $status = $request->status;
+            $query = Beneficiary::with(
+                ['user', 'nationality', 'marital_status', 'job_type', 'educational_qualification', 'district', 'health_condition', 'disability_type', 'specialist']
+            );
+            if ($status) {
+                switch ($status) {
+                    case 'uncompleted':
+                        $query->where('profile_status', 'uncompleted')->where('is_archived', 0);
+                        break;
+                    case 'rejected':
+                        $query->where('profile_status', 'rejected')->where('is_archived', 0);
+                        break;
+                    case 'pending':
+                        $query->whereIn('profile_status', ['request_join', 'in_review'])->where('is_archived', 0);
+                        break;
+                    case 'approved':
+                        $query->where('profile_status', 'approved')->where('is_archived', 0);
+                        break;
+                    case 'archived':
+                        $query->where('is_archived', 1);
+                        break;
+                    default:
+                        abort(404);
+                }
+            }
+            $query->select(sprintf('%s.*', (new Beneficiary)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
 
-            $table->editColumn('actions', function ($row) {
+            $table->editColumn('actions', function ($row) use ($status) {
                 $viewGate      = 'beneficiary_show';
                 $editGate      = 'beneficiary_edit';
                 $deleteGate    = 'beneficiary_delete';
                 $crudRoutePart = 'beneficiaries';
+                if ($status != 'archived') {
+                    $prependButtons = [
+                        [
+                            'gate' => 'archive_create',
+                            'title' => trans('global.archive'),
+                            'url' => '#',
+                            'color' => 'success',
+                            'icon' => 'ri-inbox-archive-line',
+                            'attributes' => 'onclick="addToArchive(' . $row->id . ',\'Beneficiary\')"',
+                        ]
+                    ];
+                } else {
+                    $prependButtons = [];
+                }
 
                 return view('tenant.partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
                     'crudRoutePart',
-                    'row'
+                    'row',
+                    'prependButtons'
                 ));
             });
 
@@ -65,7 +111,16 @@ class BeneficiariesController extends Controller
             });
 
             $table->editColumn('user.approved', function ($row) {
-                return $row->user ? (is_string($row->user) ? $row->user : $row->user->approved) : '';
+                $value = $row->user ? (is_string($row->user) ? $row->user : $row->user->approved) : 0;
+                $checked = $value ? 'checked' : '';
+                return '<div class="custom-toggle-switch toggle-md ms-2">
+                    <input onchange="updateStatuses(this, \'approved\', \'' . addslashes("App\Models\User") . '\')" 
+                        value="' . $row->user_id . '"  id="approved-' . $row->user_id . '" type="checkbox" ' . $checked . '>
+                    <label for="approved-' . $row->user_id . '" class="label-success mb-2"></label>
+                </div>';
+            });
+            $table->editColumn('profile_status', function ($row) {
+                return $row->profile_status ? Beneficiary::PROFILE_STATUS_SELECT[$row->profile_status] : '';
             });
             $table->editColumn('user.phone', function ($row) {
                 return $row->user ? (is_string($row->user) ? $row->user : $row->user->phone) : '';
@@ -77,7 +132,7 @@ class BeneficiariesController extends Controller
                 return $row->specialist ? $row->specialist->name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'user', 'specialist']);
+            $table->rawColumns(['actions', 'placeholder', 'user', 'specialist', 'user.approved']);
 
             return $table->make(true);
         }
@@ -100,7 +155,7 @@ class BeneficiariesController extends Controller
             return redirect()->route('admin.beneficiaries.edit', $beneficiary->id);
         }
 
-        return redirect()->route('admin.beneficiaries.index');
+        return redirect()->route('admin.beneficiaries.index',['status' => 'current']);
     }
 
     public function edit(Beneficiary $beneficiary)
@@ -121,14 +176,12 @@ class BeneficiariesController extends Controller
 
         $disability_types = DisabilityType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $specialists = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $incomes = EconomicStatus::where('type', 'income')->orderBy('order_level','desc')->get();
-        $expenses = EconomicStatus::where('type', 'expense')->orderBy('order_level','desc')->get();
+        $incomes = EconomicStatus::where('type', 'income')->orderBy('order_level', 'desc')->get();
+        $expenses = EconomicStatus::where('type', 'expense')->orderBy('order_level', 'desc')->get();
 
         $requiredDocuments = RequiredDocument::all();
 
-        $beneficiary->load('user', 'nationality', 'marital_status', 'job_type', 'educational_qualification', 'district', 'health_condition', 'disability_type', 'specialist');
+        $beneficiary->load('user', 'nationality', 'marital_status', 'job_type', 'educational_qualification', 'district', 'health_condition', 'disability_type');
 
         $user = $beneficiary->user;
         return view(
@@ -152,7 +205,7 @@ class BeneficiariesController extends Controller
     }
 
     public function update(UpdateBeneficiaryRequest $request, Beneficiary $beneficiary)
-    { 
+    {
         $this->beneficiaryService->updateBeneficiary($beneficiary, $request);
 
         return redirect()->route('admin.beneficiaries.edit', $beneficiary->id);
@@ -180,18 +233,27 @@ class BeneficiariesController extends Controller
 
         $disability_types = DisabilityType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $incomes = EconomicStatus::where('type', 'income')->orderBy('order_level','desc')->get();
-        $expenses = EconomicStatus::where('type', 'expense')->orderBy('order_level','desc')->get();
-        
-        $activityLogs = CustomActivityLog::inLog('beneficiary_activity')->orderBy('id', 'desc')->paginate(10);
-        
-        if (request()->ajax()) { 
+        $specialists = User::where('user_type', 'staff')->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $incomes = EconomicStatus::where('type', 'income')->orderBy('order_level', 'desc')->get();
+        $expenses = EconomicStatus::where('type', 'expense')->orderBy('order_level', 'desc')->get();
+
+        $beneficiaryOrders = $beneficiary->beneficiaryBeneficiaryOrders()->withTrashed()->pluck('id');
+        $activityLogs = CustomActivityLog::inLog(['beneficiary_activity-' . $beneficiary->id, 'user_beneficiary_activity-' . $beneficiary->user_id])
+            ->orWhere(function($query) use ($beneficiaryOrders) {
+                $query->whereIn('subject_id', $beneficiaryOrders)
+                    ->where('subject_type', 'App\Models\BeneficiaryOrder');
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        if (request()->ajax()) {
             return response()->json([
                 'html' => view('tenant.partials.activity', compact('activityLogs'))->render(),
                 'hasMorePages' => $activityLogs->hasMorePages()
             ]);
         }
-        
+
         return view('tenant.admin.beneficiaries.show', compact(
             'beneficiary',
             'user',
@@ -204,7 +266,8 @@ class BeneficiariesController extends Controller
             'disability_types',
             'incomes',
             'expenses',
-            'activityLogs'
+            'activityLogs',
+            'specialists'
         ));
     }
 

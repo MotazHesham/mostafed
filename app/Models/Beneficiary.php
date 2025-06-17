@@ -12,7 +12,7 @@ use App\Utils\LogsModelActivity;
 use App\Models\BeneficiaryOrder;
 use App\Models\BeneficiaryFamily;
 use App\Models\BeneficiaryFile;
-use Spatie\Activitylog\Contracts\Activity;
+use Spatie\Activitylog\Models\Activity;
 
 class Beneficiary extends Model
 {
@@ -30,7 +30,7 @@ class Beneficiary extends Model
         'uncompleted' => 'غير مكتمل',
         'request_join' => 'طلب الانضمام',
         'in_review' => 'قيد المراجعة',
-        'approved' => 'موافق عليه',
+        'approved' => 'فعال',
         'rejected' => 'مرفوض',
     ];
 
@@ -57,6 +57,7 @@ class Beneficiary extends Model
         'job_type_id',
         'educational_qualification_id',
         'profile_status',
+        'rejection_reason',
         'form_step',
         'dob',
         'address',
@@ -178,7 +179,7 @@ class Beneficiary extends Model
             'profile_status',  'dob', 'address', 'latitude',
             'longitude', 'street', 'building_number', 'floor_number',
             'custom_health_condition', 'custom_disability_type',
-            'can_work', 'incomes',  'expenses',  'is_archived',
+            'can_work', 'incomes',  'expenses',  'is_archived', 'rejection_reason',
 
             'region->id', 'region->name',
             'city->id', 'city->name',
@@ -204,14 +205,14 @@ class Beneficiary extends Model
     } 
     public function getLogNameToUse(): ?string
     {
-        return 'beneficiary_activity';
+        return 'beneficiary_activity-'.$this->id;
     }
     
     public function getCustomAttributes(Activity $activity)
     {   
         $properties = $activity->properties ?? [];
 
-        $transformData = function($data, &$properties) {
+        $transformData = function($data, &$properties)use($activity) {
             $oldAttributes = $properties['old'] ?? [];
             $currentAttributes = $properties['attributes'] ?? [];
             
@@ -222,7 +223,9 @@ class Beneficiary extends Model
                 $data['can_work'] = self::CAN_WORK_SELECT[$data['can_work']];
             }
             if(isset($data['is_archived'])){
-                $data['is_archived'] = $data['is_archived'] == 1 ? 'مؤرشف' : 'غير مؤرشف';
+                if($activity->event != 'created'){
+                    $data['is_archived'] = $data['is_archived'] == 1 ? 'مؤرشف' : 'غير مؤرشف';
+                }
             }
             
 

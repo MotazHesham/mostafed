@@ -19,6 +19,12 @@
                             {{ trans('cruds.archive.fields.id') }}
                         </th>
                         <th>
+                            {{ trans('cruds.archive.fields.archiveable_type') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.archive.fields.archiveable_id') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.archive.fields.archived_at') }}
                         </th>
                         <th>
@@ -98,6 +104,14 @@
                     {
                         data: 'id',
                         name: 'id'
+                    },
+                    {
+                        data: 'archiveable_type',
+                        name: 'archiveable_type'
+                    },
+                    {
+                        data: 'archiveable_id',
+                        name: 'archiveable_id'
                     },
                     {
                         data: 'archived_at',

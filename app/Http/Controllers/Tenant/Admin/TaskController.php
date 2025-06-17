@@ -140,7 +140,7 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         $task = Task::create($request->all());
-        $task->tags()->sync($request->input('tags', []));
+        $task->tags()->sync($request->input('tags', [])); 
         $task->assigned_tos()->sync($request->input('assigned_tos', []));
         foreach ($request->input('attachment', []) as $file) {
             $task->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('attachment');
@@ -197,7 +197,7 @@ class TaskController extends Controller
             }
             $properties['attributes']['tag'] = implode(' ', $tmpArray);
             ActivityLogHelper::logModelActivity( $task, $description, $properties,
-                'task_activity', 'updated', 
+                'task_activity-'.$task->id, 'updated', 
             );
         }
         if (!empty($tagsSyncResult['detached'])) {
@@ -209,7 +209,7 @@ class TaskController extends Controller
             }
             $properties['attributes']['tag'] = implode(' ', $tmpArray);
             ActivityLogHelper::logModelActivity( $task, $description, $properties,
-                'task_activity', 'updated', 
+                'task_activity-'.$task->id, 'updated', 
             );
         }
 
@@ -224,7 +224,7 @@ class TaskController extends Controller
             }
             $properties['attributes']['assigned_to'] = implode(' ', $tmpArray);
             ActivityLogHelper::logModelActivity( $task, $description, $properties,
-                'task_activity', 'updated', 
+                'task_activity-'.$task->id, 'updated', 
             );
         }
         if (!empty($assignedTosSyncResult['detached'])) {
@@ -236,7 +236,7 @@ class TaskController extends Controller
             }
             $properties['attributes']['assigned_to'] = implode(' ', $tmpArray);
             ActivityLogHelper::logModelActivity( $task, $description, $properties,
-                'task_activity', 'updated', 
+                'task_activity-'.$task->id, 'updated', 
             );
         }
         if (count($task->attachment) > 0) {
@@ -270,7 +270,7 @@ class TaskController extends Controller
 
         $task->load('status', 'task_priority', 'tags', 'assigned_tos', 'task_board', 'assigned_by');
 
-        $activityLogs = CustomActivityLog::inLog('task_activity')->orderBy('id', 'desc')->paginate(15);
+        $activityLogs = CustomActivityLog::inLog('task_activity-'.$task->id)->orderBy('id', 'desc')->paginate(15);
         if (request()->ajax()) {
             return response()->json([
                 'html' => view('tenant.partials.activity', compact('activityLogs'))->render(),

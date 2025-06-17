@@ -201,14 +201,7 @@
                                         {{ trans('cruds.outgoingLetter.title') }}
                                     </a>
                                 </li>
-                            @endcan
-                            @can('letter_archive_access')
-                                <li class="slide">
-                                    <a href="{{ route('admin.letter-archives.index') }}" class="side-menu__item {{ request()->is('admin/letter-archives/*') ? 'active' : '' }}">
-                                        {{ trans('cruds.letterArchive.title') }}
-                                    </a>
-                                </li>
-                            @endcan
+                            @endcan 
                         </ul>
                     </li>
                 @endcan
@@ -232,10 +225,7 @@
                 @can('beneficiaries_managment_access')
                     @php
                         $beneficiaries_managment_routes = 
-                            request()->is('admin/beneficiaries/*') ||
-                            request()->is('admin/beneficiary-un-completeds/*') ||
-                            request()->is('admin/beneficiary-refuseds/*') ||
-                            request()->is('admin/beneficiary-archives/*') ? true : false;
+                            request()->is('admin/beneficiaries/*')  ? true : false;
                     @endphp
                     <li class="slide has-sub {{ $beneficiaries_managment_routes ? 'open' : '' }}">
                         <a href="javascript:void(0);" class="side-menu__item {{ $beneficiaries_managment_routes ? 'active' : '' }}">
@@ -250,28 +240,35 @@
                             @can('beneficiary_access')
                                 <li class="slide">
                                     <a href="{{ route('admin.beneficiaries.index') }}" class="side-menu__item {{ request()->is('admin/beneficiaries/*') ? 'active' : '' }}">
-                                        {{ trans('cruds.beneficiary.title') }}
+                                        {{ trans('cruds.beneficiary.extra.approved') }}
                                     </a>
                                 </li>
                             @endcan
                             @can('beneficiary_un_completed_access')
                                 <li class="slide">
-                                    <a href="{{ route('admin.beneficiary-un-completeds.index') }}" class="side-menu__item {{ request()->is('admin/beneficiary-un-completeds/*') ? 'active' : '' }}">
-                                        {{ trans('cruds.beneficiaryUnCompleted.title') }}
+                                    <a href="{{ route('admin.beneficiaries.index') }}?status=uncompleted" class="side-menu__item {{ request()->is('admin/beneficiaries/*') ? 'active' : '' }}">
+                                        {{ trans('cruds.beneficiary.extra.uncompleted') }}
                                     </a>
                                 </li>
                             @endcan
                             @can('beneficiary_refused_access')
                                 <li class="slide">
-                                    <a href="{{ route('admin.beneficiary-refuseds.index') }}" class="side-menu__item {{ request()->is('admin/beneficiary-refuseds/*') ? 'active' : '' }}">
-                                        {{ trans('cruds.beneficiaryRefused.title') }}
+                                    <a href="{{ route('admin.beneficiaries.index') }}?status=rejected" class="side-menu__item {{ request()->is('admin/beneficiaries/*') ? 'active' : '' }}">
+                                        {{ trans('cruds.beneficiary.extra.rejected') }}
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('beneficiary_pending_access')
+                                <li class="slide">
+                                    <a href="{{ route('admin.beneficiaries.index') }}?status=pending" class="side-menu__item {{ request()->is('admin/beneficiaries/*') ? 'active' : '' }}">
+                                        {{ trans('cruds.beneficiary.extra.pending') }}
                                     </a>
                                 </li>
                             @endcan
                             @can('beneficiary_archive_access')
                                 <li class="slide">
-                                    <a href="{{ route('admin.beneficiary-archives.index') }}" class="side-menu__item {{ request()->is('admin/beneficiary-archives/*') ? 'active' : '' }}">
-                                        {{ trans('cruds.beneficiaryArchive.title') }}
+                                    <a href="{{ route('admin.beneficiaries.index') }}?status=archived" class="side-menu__item {{ request()->is('admin/beneficiaries/*') ? 'active' : '' }}">
+                                        {{ trans('cruds.beneficiary.extra.archived') }}
                                     </a>
                                 </li>
                             @endcan
@@ -283,10 +280,7 @@
                 @can('beneficiary_orders_management_access')
                     @php
                         $beneficiary_orders_managment_routes = 
-                            request()->is('admin/beneficiary-orders/*') ||
-                            request()->is('admin/beneficiary-orders-dones/*') ||
-                            request()->is('admin/beneficiary-orders-rejecteds/*') ||
-                            request()->is('admin/beneficiary-orders-archives/*') ? true : false;
+                            request()->is('admin/beneficiary-orders/*') ? true : false;
                     @endphp
                     <li class="slide has-sub {{ $beneficiary_orders_managment_routes ? 'open' : '' }}">
                         <a href="javascript:void(0);" class="side-menu__item {{ $beneficiary_orders_managment_routes ? 'active' : '' }}">
@@ -300,30 +294,29 @@
                             </li>
                             @can('beneficiary_order_access')
                                 <li class="slide">
-                                    <a href="{{ route('admin.beneficiary-orders.index') }}" class="side-menu__item {{ request()->is('admin/beneficiary-orders/*') ? 'active' : '' }}">
-                                        {{ trans('cruds.beneficiaryOrder.title') }}
+                                    <a href="{{ route('admin.beneficiary-orders.index') }}?status=current" class="side-menu__item {{ request()->is('admin/beneficiary-orders/*') ? 'active' : '' }}">
+                                        {{ trans('cruds.beneficiaryOrder.extra.current') }}
                                     </a>
                                 </li>
                             @endcan
                             @can('beneficiary_orders_done_access')
                                 <li class="slide">
-                                    <a href="{{ route('admin.beneficiary-orders-dones.index') }}" class="side-menu__item {{ request()->is('admin/beneficiary-orders-dones/*') ? 'active' : '' }}">
-                                        {{ trans('cruds.beneficiaryOrdersDone.title') }}
+                                    <a href="{{ route('admin.beneficiary-orders.index') }}?status=finished" class="side-menu__item {{ request()->is('admin/beneficiary-orders/*') ? 'active' : '' }}">
+                                        {{ trans('cruds.beneficiaryOrder.extra.finished') }}
                                     </a>
                                 </li>
                             @endcan
                             @can('beneficiary_orders_rejected_access')
                                 <li class="slide">
-                                    <a href="{{ route('admin.beneficiary-orders-rejecteds.index') }}"
-                                        class="side-menu__item {{ request()->is('admin/beneficiary-orders-rejecteds/*') ? 'active' : '' }}">
-                                        {{ trans('cruds.beneficiaryOrdersRejected.title') }}
+                                    <a href="{{ route('admin.beneficiary-orders.index') }}?status=rejected" class="side-menu__item {{ request()->is('admin/beneficiary-orders/*') ? 'active' : '' }}">
+                                        {{ trans('cruds.beneficiaryOrder.extra.rejected') }}
                                     </a>
                                 </li>
                             @endcan
                             @can('beneficiary_orders_archive_access')
                                 <li class="slide">
-                                    <a href="{{ route('admin.beneficiary-orders-archives.index') }}" class="side-menu__item {{ request()->is('admin/beneficiary-orders-archives/*') ? 'active' : '' }}">
-                                        {{ trans('cruds.beneficiaryOrdersArchive.title') }}
+                                    <a href="{{ route('admin.beneficiary-orders.index') }}?status=archived" class="side-menu__item {{ request()->is('admin/beneficiary-orders/*') ? 'active' : '' }}">
+                                        {{ trans('cruds.beneficiaryOrder.extra.archived') }}
                                     </a>
                                 </li>
                             @endcan
@@ -336,6 +329,7 @@
                 @can('services_managment_access')
                     @php
                         $services_managment_routes = 
+                            request()->is('admin/services') ||
                             request()->is('admin/services/*') ||
                             request()->is('admin/courses/*') ||
                             request()->is('admin/buildings/*') ? true : false;
@@ -352,8 +346,8 @@
                             </li>
                             @can('service_access')
                                 <li class="slide">
-                                    <a href="{{ route('admin.services.index') }}"
-                                        class="side-menu__item {{ request()->is('admin/services/*') ? 'active' : '' }}">{{ trans('cruds.service.title') }}</a>
+                                    <a href="{{ route('admin.services.list') }}"
+                                        class="side-menu__item {{ request()->is('admin/services/*') || request()->is('admin/services') ? 'active' : '' }}">{{ trans('cruds.service.title') }}</a>
                                 </li>
                             @endcan
                             @can('course_access')

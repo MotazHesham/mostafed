@@ -10,6 +10,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Utils\LogsModelActivity;
+use Spatie\Activitylog\Models\Activity;
 
 class BeneficiaryOrder extends Model implements HasMedia
 {
@@ -19,11 +20,7 @@ class BeneficiaryOrder extends Model implements HasMedia
 
     protected $appends = [
         'attachment',
-    ];
-
-    public const SERVICE_TYPE_SELECT = [
-        '0' => '0',
-    ];
+    ]; 
 
     protected $dates = [
         'created_at',
@@ -40,6 +37,7 @@ class BeneficiaryOrder extends Model implements HasMedia
         'beneficiary_id',
         'service_type',
         'service_id',
+        'title',
         'description',
         'status_id',
         'accept_status',
@@ -64,9 +62,9 @@ class BeneficiaryOrder extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
-    public function beneficiaryFollowupBeneficiaryOrderFollowups()
+    public function beneficiaryOrderFollowups()
     {
-        return $this->hasMany(BeneficiaryOrderFollowup::class, 'beneficiary_followup_id', 'id');
+        return $this->hasMany(BeneficiaryOrderFollowup::class, 'beneficiary_order_id', 'id');
     }
 
     public function beneficiary()
@@ -92,5 +90,74 @@ class BeneficiaryOrder extends Model implements HasMedia
     public function specialist()
     {
         return $this->belongsTo(User::class, 'specialist_id');
+    }
+    
+    public function getActivityDescriptionForEvent($eventName){
+        if ($eventName == 'created') {
+            return 'تم أضافة طلب جديد رقم ' . $this->id;
+        } elseif ($eventName == 'updated') {
+            return 'تم تحديث بيانات الطلب رقم ' . $this->id;
+        } elseif ($eventName == 'deleted') {
+            return 'تم حذف بيانات الطلب رقم ' . $this->id;
+        }
+    } 
+
+    public function getLogNameToUse(): ?string
+    {
+        return 'beneficiary_order_activity-'.$this->id;
+    }
+    
+    public function getLogAttributes()
+    {
+        return [ 
+            'service_type',
+            'title',
+            'description',
+            'accept_status',
+            'note',
+            'refused_reason',
+            'done',
+            'is_archived',
+
+            'service->id',
+            'service->name',
+            'status->id',
+            'status->name',
+            'specialist->id',
+            'specialist->name',
+        ];
+    }
+    
+    public function getCustomAttributes(Activity $activity)
+    {   
+        $properties = $activity->properties ?? [];
+        
+        $transformData = function($data) use ($activity) {
+            if(isset($data['is_archived'])){
+                if($activity->event != 'created'){
+                    $data['is_archived'] = $data['is_archived'] == 1 ? 'مؤرشف' : 'غير مؤرشف';
+                }
+            }
+            if(isset($data['accept_status']) && isset(self::ACCEPT_STATUS_RADIO[$data['accept_status']])){ 
+                $data['accept_status'] = self::ACCEPT_STATUS_RADIO[$data['accept_status']];
+            }
+            if(isset($data['done'])){ 
+                $data['done'] = $data['done'] == 1 ? 'منتهي' : 'غير منتهي'; 
+            }
+            if(isset($data['service_type']) && isset(Service::TYPE_SELECT[$data['service_type']])){ 
+                $data['service_type'] = Service::TYPE_SELECT[$data['service_type']];
+            }
+            return $data;
+        }; 
+
+        if (isset($properties['attributes'])) {
+            $properties['attributes'] = $transformData($properties['attributes']); 
+        }
+        
+        if (isset($properties['old'])) {
+            $properties['old'] = $transformData($properties['old']); 
+        }
+        
+        return $properties;
     }
 }

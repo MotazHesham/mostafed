@@ -17,7 +17,14 @@ class ServiceStatus extends Model
     public array $translatable = ['name'];
 
     public const BADGE_CLASS_SELECT = [
-        'primary' => 'primary',
+        'primary' => 'Primary',
+        'success' => 'Success',
+        'warning' => 'Warning',
+        'danger' => 'Danger',
+        'info' => 'Info',
+        'dark' => 'Dark',
+        'light' => 'Light',
+        'secondary' => 'Secondary',
     ];
 
     protected $dates = [

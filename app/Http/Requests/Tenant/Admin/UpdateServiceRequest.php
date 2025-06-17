@@ -16,10 +16,7 @@ class UpdateServiceRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'type' => [
-                'required',
-            ],
+        return [ 
             'title' => [
                 'string',
                 'max:255',
@@ -35,10 +32,7 @@ class UpdateServiceRequest extends FormRequest
             'end_date' => [
                 'date_format:' . config('panel.date_format'),
                 'nullable',
-            ],
-            'active' => [
-                'required',
-            ],
+            ], 
         ];
     }
 }

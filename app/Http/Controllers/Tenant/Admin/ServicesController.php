@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\Admin\MassDestroyServiceRequest;
 use App\Http\Requests\Tenant\Admin\StoreServiceRequest;
 use App\Http\Requests\Tenant\Admin\UpdateServiceRequest;
+use App\Models\Building;
+use App\Models\Course;
 use App\Models\Service;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -14,19 +16,37 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ServicesController extends Controller
 {
-    public function index(Request $request)
+    public function list(Request $request)
     {
         abort_if(Gate::denies('service_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
+        $serviceCounts = Service::selectRaw('type, count(*) as count')
+            ->groupBy('type')
+            ->pluck('count', 'type')
+            ->toArray(); 
+        $coursesCount = Course::count();
+        $buildingsCount = Building::count();
+        return view('tenant.admin.services.list', compact('serviceCounts', 'coursesCount', 'buildingsCount'));
+    }
 
+    public function index(Request $request){
+        
+        abort_if(Gate::denies('service_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         if ($request->ajax()) {
-            $query = Service::query()->select(sprintf('%s.*', (new Service)->table));
+            $query = Service::query();
+            if($request->type && in_array($request->type, array_keys(Service::TYPE_SELECT))){ 
+                $query->where('type', $request->type);
+            }else{
+                abort(404);
+            }
+            $query->select(sprintf('%s.*', (new Service)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $viewGate      = 'service_show';
+                $viewGate      = false;
                 $editGate      = 'service_edit';
                 $deleteGate    = 'service_delete';
                 $crudRoutePart = 'services';
@@ -54,29 +74,37 @@ class ServicesController extends Controller
             });
 
             $table->editColumn('active', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->active ? 'checked' : null) . '>';
+                $value = $row->active ? 'checked' : '';  
+                return '<div class="custom-toggle-switch toggle-md ms-2">
+                    <input onchange="updateStatuses(this, \'active\', \'' . addslashes("App\Models\Service") . '\')" 
+                        value="' . $row->id . '"  id="active-' . $row->id . '" type="checkbox" ' . $value . '>
+                    <label for="active-' . $row->id . '" class="label-success mb-2"></label>
+                </div>';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'active']);
 
             return $table->make(true);
         }
-
         return view('tenant.admin.services.index');
     }
 
-    public function create()
+    public function create(Request $request)
     {
         abort_if(Gate::denies('service_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return view('tenant.admin.services.create');
+        if($request->type && in_array($request->type, array_keys(Service::TYPE_SELECT))){ 
+            $type = $request->type;
+            return view('tenant.admin.services.create', compact('type'));
+        }else{
+            abort(404);
+        }
     }
 
     public function store(StoreServiceRequest $request)
     {
         $service = Service::create($request->all());
 
-        return redirect()->route('admin.services.index');
+        return redirect()->route('admin.services.index', ['type' => $request->type]);
     }
 
     public function edit(Service $service)
@@ -90,7 +118,7 @@ class ServicesController extends Controller
     {
         $service->update($request->all());
 
-        return redirect()->route('admin.services.index');
+        return redirect()->route('admin.services.index', ['type' => $service->type]);
     }
 
     public function show(Service $service)

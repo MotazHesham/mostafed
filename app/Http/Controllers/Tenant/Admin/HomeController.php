@@ -13,6 +13,14 @@ class HomeController extends Controller
         return view('tenant.admin.home');
     }
 
+    public function updateStatuses(Request $request){ 
+        $type = $request->type;
+        $model = $request->model;
+        $raw = $model::findOrFail($request->id);
+        $raw->$type = $request->status; 
+        $raw->save();
+        return 1;
+    }
     public function arrange(Request $request)
     {
         $model = $request->model;

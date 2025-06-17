@@ -205,7 +205,7 @@
     const state = {
         currentPage: 1,
         isLoading: false,
-        hasMorePages: true
+        hasMorePages:'{{ $activityLogs->hasMorePages()  ? true : false }}'
     };
         
     function loadMoreActivities(timeline, observer, loadingIndicator,) { 

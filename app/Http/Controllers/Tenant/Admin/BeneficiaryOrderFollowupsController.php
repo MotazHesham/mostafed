@@ -18,78 +18,26 @@ use Yajra\DataTables\Facades\DataTables;
 
 class BeneficiaryOrderFollowupsController extends Controller
 {
-    use MediaUploadingTrait;
+    use MediaUploadingTrait; 
 
-    public function index(Request $request)
+    public function create(Request $request)
     {
-        abort_if(Gate::denies('beneficiary_order_followup_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('beneficiary_order_followup_create'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
 
-        if ($request->ajax()) {
-            $query = BeneficiaryOrderFollowup::with(['beneficiary_followup', 'user'])->select(sprintf('%s.*', (new BeneficiaryOrderFollowup)->table));
-            $table = Datatables::of($query);
+        $beneficiaryOrder = BeneficiaryOrder::find($request->beneficiary_order_id);
 
-            $table->addColumn('placeholder', '&nbsp;');
-            $table->addColumn('actions', '&nbsp;');
+        $html = view('tenant.admin.beneficiaryOrderFollowups.create', compact('beneficiaryOrder'))->render();
 
-            $table->editColumn('actions', function ($row) {
-                $viewGate      = 'beneficiary_order_followup_show';
-                $editGate      = 'beneficiary_order_followup_edit';
-                $deleteGate    = 'beneficiary_order_followup_delete';
-                $crudRoutePart = 'beneficiary-order-followups';
-
-                return view('tenant.partials.datatablesActions', compact(
-                    'viewGate',
-                    'editGate',
-                    'deleteGate',
-                    'crudRoutePart',
-                    'row'
-                ));
-            });
-
-            $table->editColumn('id', function ($row) {
-                return $row->id ? $row->id : '';
-            });
-            $table->addColumn('beneficiary_followup_service_type', function ($row) {
-                return $row->beneficiary_followup ? $row->beneficiary_followup->service_type : '';
-            });
-
-            $table->editColumn('attachments', function ($row) {
-                if (! $row->attachments) {
-                    return '';
-                }
-                $links = [];
-                foreach ($row->attachments as $media) {
-                    $links[] = '<a href="' . $media->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>';
-                }
-
-                return implode(', ', $links);
-            });
-            $table->addColumn('user_name', function ($row) {
-                return $row->user ? $row->user->name : '';
-            });
-
-            $table->rawColumns(['actions', 'placeholder', 'beneficiary_followup', 'attachments', 'user']);
-
-            return $table->make(true);
-        }
-
-        return view('tenant.admin.beneficiaryOrderFollowups.index');
-    }
-
-    public function create()
-    {
-        abort_if(Gate::denies('beneficiary_order_followup_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $beneficiary_followups = BeneficiaryOrder::pluck('service_type', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('tenant.admin.beneficiaryOrderFollowups.create', compact('beneficiary_followups', 'users'));
+        return response()->json([
+            'html' => $html,  
+        ]); 
     }
 
     public function store(StoreBeneficiaryOrderFollowupRequest $request)
     {
-        $beneficiaryOrderFollowup = BeneficiaryOrderFollowup::create($request->all());
+        $validatedRequest = $request->validated();
+        $validatedRequest['user_id'] = auth()->user()->id;
+        $beneficiaryOrderFollowup = BeneficiaryOrderFollowup::create($validatedRequest);
 
         foreach ($request->input('attachments', []) as $file) {
             $beneficiaryOrderFollowup->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('attachments');
@@ -98,21 +46,27 @@ class BeneficiaryOrderFollowupsController extends Controller
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $beneficiaryOrderFollowup->id]);
         }
+        $beneficiaryOrderFollowups = BeneficiaryOrderFollowup::where('beneficiary_order_id', $request->beneficiary_order_id)->get();
+        $html = view('tenant.admin.beneficiaryOrderFollowups.index', compact('beneficiaryOrderFollowups'))->render();
 
-        return redirect()->route('admin.beneficiary-order-followups.index');
+        return response()->json([
+            'html' => $html,
+            'wrapper' => '#wrapper-order-followups',
+            'message' => trans('global.flash.created', ['title' => trans('cruds.beneficiaryOrderFollowup.title_singular')])
+        ]);
     }
 
-    public function edit(BeneficiaryOrderFollowup $beneficiaryOrderFollowup)
+    public function edit(Request $request)
     {
-        abort_if(Gate::denies('beneficiary_order_followup_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('beneficiary_order_followup_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
 
-        $beneficiary_followups = BeneficiaryOrder::pluck('service_type', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $beneficiaryOrderFollowup = BeneficiaryOrderFollowup::find($request->id);
 
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $html = view('tenant.admin.beneficiaryOrderFollowups.edit', compact('beneficiaryOrderFollowup'))->render();
 
-        $beneficiaryOrderFollowup->load('beneficiary_followup', 'user');
-
-        return view('tenant.admin.beneficiaryOrderFollowups.edit', compact('beneficiaryOrderFollowup', 'beneficiary_followups', 'users'));
+        return response()->json([
+            'html' => $html,  
+        ]);
     }
 
     public function update(UpdateBeneficiaryOrderFollowupRequest $request, BeneficiaryOrderFollowup $beneficiaryOrderFollowup)
@@ -133,37 +87,33 @@ class BeneficiaryOrderFollowupsController extends Controller
             }
         }
 
-        return redirect()->route('admin.beneficiary-order-followups.index');
-    }
+        $beneficiaryOrderFollowups = BeneficiaryOrderFollowup::where('beneficiary_order_id', $beneficiaryOrderFollowup->beneficiary_order_id)->get();
+        $html = view('tenant.admin.beneficiaryOrderFollowups.index', compact('beneficiaryOrderFollowups'))->render();
 
-    public function show(BeneficiaryOrderFollowup $beneficiaryOrderFollowup)
-    {
-        abort_if(Gate::denies('beneficiary_order_followup_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return response()->json([
+            'html' => $html,
+            'wrapper' => '#wrapper-order-followups',
+            'message' => trans('global.flash.updated', ['title' => trans('cruds.beneficiaryOrderFollowup.title_singular')])
+        ]);
+    } 
 
-        $beneficiaryOrderFollowup->load('beneficiary_followup', 'user');
-
-        return view('tenant.admin.beneficiaryOrderFollowups.show', compact('beneficiaryOrderFollowup'));
-    }
-
-    public function destroy(BeneficiaryOrderFollowup $beneficiaryOrderFollowup)
+    public function destroy(Request $request)
     {
         abort_if(Gate::denies('beneficiary_order_followup_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $beneficiaryOrderFollowup = BeneficiaryOrderFollowup::find($request->id);
+
         $beneficiaryOrderFollowup->delete();
 
-        return back();
-    }
+        $beneficiaryOrderFollowups = BeneficiaryOrderFollowup::where('beneficiary_order_id', $beneficiaryOrderFollowup->beneficiary_order_id)->get();
+        $html = view('tenant.admin.beneficiaryOrderFollowups.index', compact('beneficiaryOrderFollowups'))->render();
 
-    public function massDestroy(MassDestroyBeneficiaryOrderFollowupRequest $request)
-    {
-        $beneficiaryOrderFollowups = BeneficiaryOrderFollowup::find(request('ids'));
-
-        foreach ($beneficiaryOrderFollowups as $beneficiaryOrderFollowup) {
-            $beneficiaryOrderFollowup->delete();
-        }
-
-        return response(null, Response::HTTP_NO_CONTENT);
-    }
+        return response()->json([
+            'html' => $html,
+            'wrapper' => '#wrapper-order-followups',
+            'message' => trans('global.flash.deleted', ['title' => trans('cruds.beneficiaryOrderFollowup.title_singular')])
+        ]);
+    } 
 
     public function storeCKEditorImages(Request $request)
     {

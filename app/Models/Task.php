@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Utils\LogsModelActivity;
-use Spatie\Activitylog\Contracts\Activity;
+use Spatie\Activitylog\Models\Activity;
 
 class Task extends Model implements HasMedia
 {
@@ -112,7 +112,7 @@ class Task extends Model implements HasMedia
     } 
     public function getLogNameToUse(): ?string
     {
-        return 'task_activity';
+        return 'task_activity-'.$this->id;
     }
     public function getLogAttributes()
     {

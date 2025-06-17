@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\Translatable\HasTranslations;
-use Spatie\Activitylog\LogOptions;
+use Spatie\Translatable\HasTranslations; 
 use App\Utils\LogsModelActivity;
 
 class BeneficiaryFile extends Model implements HasMedia

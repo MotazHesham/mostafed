@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Utils\LogsModelActivity; 
-use Spatie\Activitylog\Contracts\Activity;
+use Spatie\Activitylog\Models\Activity;
 
 class BeneficiaryFamily extends Model implements HasMedia
 {
@@ -157,7 +157,7 @@ class BeneficiaryFamily extends Model implements HasMedia
     } 
     public function getLogNameToUse(): ?string
     {
-        return 'beneficiary_activity';
+        return 'beneficiary_activity-'.$this->beneficiary_id;
     }
     public function getCustomAttributes(Activity $activity)
     {   

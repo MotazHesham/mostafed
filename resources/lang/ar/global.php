@@ -347,10 +347,14 @@ return [
     'view_list'                      => 'عرض القائمة',
     'archive'                        => 'أرشفة',
     'loadMore'                       => 'تحميل المزيد',
+    'last_updated'                   => 'آخر تحديث',
+    'finish'                         => 'إنهاء',
     
     'flash' => [
         'created' => 'تم إنشاء :title بنجاح',
         'updated' => 'تم تحديث :title بنجاح',
         'deleted' => 'تم حذف :title بنجاح',
+        'success' => 'تمت العملية بنجاح',
+        'error'   => 'حدث خطأ ما',
     ],
 ];

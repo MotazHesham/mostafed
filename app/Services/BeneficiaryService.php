@@ -54,7 +54,7 @@ class BeneficiaryService
             } elseif ($user->photo) {
                 $user->photo->delete();
             }
-            $beneficiaryData['form_step'] = 'basic_information';
+            $beneficiaryData['form_step'] = $beneficiary->form_step != 'login_information' ? $beneficiary->form_step : 'basic_information';
         }
 
         if($request->step == 'basic_information'){
@@ -71,7 +71,7 @@ class BeneficiaryService
                 'building_number',
                 'floor_number'
             ]);
-            $beneficiaryData['form_step'] = 'work_information';
+            $beneficiaryData['form_step'] = $beneficiary->form_step != 'basic_information' ? $beneficiary->form_step : 'work_information';
         }
 
         if($request->step == 'work_information'){
@@ -84,7 +84,7 @@ class BeneficiaryService
                 'disability_type_id',
                 'custom_disability_type'
             ]);
-            $beneficiaryData['form_step'] = 'family_information';
+            $beneficiaryData['form_step'] = $beneficiary->form_step != 'work_information' ? $beneficiary->form_step : 'family_information';
         }
 
         if($request->step == 'economic_information'){ 
@@ -100,7 +100,7 @@ class BeneficiaryService
                     $beneficiaryData['total_expenses'] = array_sum($request->expenses);
                 }
             }
-            $beneficiaryData['form_step'] = 'documents';
+            $beneficiaryData['form_step'] = $beneficiary->form_step != 'economic_information' ? $beneficiary->form_step : 'documents';
         }
 
         $beneficiary->update($beneficiaryData);
@@ -151,7 +151,7 @@ class BeneficiaryService
                     if($enableLogging){
                         $description .= "<span class='badge bg-warning-transparent mb-3'>" . $requiredDocument->getTranslation('name', 'ar') . "</span>";
                         ActivityLogHelper::logModelActivity( $beneficiaryFile, $description, [],
-                            'beneficiary_activity', $eventType, 
+                            'beneficiary_activity-'.$beneficiary->id, $eventType, 
                         );
                     }
                 }
@@ -169,7 +169,7 @@ class BeneficiaryService
                     $description = "تم حذف مستند "; 
                     $description .= "<span class='badge bg-warning-transparent mb-3'>" . $name . "</span>";
                     ActivityLogHelper::logModelActivity( $deletedFile, $description, [],
-                        'beneficiary_activity', $eventType, 
+                        'beneficiary_activity-'.$beneficiary->id, $eventType, 
                     );
                 }
             }

@@ -4,7 +4,7 @@ namespace App\Utils;
 
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Contracts\Activity;
+use Spatie\Activitylog\Models\Activity;
 
 trait LogsModelActivity
 {

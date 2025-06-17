@@ -4,10 +4,11 @@
         $breadcrumbs = [
             ['title' => trans('cruds.beneficiariesManagment.title'), 'url' => '#'],
             ['title' => trans('global.list') . ' ' . trans('cruds.beneficiary.title'), 'url' => '#'],
+            ['title' => trans('cruds.beneficiary.extra.'.request('status','approved')), 'url' => '#'],
         ];
         $buttons = [
             [
-                'title' => trans('global.add') . ' ' . trans('cruds.beneficiary.title'),
+                'title' => trans('global.add') . ' ' . trans('cruds.beneficiary.title_singular'),
                 'url' => route('admin.beneficiaries.create'),
                 'permission' => 'beneficiary_create',
             ],
@@ -30,16 +31,21 @@
                             {{ trans('cruds.beneficiary.fields.user') }}
                         </th>
                         <th>
-                            {{ trans('cruds.user.fields.approved') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.user.fields.phone') }}
                         </th>
                         <th>
                             {{ trans('cruds.user.fields.identity_num') }}
                         </th>
+                        @if(request('status') == 'pending')
+                            <th>
+                                {{ trans('cruds.beneficiary.fields.profile_status') }}
+                            </th>
+                        @endif
                         <th>
                             {{ trans('cruds.beneficiary.fields.specialist') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.approved') }}
                         </th>
                         <th>
                             &nbsp;
@@ -101,7 +107,12 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: "{{ route('admin.beneficiaries.index') }}",
+                ajax: {
+                    url: "{{ route('admin.beneficiaries.index') }}",
+                    data: {
+                        status: "{{ request('status','approved') }}"
+                    }
+                },
                 columns: [{
                         data: 'placeholder',
                         name: 'placeholder'
@@ -115,10 +126,6 @@
                         name: 'user.name'
                     },
                     {
-                        data: 'user.approved',
-                        name: 'user.approved'
-                    },
-                    {
                         data: 'user.phone',
                         name: 'user.phone'
                     },
@@ -126,9 +133,19 @@
                         data: 'user.identity_num',
                         name: 'user.identity_num'
                     },
+                    @if(request('status') == 'pending') 
+                        {
+                            data: 'profile_status',
+                            name: 'profile_status'
+                        },
+                    @endif
                     {
                         data: 'specialist_name',
                         name: 'specialist.name'
+                    },
+                    {
+                        data: 'user.approved',
+                        name: 'user.approved'
                     },
                     {
                         data: 'actions',

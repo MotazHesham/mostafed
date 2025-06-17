@@ -15,6 +15,13 @@ class Archive extends Model
 
     public $table = 'archives';
 
+    public const ARCHIVEABLE_TYPES = [
+        'App\Models\Beneficiary' => 'مستفيد',
+        'App\Models\IncomingLetter' => 'مراسلة واردة',
+        'App\Models\OutgoingLetter' => 'مراسلة صادرة',
+        'App\Models\BeneficiaryOrder' => 'طلب مستفيد',
+    ];
+
     protected $dates = [
         'archived_at',
         'created_at',
@@ -63,5 +70,5 @@ class Archive extends Model
     public function archiveable(): MorphTo
     {
         return $this->morphTo();
-    }
+    } 
 }

@@ -17,7 +17,7 @@ class StoreBeneficiaryOrderFollowupRequest extends FormRequest
     public function rules()
     {
         return [
-            'beneficiary_followup_id' => [
+            'beneficiary_order_id' => [
                 'required',
                 'integer',
             ],
@@ -26,6 +26,10 @@ class StoreBeneficiaryOrderFollowupRequest extends FormRequest
             ],
             'attachments' => [
                 'array',
+            ],
+            'date' => [
+                'required',
+                'date_format:' . config('panel.date_format'),
             ],
         ];
     }
