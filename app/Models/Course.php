@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-
+use App\Utils\LogsModelActivity;
 class Course extends Model implements HasMedia
 {
     use SoftDeletes, InteractsWithMedia, HasFactory;
-
+    use LogsModelActivity;
     public $table = 'courses';
 
     protected $appends = [

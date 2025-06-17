@@ -346,6 +346,7 @@ return [
     'arrange'                        => 'ترتيب',
     'view_list'                      => 'عرض القائمة',
     'archive'                        => 'أرشفة',
+    'loadMore'                       => 'تحميل المزيد',
     
     'flash' => [
         'created' => 'تم إنشاء :title بنجاح',

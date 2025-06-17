@@ -10,6 +10,7 @@ class CreateBeneficiariesTable extends Migration
     {
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('form_step')->default('login_information');
             $table->string('profile_status')->default('uncompleted');
             $table->date('dob')->nullable();
             $table->string('address')->nullable();

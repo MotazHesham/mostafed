@@ -21,42 +21,55 @@
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <form class="wizard wizard-tab horizontal" method="POST" action="{{ route('admin.beneficiaries.update', $beneficiary->id) }}"
-                        enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <aside class="wizard-content container">
-                            <div class=" wizard-step "
-                                data-title="{{ trans('cruds.beneficiary.form_steps.login_information') }}"
-                                data-id="2e8WqSV3slGIpTbnjcJzmDwBQaHrfh0Z">
-                                @include('tenant.partials.beneficiaryForm.login-information')
-                            </div>
-                            <div class=" wizard-step active"
-                                data-title="{{ trans('cruds.beneficiary.form_steps.basic_information') }}"
-                                data-id="2e8WqSV3slGIpTbnjcJzmDwBQaHrfh0Z">
-                                @include('tenant.partials.beneficiaryForm.basic-information')
-                            </div>
-                            <div class="wizard-step"
-                                data-title="{{ trans('cruds.beneficiary.form_steps.work_information') }}"
-                                data-id="H53WJiv9blN17MYTztq4g8U6eSVkaZDx">
-                                @include('tenant.partials.beneficiaryForm.work-information')
-                            </div>
-                            <div class="wizard-step"
-                                data-title="{{ trans('cruds.beneficiary.form_steps.family_information') }}"
-                                data-id="dOM0iRAyJXsLTr9b3KZfQ2jNv4pgn6Gu" data-limit="3">
-                                @include('tenant.partials.beneficiaryForm.family-information')
-                            </div>
-                            <div class="wizard-step"
-                                data-title="{{ trans('cruds.beneficiary.form_steps.economic_information') }}"
-                                data-id="dOM0iRAyJXsLTr9b3KZfQ2jNv4pgn6Gu" data-limit="3">
-                                @include('tenant.partials.beneficiaryForm.economic-information')
-                            </div>
-                            <div class="wizard-step" data-title="{{ trans('cruds.beneficiary.form_steps.documents') }}"
-                                data-id="dOM0iRAyJXsLTr9b3KZfQ2jNv4pgn6Gu" data-limit="3">
-                                @include('tenant.partials.beneficiaryForm.documents')
-                            </div>
-                        </aside>
-                    </form>
+                    <div id="basicwizard"> 
+                        <ul class="nav nav-tabs nav-justified flex-md-row flex-column mb-4 tab-style-6 p-0">
+                            <li class="nav-item" data-target-form="#login_informationForm">
+                                <a class="nav-link icon-btn d-flex align-items-center justify-content-md-center gap-1 @if($beneficiary->form_step == 'login_information') active @endif" 
+                                data-bs-toggle="tab" data-toggle="tab" href="#login_information"><span>{{ trans('cruds.beneficiary.form_steps.login_information') }}</span></a>
+                            </li>
+                            <li class="nav-item" data-target-form="#basic_informationForm">
+                                <a class="nav-link icon-btn d-flex align-items-center justify-content-md-center gap-1 @if($beneficiary->form_step == 'basic_information') active @endif" 
+                                data-bs-toggle="tab" data-toggle="tab" href="#basic_information"><span>{{ trans('cruds.beneficiary.form_steps.basic_information') }}</span></a>
+                            </li>
+                            <li class="nav-item" data-target-form="#work_informationForm">
+                                <a class="nav-link icon-btn d-flex align-items-center justify-content-md-center gap-1 @if($beneficiary->form_step == 'work_information') active @endif" 
+                                data-bs-toggle="tab" data-toggle="tab" href="#work_information"><span>{{ trans('cruds.beneficiary.form_steps.work_information') }}</span></a>
+                            </li>
+                            <li class="nav-item" data-target-form="#family_informationForm">
+                                <a class="nav-link icon-btn d-flex align-items-center justify-content-md-center gap-1 @if($beneficiary->form_step == 'family_information') active @endif" 
+                                data-bs-toggle="tab" data-toggle="tab" href="#family_information"><span>{{ trans('cruds.beneficiary.form_steps.family_information') }}</span></a>
+                            </li>
+                            <li class="nav-item" data-target-form="#economic_informationForm">
+                                <a class="nav-link icon-btn d-flex align-items-center justify-content-md-center gap-1 @if($beneficiary->form_step == 'economic_information') active @endif" 
+                                data-bs-toggle="tab" data-toggle="tab" href="#economic_information"><span>{{ trans('cruds.beneficiary.form_steps.economic_information') }}</span></a>
+                            </li> 
+                            <li class="nav-item" data-target-form="#documentsForm">
+                                <a class="nav-link icon-btn d-flex align-items-center justify-content-md-center gap-1 @if($beneficiary->form_step == 'documents') active @endif" 
+                                data-bs-toggle="tab" data-toggle="tab" href="#documents"><span>{{ trans('cruds.beneficiary.form_steps.documents') }}</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane @if($beneficiary->form_step == 'login_information') show active @endif" id="login_information">
+                            @include('tenant.partials.beneficiaryForm.login-information')
+                        </div>
+                        <div class="tab-pane @if($beneficiary->form_step == 'basic_information') show active @endif" id="basic_information">
+                            @include('tenant.partials.beneficiaryForm.basic-information')
+                        </div>
+                        <div class="tab-pane @if($beneficiary->form_step == 'work_information') show active @endif" id="work_information">
+                            @include('tenant.partials.beneficiaryForm.work-information')
+                        </div>
+                        <div class="tab-pane @if($beneficiary->form_step == 'family_information') show active @endif" id="family_information">
+                            @include('tenant.partials.beneficiaryForm.family-information')
+                        </div>
+                        <div class="tab-pane @if($beneficiary->form_step == 'economic_information') show active @endif" id="economic_information">
+                            @include('tenant.partials.beneficiaryForm.economic-information')
+                        </div>
+                        <div class="tab-pane @if($beneficiary->form_step == 'documents') show active @endif" id="documents">
+                            @include('tenant.partials.beneficiaryForm.documents')
+                        </div>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -68,17 +81,50 @@
         (function() {
             "use strict";
 
-            /* Form Wizard 1 */
-            let args = {
-                "wz_class": ".wizard-tab",
-                highlight: true,
-                highlight_time: 1000,
-            };
-            const wizard = new Wizard1(args, {
-                validate: false,
+            const wizard = new Wizard1('#basicwizard', {
+                validate: true,
             });
-            wizard.init();
-            /* Form Wizard 1 */ 
+
+            // Function to disable a step
+            function disableStep(stepIndex) {
+                const navItems = document.querySelectorAll('#basicwizard .nav-item');
+                if (navItems[stepIndex]) {
+                    navItems[stepIndex].classList.add('disabled');
+                    navItems[stepIndex].querySelector('a').style.pointerEvents = 'none';
+                    navItems[stepIndex].querySelector('a').style.opacity = '0.5';
+                }
+            }
+
+            // Function to enable a step
+            function enableStep(stepIndex) {
+                const navItems = document.querySelectorAll('#basicwizard .nav-item');
+                if (navItems[stepIndex]) {
+                    navItems[stepIndex].classList.remove('disabled');
+                    navItems[stepIndex].querySelector('a').style.pointerEvents = 'auto';
+                    navItems[stepIndex].querySelector('a').style.opacity = '1';
+                }
+            }
+            
+            @if($beneficiary->form_step == 'login_information')
+                disableStep(1);
+                disableStep(2);
+                disableStep(3);
+                disableStep(4);
+                disableStep(5);
+            @elseif($beneficiary->form_step == 'basic_information') 
+                disableStep(2);
+                disableStep(3);
+                disableStep(4);
+                disableStep(5);
+            @elseif($beneficiary->form_step == 'work_information') 
+                disableStep(3);
+                disableStep(4);
+                disableStep(5);
+            @elseif($beneficiary->form_step == 'family_information')
+                disableStep(5);
+            @elseif($beneficiary->form_step == 'economic_information') 
+                disableStep(5); 
+            @endif
 
         })();
     </script>

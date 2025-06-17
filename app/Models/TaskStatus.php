@@ -6,11 +6,11 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use App\Utils\LogsModelActivity;
 class TaskStatus extends Model
 {
     use SoftDeletes, HasFactory;
-
+    use LogsModelActivity;
     public $table = 'task_statuses';
 
     protected $dates = [

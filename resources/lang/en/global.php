@@ -346,6 +346,7 @@ return [
     'arrange'                        => 'Arrange',
     'view_list'                      => 'View list',
     'archive'                        => 'Archive',
+    'loadMore'                       => 'Load more',
 
     'flash' => [
         'created' => 'Created :title successfully',

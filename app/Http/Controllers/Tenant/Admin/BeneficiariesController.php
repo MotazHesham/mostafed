@@ -8,6 +8,7 @@ use App\Http\Requests\Tenant\Admin\StoreBeneficiaryRequest;
 use App\Http\Requests\Tenant\Admin\UpdateBeneficiaryRequest;
 use App\Models\Beneficiary;
 use App\Models\BeneficiaryFile;
+use App\Models\CustomActivityLog;
 use App\Models\DisabilityType;
 use App\Models\District;
 use App\Models\EconomicStatus;
@@ -152,11 +153,10 @@ class BeneficiariesController extends Controller
     }
 
     public function update(UpdateBeneficiaryRequest $request, Beneficiary $beneficiary)
-    {
-
+    { 
         $this->beneficiaryService->updateBeneficiary($beneficiary, $request);
 
-        return redirect()->route('admin.beneficiaries.index');
+        return redirect()->route('admin.beneficiaries.edit', $beneficiary->id);
     }
 
     public function show(Beneficiary $beneficiary)
@@ -184,6 +184,12 @@ class BeneficiariesController extends Controller
         $incomes = EconomicStatus::where('type', 'income')->orderBy('order_level','desc')->get();
         $expenses = EconomicStatus::where('type', 'expense')->orderBy('order_level','desc')->get();
         
+        $activityLogs = CustomActivityLog::inLog('beneficiary_activity')->orderBy('id', 'desc')->paginate(15);
+        
+        if (request()->ajax()) {
+            return view('tenant.admin.beneficiaries.partials.activity', compact('beneficiary', 'activityLogs'));
+        }
+        
         return view('tenant.admin.beneficiaries.show', compact(
             'beneficiary',
             'user',
@@ -195,7 +201,8 @@ class BeneficiariesController extends Controller
             'health_conditions',
             'disability_types',
             'incomes',
-            'expenses'
+            'expenses',
+            'activityLogs'
         ));
     }
 

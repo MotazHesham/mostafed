@@ -19,6 +19,10 @@ class AddRelationshipFieldsToBeneficiariesTable extends Migration
             $table->foreign('job_type_id', 'job_type_fk_10586667')->references('id')->on('job_types');
             $table->unsignedBigInteger('educational_qualification_id')->nullable();
             $table->foreign('educational_qualification_id', 'educational_qualification_fk_10586668')->references('id')->on('educational_qualifications');
+            $table->unsignedBigInteger('region_id')->nullable();
+            $table->foreign('region_id', 'region_fk_1058476')->references('id')->on('regions');
+            $table->unsignedBigInteger('city_id')->nullable();
+            $table->foreign('city_id', 'city_fk_1052276')->references('id')->on('cities');
             $table->unsignedBigInteger('district_id')->nullable();
             $table->foreign('district_id', 'district_fk_10586676')->references('id')->on('districts');
             $table->unsignedBigInteger('health_condition_id')->nullable();

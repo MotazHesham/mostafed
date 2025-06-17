@@ -67,10 +67,10 @@
                                                 aria-selected="false">{{ trans('cruds.beneficiary.profile.documents') }}</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link w-100 text-start" id="timeline-tab" data-bs-toggle="tab"
-                                                data-bs-target="#timeline-tab-pane" type="button" role="tab"
-                                                aria-controls="timeline-tab-pane"
-                                                aria-selected="false">{{ trans('cruds.beneficiary.profile.timeline') }}</button>
+                                            <button class="nav-link w-100 text-start" id="activity-tab" data-bs-toggle="tab"
+                                                data-bs-target="#activity-tab-pane" type="button" role="tab"
+                                                aria-controls="activity-tab-pane"
+                                                aria-selected="false">{{ trans('cruds.beneficiary.profile.activity') }}</button>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="profile-tabs">
@@ -90,13 +90,13 @@
                                             aria-labelledby="economic-info-tab" tabindex="0">
                                             @include('tenant.admin.beneficiaries.partials.economic-information')
                                         </div>
-                                        <div class="tab-pane" id="timeline-tab-pane" role="tabpanel"
-                                            aria-labelledby="timeline-tab" tabindex="0">
-                                            @include('tenant.admin.beneficiaries.partials.timeline')
-                                        </div>
                                         <div class="tab-pane" id="documents-tab-pane" role="tabpanel"
                                             aria-labelledby="documents-tab" tabindex="0">
                                             @include('tenant.admin.beneficiaries.partials.documents')
+                                        </div>
+                                        <div class="tab-pane" id="activity-tab-pane" role="tabpanel"
+                                            aria-labelledby="activity-tab" tabindex="0">
+                                            @include('tenant.partials.activity', ['activityLogs' => $activityLogs])
                                         </div>
                                     </div>
                                 </div>
@@ -110,4 +110,57 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+<script>
+    new SimpleBar(document.getElementById('activity-timeline'), {
+        autoHide: true
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const loadMoreBtn = document.getElementById('load-more-activities');
+        if (!loadMoreBtn) return;
+    
+        loadMoreBtn.addEventListener('click', function() {
+            const button = this;
+            const page = parseInt(button.dataset.page) + 1;
+            const beneficiaryId = '{{ $beneficiary->id }}';
+            
+            button.disabled = true;
+            button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+    
+            fetch(`/admin/beneficiaries/${beneficiaryId}?page=${page}`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const newItems = doc.querySelectorAll('#activity-timeline li');
+                
+                const timeline = document.getElementById('activity-timeline');
+                newItems.forEach(item => {
+                    timeline.appendChild(item);
+                });
+    
+                button.dataset.page = page;
+                button.disabled = false;
+                button.innerHTML = 'Load More';
+    
+                // Hide button if no more pages
+                if (!doc.querySelector('#load-more-activities')) {
+                    button.parentElement.remove();
+                }
+            })
+            .catch(error => {
+                console.error('Error loading more activities:', error);
+                button.disabled = false;
+                button.innerHTML = 'Load More';
+            });
+        });
+    });
+    </script> 
 @endsection

@@ -10,10 +10,13 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
+use Spatie\Activitylog\LogOptions;
+use App\Utils\LogsModelActivity;
 
 class BeneficiaryFile extends Model implements HasMedia
 {
     use SoftDeletes, InteractsWithMedia, HasFactory;
+    use LogsModelActivity;
     use HasTranslations;
 
     protected $appends = [
@@ -62,5 +65,5 @@ class BeneficiaryFile extends Model implements HasMedia
     public function required_document()
     {
         return $this->belongsTo(RequiredDocument::class, 'required_document_id');
-    }
+    } 
 }

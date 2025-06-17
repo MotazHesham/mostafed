@@ -2,24 +2,24 @@
 
 namespace App\Models;
 
-use App\Notifications\VerifyUserNotification;
 use Carbon\Carbon;
-use DateTimeInterface;
-use Hash;
-use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use DateTimeInterface; 
+use Illuminate\Auth\Notifications\ResetPassword; 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
+use Illuminate\Notifications\Notifiable; 
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Utils\LogsModelActivity;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Activitylog\Contracts\Activity;
 
 class User extends Authenticatable implements HasMedia
 {
     use SoftDeletes, Notifiable, HasFactory, InteractsWithMedia;
+    use LogsModelActivity;
 
     public $table = 'users';
 
@@ -87,6 +87,10 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->roles()->where('id', 1)->exists();
     } 
+    public function getIsBeneficiaryAttribute()
+    {
+        return $this->user_type == 'beneficiary';
+    }
 
     public function userUserAlerts()
     {
@@ -119,4 +123,45 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsToMany(Role::class);
     }
+
+    public function getLogNameToUse(): ?string
+    {
+        return $this->is_beneficiary ? 'beneficiary_activity' : 'default';
+    }
+
+    public function getActivityDescriptionForEvent($eventName){
+        if($this->is_beneficiary){ 
+            if ($eventName == 'created') {
+                return "تم إنشاء حساب دخول للمستفيد";
+            } elseif ($eventName == 'updated') {
+                return "تم تحديث حساب دخول المستفيد";
+            } elseif ($eventName == 'deleted') {
+                return "تم حذف حساب دخول المستفيد";
+            }
+        }else{
+            return $eventName;
+        }
+    } 
+    
+    public function getCustomAttributes(Activity $activity)
+    {   
+        $properties = $activity->properties ?? [];
+        
+        $transformData = function($data) {
+            if (isset($data['password'])) {
+                $data['password'] = 'تم تحديث كلمة المرور';
+            }
+            return $data;
+        }; 
+
+        if (isset($properties['attributes'])) {
+            $properties['attributes'] = $transformData($properties['attributes']); 
+        }
+        
+        if (isset($properties['old'])) {
+            $properties['old'] = $transformData($properties['old']); 
+        }
+        
+        return $properties;
+    } 
 }

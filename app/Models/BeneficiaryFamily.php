@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Utils\LogsModelActivity; 
+use Spatie\Activitylog\Contracts\Activity;
 
 class BeneficiaryFamily extends Model implements HasMedia
 {
     use SoftDeletes, InteractsWithMedia, HasFactory;
-
+    use LogsModelActivity;
     protected $appends = [
         'photo',
     ];
@@ -120,5 +122,65 @@ class BeneficiaryFamily extends Model implements HasMedia
         }
 
         return $file;
+    } 
+
+    public function getLogAttributes()
+    {
+        return [
+            'id', 'name','gender','dob','phone','email','identity_num',
+            'educational_qualification->id',
+            'educational_qualification->name',
+            'family_relationship->id',
+            'family_relationship->name',
+            'marital_status->id',
+            'marital_status->name',
+            'health_condition->id',
+            'health_condition->name',
+            'custom_health_condition',
+            'disability_type->id',
+            'disability_type->name',
+            'custom_disability_type',
+            'can_work',
+        ];
+    }
+
+    public function getActivityDescriptionForEvent($eventName){
+        if ($eventName == 'created') {
+            return 'تم أضافة فرد عائلة جديد';
+        } elseif ($eventName == 'updated') {
+            $description = "تم تحديث بيانات "
+                . "<span class='badge bg-info-transparent mb-3'>" . $this->name . "</span> فرد عائلة";
+            return $description;
+        } elseif ($eventName == 'deleted') {
+            return 'تم حذف بيانات فرد عائلة';
+        }
+    } 
+    public function getLogNameToUse(): ?string
+    {
+        return 'beneficiary_activity';
+    }
+    public function getCustomAttributes(Activity $activity)
+    {   
+        $properties = $activity->properties ?? [];
+        
+        $transformData = function($data) {
+            if (isset($data['gender']) && isset(self::GENDER_SELECT[$data['gender']])) {
+                $data['gender'] = self::GENDER_SELECT[$data['gender']];
+            }
+            if (isset($data['can_work']) && isset(self::CAN_WORK_SELECT[$data['can_work']])) {
+                $data['can_work'] = self::CAN_WORK_SELECT[$data['can_work']];
+            }
+            return $data;
+        }; 
+
+        if (isset($properties['attributes'])) {
+            $properties['attributes'] = $transformData($properties['attributes']); 
+        }
+        
+        if (isset($properties['old'])) {
+            $properties['old'] = $transformData($properties['old']); 
+        }
+        
+        return $properties;
     }
 }

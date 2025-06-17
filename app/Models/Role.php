@@ -6,11 +6,11 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use App\Utils\LogsModelActivity;
 class Role extends Model
 {
     use SoftDeletes, HasFactory;
-
+    use LogsModelActivity;
     public $table = 'roles';
 
     protected $dates = [

@@ -340,6 +340,7 @@ return [
             'contact_info' => 'Contact Info',
             'net_income' => 'Net Income',
             'category' => 'Category', 
+            'activity' => 'Activity',
         ],
         'fields'         => [
             'id'                               => 'ID',
@@ -370,6 +371,10 @@ return [
             'latitude_helper'                  => ' ',
             'longitude'                        => 'Longitude',
             'longitude_helper'                 => ' ',
+            'region'                           => 'Region',
+            'region_helper'                    => ' ',
+            'city'                             => 'City',
+            'city_helper'                      => ' ',
             'district'                         => 'District',
             'district_helper'                  => ' ',
             'street'                           => 'Street',

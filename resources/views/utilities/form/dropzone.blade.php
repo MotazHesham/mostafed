@@ -23,6 +23,7 @@
 @section('scripts') 
     @parent
     <script>
+        var form = $('#{{ $id ?? $name }}-dropzone').closest('form')[0];
         var dropzoneConfig = {
             url: '{{ $url }}',
             maxFilesize: 5, // MB 
@@ -36,8 +37,7 @@
                 width: 4096,
                 height: 4096
             },
-            success: function(file, response) {
-                var form = document.querySelector('form');
+            success: function(file, response) { 
                 var existingInput = form.querySelector(`input[name="{{ $name }}"]`);
                 if (existingInput) {
                     existingInput.remove();
@@ -54,8 +54,7 @@
                     previewElement.remove();
                 }
                 
-                if (file.status !== 'error') {
-                    var form = document.querySelector('form');
+                if (file.status !== 'error') { 
                     var input = form.querySelector(`input[name="{{ $name }}"]`);
                     if (input) {
                         input.remove();
@@ -66,8 +65,7 @@
             init: function() {
                 @if (isset($model) && $model->{$collectionName ?? $name})
                     var file = {!! json_encode($model->{$collectionName ?? $name}) !!};
-                    this.displayExistingFile(file, file.preview ?? file.preview_url);
-                    var form = document.querySelector('form');
+                    this.displayExistingFile(file, file.preview ?? file.preview_url); 
                     var input = document.createElement('input');
                     input.type = 'hidden';
                     input.name = '{{ $name }}';

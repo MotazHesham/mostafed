@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
-
+use App\Utils\LogsModelActivity;
 class FamilyRelationship extends Model
 {
     use SoftDeletes, HasFactory;
     use HasTranslations;
-
+    use LogsModelActivity;
     public $table = 'family_relationships';
     public array $translatable = ['name'];
 
