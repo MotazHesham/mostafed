@@ -9,7 +9,7 @@
             <!-- Start::header-element -->
             <div class="header-element">
                 <div class="horizontal-logo">
-                    <a href="{{ url('index') }}" class="header-logo">
+                    <a href="{{ route('beneficiary.home') }}" class="header-logo">
                         <img src="{{ global_asset('assets/images/brand-logos/desktop-logo.png') }}" alt="logo"
                             class="desktop-logo">
                         <img src="{{ global_asset('assets/images/brand-logos/toggle-dark.png') }}" alt="logo"
@@ -33,19 +33,7 @@
                     class="sidemenu-toggle header-link animated-arrow hor-toggle horizontal-navtoggle"
                     data-bs-toggle="sidebar" href="javascript:void(0);"><span></span></a>
             </div>
-            <!-- End::header-element -->
-
-            <!-- Start::header-element -->
-            <div class="header-element header-search d-md-block d-none my-auto auto-complete-search">
-                <!-- Start::header-link -->
-                <input type="text" class="header-search-bar form-control" id="header-search"
-                    placeholder="Search anything here ..." spellcheck=false autocomplete="off" autocapitalize="off">
-                <a href="javascript:void(0);" class="header-search-icon border-0">
-                    <i class="ri-search-line"></i>
-                </a>
-                <!-- End::header-link -->
-            </div>
-            <!-- End::header-element -->
+            <!-- End::header-element --> 
 
         </div>
         <!-- End::header-content-left -->

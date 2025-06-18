@@ -1,6 +1,7 @@
-<form method="POST" action="{{ route('admin.beneficiaries.update', $beneficiary->id) }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route(($routeName ?? 'admin.beneficiaries.update'), $beneficiary->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
+    <input type="hidden" name="user_id" value="{{ $user->id }}">
     <div class="row justify-content-center">
         <div class="col-xl-8">
             <div class="row gy-3">
@@ -46,7 +47,7 @@
             @include('utilities.form.photo', [
                 'name' => 'photo',
                 'id' => 'userPhoto',
-                'url' => route('admin.users.storeMedia'),
+                'url' => route(($storeMediaUrl ?? 'admin.users.storeMedia')),
                 'label' => 'cruds.user.fields.photo',
                 'isRequired' => false,
                 'model' => $user ?? '',

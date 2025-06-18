@@ -349,7 +349,11 @@ return [
     'loadMore'                       => 'تحميل المزيد',
     'last_updated'                   => 'آخر تحديث',
     'finish'                         => 'إنهاء',
-    'show_all'                       => 'عرض الكل',
+    'show_all'                       => 'عرض الكل', 
+    'already_have_account'           => 'لديك حساب؟',
+    'register_account'               => 'تسجيل حساب',
+    'profile'                        => 'الملف الشخصي',
+    'complete_profile'               => 'إكمال البيانات',
     
     'flash' => [
         'created' => 'تم إنشاء :title بنجاح',

@@ -100,13 +100,13 @@ class BeneficiaryService
                     $beneficiaryData['total_expenses'] = array_sum($request->expenses);
                 }
             }
-            $beneficiaryData['form_step'] = $beneficiary->form_step != 'economic_information' ? $beneficiary->form_step : 'documents';
+            $beneficiaryData['form_step'] = 'documents';
         }
 
         $beneficiary->update($beneficiaryData);
         $user->update($userData); 
 
-        if($request->step == 'documents'){
+        if($request->step == 'documents' || $request->step == 'request_join'){
             $eventType = null;
             $description = null;
             $enableLogging = false;
@@ -172,6 +172,9 @@ class BeneficiaryService
                         'beneficiary_activity-'.$beneficiary->id, $eventType, 
                     );
                 }
+            }
+            if($request->step == 'request_join'){
+                $beneficiary->update(['profile_status' => 'request_join']);
             }
         }
         

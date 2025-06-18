@@ -350,7 +350,11 @@ return [
     'last_updated'                   => 'Last updated',
     'finish'                         => 'Finish',
     'show_all'                       => 'Show all',
-    
+    'already_have_account'           => 'Already have an account?',
+    'register_account'               => 'Register account',
+    'profile'                        => 'Profile', 
+    'complete_profile'               => 'Complete profile',
+
     'flash' => [
         'created' => 'Created :title successfully',
         'updated' => 'Updated :title successfully',

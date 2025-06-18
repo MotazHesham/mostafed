@@ -24,7 +24,7 @@ Route::get('/home', function () {
     return redirect()->route('admin.home');
 });
 Auth::routes();
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Tenant\Admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Tenant\Admin', 'middleware' => ['auth', 'staff']], function () {
 
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('updateStatuses', 'HomeController@updateStatuses')->name('updateStatuses');

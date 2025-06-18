@@ -1,6 +1,7 @@
-<form method="POST" action="{{ route('admin.beneficiaries.update', $beneficiary->id) }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route(($routeName ?? 'admin.beneficiaries.update'), $beneficiary->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
+    <input type="hidden" name="user_id" value="{{ $user->id }}">
     <div class="row gy-4">
         <div class="col-md-6">
             <h5 class="mb-3">{{ trans('cruds.beneficiary.fields.incomes') }}</h5>

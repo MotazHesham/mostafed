@@ -1,6 +1,41 @@
 <?php
 
 return [
+    'dashboard' => [
+        'title'          => 'Dashboard', 
+        'analytics' => 'Analytics',
+
+        'beneficiary_stats' => [
+            'title' => 'Beneficiary Stats',
+            'total' => 'Total Beneficiaries',
+            'uncompleted' => 'Uncompleted', 
+            'rejected' => 'Rejected',
+            'pending' => 'Pending',
+            'approved' => 'Approved',
+            'archived' => 'Archived', 
+        ],
+
+        'total_beneficiaries' => 'Total Beneficiaries',
+        'total_new_beneficiaries' => 'New Beneficiaries',
+        'total_orders' => 'Total Orders',
+        'total_new_orders' => 'New Orders', 
+
+        'orders_by_martial_status' => 'Orders by Martial Status',
+        'orders' => 'Orders', 
+        'orders_acceptance_chart' => 'Orders Acceptance Chart',
+
+        'orders_stats' => [
+            'title' => 'Orders Stats',
+            'total' => 'Total Orders',
+            'current' => 'Current',
+            'finished' => 'Finished',
+            'archived' => 'Archived',   
+            'rejected' => 'Rejected',
+        ],
+
+        'latest_beneficiaries' => 'Latest Beneficiaries',
+        'latest_orders' => 'Latest Orders',
+    ],
     'userManagement' => [
         'title'          => 'System Users',
         'title_singular' => 'System Users',

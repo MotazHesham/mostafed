@@ -15,8 +15,7 @@
                 <div class="col-xxl-5 col-xl-9 col-lg-6 col-md-6 col-sm-8 col-12">
                     <div class="card custom-card my-4 border">
                         <div class="card-body p-5">
-                            <p class="h5 mb-2 text-center">Sign In</p>
-                            <p class="text-muted mb-4 text-center">Let's get started</p>
+                            <p class="h5 mb-2 text-center">{{ trans('global.login') }}</p> 
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 @if (session('message'))
@@ -69,7 +68,7 @@
         <div class="col-xxl-4 col-xl-5 col-lg-12 d-xl-block d-none px-0">
             <div class="authentication-cover overflow-hidden">
                 <div class="authentication-cover-logo">
-                    <a href="{{ url('index') }}">
+                    <a href="{{ route('home') }}">
                         <img src="{{ global_asset('assets/logo-dark.png') }}" alt=""
                             class="authentication-brand desktop-white" style="height: 3.75rem !important">
                     </a>

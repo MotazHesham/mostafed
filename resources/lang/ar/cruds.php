@@ -384,6 +384,10 @@ return [
             'pending' => 'قيد المراجعة',
             'approved' => 'مقبول',
             'archived' => 'مؤرشف', 
+            'update_and_request_join' => 'تحديث وطلب الانضمام', 
+            'request_join_text' => 'تم إرسال طلب الانضمام للمراجعة',
+            'in_review_text' => 'طلب الانضمام قيد المراجعة',
+            'rejected_text' => 'طلب الانضمام مرفوض',  
         ],
         'fields'         => [
             'id'                               => 'رقم الملف',

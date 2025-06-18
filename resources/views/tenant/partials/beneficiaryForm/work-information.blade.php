@@ -1,6 +1,7 @@
-<form method="POST" action="{{ route('admin.beneficiaries.update', $beneficiary->id) }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route(($routeName ?? 'admin.beneficiaries.update'), $beneficiary->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
+    <input type="hidden" name="user_id" value="{{ $user->id }}">
     <div class="row gy-4">
         @include('utilities.form.select', [
             'name' => 'educational_qualification_id',

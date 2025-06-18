@@ -71,11 +71,11 @@
     <div class="page">
 
         <!-- Start::main-header -->
-        @include('tenant.layouts.components.main-header')
+        @include('tenant.layouts.components.beneficiary.main-header')
         <!-- End::main-header -->
 
         <!-- Start::main-sidebar -->
-        @include('tenant.layouts.components.main-sidebar')
+        @include('tenant.layouts.components.beneficiary.main-sidebar')
         <!-- End::main-sidebar -->
 
         <!-- Start::app-content -->
@@ -101,10 +101,7 @@
         <!-- Start::main-footer -->
         @include('tenant.layouts.components.footer')
         <!-- End::main-footer -->
-
-        <!-- Start::main-modal -->
-        @include('tenant.layouts.components.modal')
-        <!-- End::main-modal -->
+        
 
         @yield('modals')
 

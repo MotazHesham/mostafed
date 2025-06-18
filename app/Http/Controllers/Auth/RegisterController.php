@@ -31,6 +31,15 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    
+    public function showRegistrationForm()
+    {
+        if(tenant()){
+            return view('tenant.auth.register');
+        }
+        return view('central.auth.register');
+    }
+
     /**
      * Create a new controller instance.
      *
