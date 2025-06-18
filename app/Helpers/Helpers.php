@@ -147,3 +147,20 @@ if (!function_exists('findValueChanges')) {
         return $changed;
     }
 }
+
+if (!function_exists('randomBadgeClass')) {
+    function randomBadgeClass($name)
+    {
+        $badgeClass = [
+            'primary',
+            'success',
+            'warning',
+            'danger',
+            'info',
+            'dark', 
+            'secondary',
+        ];
+        $hash = crc32($name);
+        return $badgeClass[abs($hash) % count($badgeClass)];
+    }
+}

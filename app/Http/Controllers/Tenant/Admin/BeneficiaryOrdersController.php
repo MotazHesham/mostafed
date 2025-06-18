@@ -101,7 +101,7 @@ class BeneficiaryOrdersController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->addColumn('beneficiary_dob', function ($row) {
+            $table->addColumn('beneficiary_user_name', function ($row) {
                 return $row->beneficiary && $row->beneficiary->user ? $row->beneficiary->user->name : '';
             });
 
@@ -132,7 +132,7 @@ class BeneficiaryOrdersController extends Controller
                 return $row->specialist ? $row->specialist->name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'beneficiary', 'service', 'attachment', 'status', 'status_name', 'specialist']);
+            $table->rawColumns(['actions', 'placeholder', 'beneficiary.user.name', 'service', 'attachment', 'status', 'status_name', 'specialist']);
 
             return $table->make(true);
         }

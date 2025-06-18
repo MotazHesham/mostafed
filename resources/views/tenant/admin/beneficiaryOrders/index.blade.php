@@ -33,10 +33,10 @@
                             {{ trans('cruds.beneficiaryOrder.fields.beneficiary') }}
                         </th>
                         <th>
-                            {{ trans('cruds.beneficiaryOrder.fields.service_type') }}
+                            {{ trans('cruds.beneficiaryOrder.fields.title') }}
                         </th>
                         <th>
-                            {{ trans('cruds.beneficiaryOrder.fields.service') }}
+                            {{ trans('cruds.beneficiaryOrder.fields.service_type') }}
                         </th> 
                         <th>
                             {{ trans('cruds.beneficiaryOrder.fields.status') }}
@@ -117,19 +117,19 @@
                     {
                         data: 'id',
                         name: 'id'
+                    }, 
+                    {
+                        data: 'beneficiary_user_name',
+                        name: 'beneficiary.user.name'
                     },
                     {
-                        data: 'beneficiary_dob',
-                        name: 'beneficiary.dob'
+                        data: 'title',
+                        name: 'title'
                     },
                     {
                         data: 'service_type',
                         name: 'service_type'
-                    },
-                    {
-                        data: 'service_type',
-                        name: 'service.type'
-                    },  
+                    }, 
                     {
                         data: 'status_name',
                         name: 'status.name'

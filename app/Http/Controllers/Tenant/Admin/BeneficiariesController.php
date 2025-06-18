@@ -195,8 +195,7 @@ class BeneficiariesController extends Controller
                 'health_conditions',
                 'job_types',
                 'marital_statuses',
-                'nationalities',
-                'specialists',
+                'nationalities', 
                 'user',
                 'incomes',
                 'expenses'

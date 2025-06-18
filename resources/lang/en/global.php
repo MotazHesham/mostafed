@@ -349,6 +349,7 @@ return [
     'loadMore'                       => 'Load more',
     'last_updated'                   => 'Last updated',
     'finish'                         => 'Finish',
+    'show_all'                       => 'Show all',
     
     'flash' => [
         'created' => 'Created :title successfully',

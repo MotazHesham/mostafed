@@ -1,6 +1,41 @@
 <?php
 
 return [
+    'dashboard' => [
+        'title'          => 'الرئيسية', 
+        'analytics' => 'الإحصائيات',
+
+        'beneficiary_stats' => [
+            'title' => 'إحصائيات المستفيدين',
+            'total' => 'إجمالي المستفيدين',
+            'uncompleted' => 'غير مكتمل', 
+            'rejected' => 'مرفوض',
+            'pending' => 'قيد المراجعة',
+            'approved' => 'مقبول',
+            'archived' => 'مؤرشف', 
+        ],
+
+        'total_beneficiaries' => 'المستفيدين الفعالين',
+        'total_new_beneficiaries' => 'ملف جديد',
+        'total_orders' => 'طلبات الدعم المنجزة',
+        'total_new_orders' => 'طلبات الدعم الجديدة', 
+
+        'orders_by_martial_status' => 'طلبات الدعم حسب الحالة الاجتماعية',
+        'orders' => 'طلبات', 
+        'orders_acceptance_chart' => 'الطلبات حسب القبول',
+
+        'orders_stats' => [
+            'title' => 'إحصائيات الطلبات',
+            'total' => 'إجمالي الطلبات',
+            'current' => 'الحالية',
+            'finished' => 'المنجزة',
+            'archived' => 'المؤرشفة',   
+            'rejected' => 'المرفوضة',
+        ],
+
+        'latest_beneficiaries' => 'آخر المستفيدين',
+        'latest_orders' => 'آخر الطلبات',
+    ],
     'userManagement' => [
         'title'          => 'مستخدمين النظام',
         'title_singular' => 'مستخدمين النظام',
