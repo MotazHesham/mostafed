@@ -12,7 +12,7 @@
             <i class="fas fa-map-marker-alt me-2"></i>{{ trans('global.select_location') }}
         </button>
         <span id="locationDisplay" class="text-muted">
-            @if(isset($latitude) || isset($longitude))
+            @if((isset($latitude) && $latitude != '') || (isset($longitude) && $longitude != ''))
                 {{ trans('global.location_selected') }}
                 ({{ $latitude ?? '' }}, {{ $longitude ?? '' }})
             @else
@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize map when modal is shown
     document.getElementById('locationModal').addEventListener('shown.bs.modal', function() {
         if (!map) {
-            // Initialize map
-            map = L.map('map').setView([40.7128, -74.0060], 10); // Default to New York
+            // Initialize map centered on Saudi Arabia
+            map = L.map('map').setView([24.7136, 46.6753], 6); // Default to Riyadh, Saudi Arabia
 
             // Add tile layer
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

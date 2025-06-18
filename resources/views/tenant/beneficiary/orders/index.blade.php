@@ -1,18 +1,12 @@
-@extends('tenant.layouts.master')
+@extends('tenant.layouts.master-beneficiary')
 @section('content')
     @php
-        $breadcrumbs = [
-            ['title' => trans('cruds.beneficiaryOrdersManagement.title'), 'url' => '#'],
-            [
-                'title' => trans('global.list') . ' ' . trans('cruds.beneficiaryOrder.title'),
-                'url' => route('admin.beneficiary-orders.index'),
-            ],
-        ];
+        $page_title = trans('cruds.beneficiaryOrder.extra.title');
         $buttons = [
             [
-                'title' => trans('global.add') . ' ' . trans('cruds.beneficiaryOrder.title_singular'),
-                'url' => route('admin.beneficiary-orders.create'),
-                'permission' => 'beneficiary_order_create',
+                'title' => trans('global.add') . ' ' . trans('cruds.beneficiaryOrder.extra.title_singular'),
+                'url' => route('beneficiary.beneficiary-orders.create'),
+                'icon' => 'ri-add-line', 
             ],
         ];
     @endphp
@@ -28,16 +22,16 @@
                         </th>
                         <th>
                             {{ trans('cruds.beneficiaryOrder.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.beneficiaryOrder.fields.beneficiary') }}
-                        </th>
+                        </th> 
                         <th>
                             {{ trans('cruds.beneficiaryOrder.fields.title') }}
                         </th>
                         <th>
                             {{ trans('cruds.beneficiaryOrder.fields.service_type') }}
                         </th> 
+                        <th>
+                            {{ trans('cruds.beneficiaryOrder.fields.accept_status') }}
+                        </th>
                         <th>
                             {{ trans('cruds.beneficiaryOrder.fields.status') }}
                         </th> 
@@ -57,46 +51,7 @@
     @parent
     <script>
         $(function() {
-            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-            @can('beneficiary_order_delete')
-                let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
-                let deleteButton = {
-                    text: deleteButtonTrans,
-                    url: "{{ route('admin.beneficiary-orders.massDestroy') }}",
-                    className: 'btn-danger-light rounded-pill',
-                    action: function(e, dt, node, config) {
-                        var ids = $.map(dt.rows({
-                            selected: true
-                        }).data(), function(entry) {
-                            return entry.id
-                        });
-
-                        if (ids.length === 0) {
-                            alert('{{ trans('global.datatables.zero_selected') }}')
-
-                            return
-                        }
-
-                        if (confirm('{{ trans('global.areYouSure') }}')) {
-                            $.ajax({
-                                    headers: {
-                                        'x-csrf-token': _token
-                                    },
-                                    method: 'POST',
-                                    url: config.url,
-                                    data: {
-                                        ids: ids,
-                                        _method: 'DELETE'
-                                    }
-                                })
-                                .done(function() {
-                                    location.reload()
-                                })
-                        }
-                    }
-                }
-                dtButtons.push(deleteButton)
-            @endcan
+            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons) 
 
             let dtOverrideGlobals = {
                 buttons: dtButtons,
@@ -104,12 +59,7 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: {
-                    url: "{{ route('admin.beneficiary-orders.index') }}",
-                    data: {
-                        status: "{{ request('status','current') }}"
-                    }
-                }, 
+                ajax: "{{ route('beneficiary.beneficiary-orders.index') }}", 
                 columns: [{
                         data: 'placeholder',
                         name: 'placeholder'
@@ -117,11 +67,7 @@
                     {
                         data: 'id',
                         name: 'id'
-                    }, 
-                    {
-                        data: 'beneficiary_user_name',
-                        name: 'beneficiary.user.name'
-                    },
+                    },  
                     {
                         data: 'title',
                         name: 'title'
@@ -130,6 +76,10 @@
                         data: 'service_type',
                         name: 'service_type'
                     }, 
+                    {
+                        data: 'accept_status',
+                        name: 'accept_status'
+                    },
                     {
                         data: 'status_name',
                         name: 'status.name'

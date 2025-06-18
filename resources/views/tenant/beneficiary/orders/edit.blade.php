@@ -1,25 +1,15 @@
-@extends('tenant.layouts.master')
+@extends('tenant.layouts.master-beneficiary')
 @section('content')
     @php
-        $breadcrumbs = [
-            ['title' => trans('cruds.beneficiaryOrdersManagement.title'), 'url' => '#'],
-            [
-                'title' => trans('global.list') . ' ' . trans('cruds.beneficiaryOrder.title'),
-                'url' => route('admin.beneficiary-orders.index'),
-            ],
-            ['title' => trans('global.edit') . ' ' . trans('cruds.beneficiaryOrder.title_singular'), 'url' => '#'],
-        ];
+        $page_title = trans('global.edit') . ' ' . trans('cruds.beneficiaryOrder.extra.title');
     @endphp
     @include('tenant.partials.breadcrumb')
     <div class="card">
-        <div class="card-header p-3">
-            <h6 class="card-title">
-                {{ trans('global.edit') }} {{ trans('cruds.beneficiaryOrder.title_singular') }}
-            </h6>
+        <div class="card-header p-3"> 
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.beneficiary-orders.update', [$beneficiaryOrder->id]) }}"
+            <form method="POST" action="{{ route('beneficiary.beneficiary-orders.update', [$beneficiaryOrder->id]) }}"
                 enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
@@ -54,7 +44,7 @@
                         'label' => 'cruds.beneficiaryOrder.fields.attachment',
                         'isRequired' => false,
                         'grid' => 'col-md-12',
-                        'url' => route('admin.beneficiary-orders.storeMedia'),
+                        'url' => route('beneficiary.beneficiary-orders.storeMedia'),
                         'model' => $beneficiaryOrder,
                     ]) 
                 </div>

@@ -22,12 +22,7 @@ Route::group(['prefix' => 'beneficiary', 'as' => 'beneficiary.', 'namespace' => 
     Route::post('beneficiary-families/store', 'BeneficiaryFamilyController@store')->name('beneficiary-families.store');
     Route::post('beneficiary-families/edit', 'BeneficiaryFamilyController@edit')->name('beneficiary-families.edit');
     Route::put('beneficiary-families/update/{beneficiaryFamily}', 'BeneficiaryFamilyController@update')->name('beneficiary-families.update');
-    Route::post('beneficiary-families/destroy', 'BeneficiaryFamilyController@destroy')->name('beneficiary-families.destroy'); 
-
-    // Beneficiary Files 
-    Route::post('beneficiary-files/media', 'BeneficiaryFilesController@storeMedia')->name('beneficiary-files.storeMedia');
-    Route::post('beneficiary-files/ckmedia', 'BeneficiaryFilesController@storeCKEditorImages')->name('beneficiary-files.storeCKEditorImages');
-    Route::resource('beneficiary-files', 'BeneficiaryFilesController');
+    Route::post('beneficiary-families/destroy', 'BeneficiaryFamilyController@destroy')->name('beneficiary-families.destroy');  
 
     // Beneficiary Orders
     Route::post('beneficiary-orders/media', 'BeneficiaryOrdersController@storeMedia')->name('beneficiary-orders.storeMedia');

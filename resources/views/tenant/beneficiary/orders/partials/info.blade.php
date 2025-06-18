@@ -30,7 +30,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item"
-                                href="{{ route('admin.beneficiary-orders.edit', $beneficiaryOrder->id) }}"><i
+                                href="{{ route('beneficiary.beneficiary-orders.edit', $beneficiaryOrder->id) }}"><i
                                     class="ri-edit-line align-middle me-1 d-inline-block"></i>{{ trans('global.edit') }}</a>
                         </li>
                     </ul>
@@ -41,17 +41,7 @@
         <p class="text-muted mb-4">
             {!! $beneficiaryOrder->description ?? '' !!}
         </p>
-        <div class="d-flex gap-5 mb-4 flex-wrap justify-content-between">
-            @if ($beneficiaryOrder->beneficiary)
-                <div class="d-flex align-items-center gap-2">
-                    @include('utilities.user-avatar', ['user' => $beneficiaryOrder->beneficiary->user])
-                    <div>
-                        <span
-                            class="d-block fs-14 fw-medium">{{ $beneficiaryOrder->beneficiary->user->name ?? '' }}</span>
-                        <span class="fs-12 text-muted">{{ trans('cruds.beneficiaryOrder.fields.beneficiary') }}</span>
-                    </div>
-                </div>
-            @endif
+        <div class="d-flex gap-5 mb-4 flex-wrap justify-content-between"> 
             @if ($beneficiaryOrder->specialist)
                 <div class="d-flex align-items-center gap-2">
                     @include('utilities.user-avatar', ['user' => $beneficiaryOrder->specialist])

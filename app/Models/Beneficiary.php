@@ -18,7 +18,7 @@ class Beneficiary extends Model
 {
     use SoftDeletes, HasFactory;
     use LogsModelActivity;
-    
+
     public $table = 'beneficiaries';
 
     public const CAN_WORK_SELECT = [
@@ -158,43 +158,65 @@ class Beneficiary extends Model
     public function specialist()
     {
         return $this->belongsTo(User::class, 'specialist_id');
-    } 
+    }
 
     public function economicCategory()
     {
-        if($this->total_incomes < 5000){
+        if ($this->total_incomes < 5000) {
             return 'أ';
-        }elseif($this->total_incomes >= 5000 && $this->total_incomes < 8000){
+        } elseif ($this->total_incomes >= 5000 && $this->total_incomes < 8000) {
             return 'ب';
-        }elseif($this->total_incomes >= 8000 && $this->total_incomes < 12000){
+        } elseif ($this->total_incomes >= 8000 && $this->total_incomes < 12000) {
             return 'ج';
-        }elseif($this->total_incomes > 12000){
+        } elseif ($this->total_incomes > 12000) {
             return 'د';
         }
-    } 
-    
+    }
+
     public function getLogAttributes()
     {
         return [
-            'profile_status',  'dob', 'address', 'latitude',
-            'longitude', 'street', 'building_number', 'floor_number',
-            'custom_health_condition', 'custom_disability_type',
-            'can_work', 'incomes',  'expenses',  'is_archived', 'rejection_reason',
+            'profile_status',
+            'dob',
+            'address',
+            'latitude',
+            'longitude',
+            'street',
+            'building_number',
+            'floor_number',
+            'custom_health_condition',
+            'custom_disability_type',
+            'can_work',
+            'incomes',
+            'expenses',
+            'is_archived',
+            'rejection_reason',
 
-            'region->id', 'region->name',
-            'city->id', 'city->name',
-            'district->id', 'district->name',
-            'nationality->id', 'nationality->name',
-            'marital_status->id', 'marital_status->name',
-            'job_type->id', 'job_type->name',
-            'educational_qualification->id', 'educational_qualification->name',
-            'health_condition->id', 'health_condition->name',
-            'disability_type->id', 'disability_type->name',
-            'specialist->id', 'specialist->name',
+            'region->id',
+            'region->name',
+            'city->id',
+            'city->name',
+            'district->id',
+            'district->name',
+            'nationality->id',
+            'nationality->name',
+            'marital_status->id',
+            'marital_status->name',
+            'job_type->id',
+            'job_type->name',
+            'educational_qualification->id',
+            'educational_qualification->name',
+            'health_condition->id',
+            'health_condition->name',
+            'disability_type->id',
+            'disability_type->name',
+            'specialist->id',
+            'specialist->name',
         ];
     }
 
-    public function getActivityDescriptionForEvent($eventName){
+    public function getActivityDescriptionForEvent($eventName)
+    {
         if ($eventName == 'created') {
             return "تم فتح ملف جديد للمستفيد";
         } elseif ($eventName == 'updated') {
@@ -202,40 +224,44 @@ class Beneficiary extends Model
         } elseif ($eventName == 'deleted') {
             return 'تم حذف ملف المستفيد';
         }
-    } 
+    }
     public function getLogNameToUse(): ?string
     {
-        return 'beneficiary_activity-'.$this->id;
+        return 'beneficiary_activity-' . $this->id;
     }
-    
+
     public function getCustomAttributes(Activity $activity)
-    {   
+    {
         $properties = $activity->properties ?? [];
 
-        $transformData = function($data, &$properties)use($activity) {
+        $transformData = function ($data, &$properties) use ($activity) {
             $oldAttributes = $properties['old'] ?? [];
             $currentAttributes = $properties['attributes'] ?? [];
-            
+
             if (isset($data['profile_status']) && isset(self::PROFILE_STATUS_SELECT[$data['profile_status']])) {
                 $data['profile_status'] = self::PROFILE_STATUS_SELECT[$data['profile_status']];
             }
             if (isset($data['can_work']) && isset(self::CAN_WORK_SELECT[$data['can_work']])) {
                 $data['can_work'] = self::CAN_WORK_SELECT[$data['can_work']];
             }
-            if(isset($data['is_archived'])){
-                if($activity->event != 'created'){
+            if (isset($data['is_archived'])) {
+                if ($activity->event != 'created') {
                     $data['is_archived'] = $data['is_archived'] == 1 ? 'مؤرشف' : 'غير مؤرشف';
                 }
             }
-            
+
 
             // Handle special cases for incomes and expenses
-            if (isset($currentAttributes['incomes']) && isset($oldAttributes['incomes'])) {
-                $changes = compareJsonValues($oldAttributes['incomes'], $currentAttributes['incomes']);
-                foreach ($changes['changed'] as $key => $change) {
+            if (isset($currentAttributes['incomes'])) {
+                if (isset($oldAttributes['incomes'])) {
+                    $changes = compareJsonValues($oldAttributes['incomes'], $currentAttributes['incomes'])['changed'];
+                } else {
+                    $changes = json_decode($currentAttributes['incomes']);
+                }
+                foreach ($changes as $key => $change) {
                     $income = EconomicStatus::find($key);
                     if ($income) {
-                        $data[$income->getTranslation('name','ar')] = $change['new'];
+                        $data[$income->getTranslation('name', 'ar')] = $change['new'] ?? $change;
                     }
                 }
                 unset($data['incomes']);
@@ -245,14 +271,19 @@ class Beneficiary extends Model
                 ];
             }
 
-            if (isset($currentAttributes['expenses']) && isset($oldAttributes['expenses'])) {
-                $changes = compareJsonValues($oldAttributes['expenses'], $currentAttributes['expenses']);
-                foreach ($changes['changed'] as $key => $change) {
+            if (isset($currentAttributes['expenses'])) {
+                if (isset($oldAttributes['expenses'])) {
+                    $changes = compareJsonValues($oldAttributes['expenses'], $currentAttributes['expenses'])['changed'];
+                } else {
+                    $changes = json_decode($currentAttributes['expenses']);
+                }
+                foreach ($changes as $key => $change) {
                     $expense = EconomicStatus::find($key);
                     if ($expense) {
-                        $data[$expense->getTranslation('name','ar')] = $change['new'];
+                        $data[$expense->getTranslation('name', 'ar')] = $change['new'] ?? $change;
                     }
                 }
+
                 unset($data['expenses']);
                 $properties['skipped_attributes'] = [
                     'old' => $oldAttributes['expenses'],
@@ -260,16 +291,16 @@ class Beneficiary extends Model
                 ];
             }
             return $data;
-        }; 
+        };
 
         if (isset($properties['attributes'])) {
-            $properties['attributes'] = $transformData($properties['attributes'], $properties); 
+            $properties['attributes'] = $transformData($properties['attributes'], $properties);
         }
-        
+
         if (isset($properties['old'])) {
-            $properties['old'] = $transformData($properties['old'], $properties); 
+            $properties['old'] = $transformData($properties['old'], $properties);
         }
-        
+
         return $properties;
-    } 
+    }
 }

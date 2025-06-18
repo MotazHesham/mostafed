@@ -21,11 +21,17 @@
     @if (isset($buttons))
         <div class="btn-list">
             @foreach ($buttons as $button)
-                @can($button['permission'])
+                @if (isset($button['permission']))
+                    @can($button['permission'])
+                        <a href="{{ $button['url'] }}" @isset($button['onclick']) onclick="{{ $button['onclick'] }}" @endisset class="btn {{ $button['class'] ?? 'btn-primary' }} rounded-pill btn-wave">
+                            {{ $button['title'] }}
+                        </a>
+                    @endcan
+                @else
                     <a href="{{ $button['url'] }}" @isset($button['onclick']) onclick="{{ $button['onclick'] }}" @endisset class="btn {{ $button['class'] ?? 'btn-primary' }} rounded-pill btn-wave">
                         {{ $button['title'] }}
                     </a>
-                @endcan
+                @endif
             @endforeach
         </div>
     @endif

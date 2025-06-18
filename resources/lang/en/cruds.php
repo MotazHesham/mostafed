@@ -952,9 +952,15 @@ return [
         'title'          => 'Requests',
         'title_singular' => 'Request',
         'extra'          => [
-            'activity' => 'Activity',
-            'info' => 'Info',
+            'title' => 'Requests',
+            'title_singular' => 'Request',
+            'activity' => 'Activities',
+            'info' => 'Request Info',
             'followups' => 'Followups',
+            'current' => 'Current',
+            'finished' => 'Finished',
+            'archived' => 'Archived',   
+            'rejected' => 'Rejected',
         ],
         'fields'         => [
             'id'                    => 'ID',

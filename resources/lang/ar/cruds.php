@@ -988,6 +988,8 @@ return [
         'title'          => 'طلبات المستفيدين',
         'title_singular' => 'طلب مستفيد',
         'extra'          => [
+            'title' => 'الطلبات',
+            'title_singular' => 'طلب',
             'activity' => 'النشاطات',
             'info' => 'بيانات الطلب',
             'followups' => 'المتابعات',

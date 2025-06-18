@@ -10,7 +10,11 @@
     <li>
         <div>
             <span class="avatar avatar-sm bg-primary-transparent avatar-rounded profile-timeline-avatar">
-                @include('utilities.user-avatar', ['user' => $log->causer])
+                @if($log->causer)
+                    @include('utilities.user-avatar', ['user' => $log->causer])
+                @else
+                    <i class="ri-user-line"></i>
+                @endif
             </span>
             <div class="d-flex gap-2 flex-wrap mb-2">
                 <p class="mb-0">
