@@ -34,49 +34,46 @@
 </div>
 
 @if (isset($editor) && $editor)
-    @section('scripts')
-        @parent
-        <script>
-            var toolbarOptions = [
-                [{
-                    header: [1, 2, 3, 4, 5, 6, false]
-                }],
-                [{
-                    font: []
-                }],
-                ["bold", "italic", "underline", "strike"],
-                ["blockquote", "code-block"],
-                [{
-                    list: "ordered"
-                }, {
-                    list: "bullet"
-                }],
-                [{
-                    color: []
-                }, {
-                    background: []
-                }],
-                [{
-                    align: []
-                }], 
-                ["clean"]
-            ];
+    <script>
+        var toolbarOptions_{{ $id ?? $name }} = [
+            [{
+                header: [1, 2, 3, 4, 5, 6, false]
+            }],
+            [{
+                font: []
+            }],
+            ["bold", "italic", "underline", "strike"],
+            ["blockquote", "code-block"],
+            [{
+                list: "ordered"
+            }, {
+                list: "bullet"
+            }],
+            [{
+                color: []
+            }, {
+                background: []
+            }],
+            [{
+                align: []
+            }], 
+            ["clean"]
+        ];
 
-            var quill = new Quill("#editor-{{ $id ?? $name }}", {
-                modules: {
-                    toolbar: toolbarOptions
-                },
-                theme: "snow",
-            });
+        var quill_{{ $id ?? $name }} = new Quill("#editor-{{ $id ?? $name }}", {
+            modules: {
+                toolbar: toolbarOptions_{{ $id ?? $name }}
+            },
+            theme: "snow",
+        });
 
-            // Set initial content
-            var hiddenInput = document.getElementById("input-{{ $id ?? $name }}");
-            quill.root.innerHTML = hiddenInput.value;
+        // Set initial content
+        var hiddenInput_{{ $id ?? $name }} = document.getElementById("input-{{ $id ?? $name }}");
+        quill_{{ $id ?? $name }}.root.innerHTML = hiddenInput_{{ $id ?? $name }}.value;
 
-            // Sync on change
-            quill.on('text-change', function() {
-                hiddenInput.value = quill.root.innerHTML;
-            });
-        </script>
-    @endsection
+        // Sync on change
+        quill_{{ $id ?? $name }}.on('text-change', function() {
+            hiddenInput_{{ $id ?? $name }}.value = quill_{{ $id ?? $name }}.root.innerHTML;
+        });
+    </script>
 @endif

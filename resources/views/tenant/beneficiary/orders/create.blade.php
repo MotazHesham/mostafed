@@ -1,11 +1,19 @@
 @extends('tenant.layouts.master-beneficiary')
 @section('content')
     @php
+        $breadcrumbs = [
+            ['title' => trans('cruds.beneficiaryOrder.extra.title'), 'url' => '#'],
+            [
+                'title' => trans('global.list') . ' ' . trans('cruds.beneficiaryOrder.extra.title'),
+                'url' => route('beneficiary.beneficiary-orders.index'),
+            ],
+            ['title' => trans('global.create') . ' ' . trans('cruds.beneficiaryOrder.extra.title_singular'), 'url' => '#'],
+        ];
         $page_title = trans('global.create') . ' ' . trans('cruds.beneficiaryOrder.extra.title_singular');
     @endphp
     @include('tenant.partials.breadcrumb')
     <div class="card">
-        <div class="card-header p-3"> 
+        <div class="card-header p-3">
             <h6 class="card-title">
                 {{ trans('global.create') . ' ' . trans('cruds.beneficiaryOrder.extra.title_singular') }}
             </h6>
@@ -16,14 +24,14 @@
                 @csrf
                 <input type="hidden" name="beneficiary_id" value="{{ auth()->user()->beneficiary->id }}">
 
-                <div class="row">  
+                <div class="row">
                     @include('utilities.form.select', [
                         'name' => 'service_type',
                         'label' => 'cruds.beneficiaryOrder.fields.service_type',
                         'isRequired' => true,
                         'grid' => 'col-md-6',
                         'options' => App\Models\Service::TYPE_SELECT,
-                    ]) 
+                    ])
                     @include('utilities.form.text', [
                         'name' => 'title',
                         'label' => 'cruds.beneficiaryOrder.fields.title',
@@ -44,7 +52,7 @@
                         'isRequired' => false,
                         'grid' => 'col-md-12',
                         'url' => route('beneficiary.beneficiary-orders.storeMedia'),
-                    ]) 
+                    ])
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary-light rounded-pill btn-wave" type="submit">
@@ -54,4 +62,4 @@
             </form>
         </div>
     </div>
-@endsection 
+@endsection

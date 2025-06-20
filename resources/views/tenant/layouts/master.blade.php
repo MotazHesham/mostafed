@@ -122,6 +122,11 @@
 
         </div>
 
+        {{-- mail show offcanvas --}}
+        <div class="offcanvas offcanvas-end mail-info-offcanvas" data-bs-scroll="true" tabindex="-1" id="mail-show-offcanvas" aria-labelledby="mail-show-offcanvasLabel">
+
+        </div>
+
         <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}
         </form>

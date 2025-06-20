@@ -217,6 +217,15 @@
                     <!-- End::slide -->
                 @endcan
 
+                <!-- Start::slide -->
+                    <li class="slide">
+                        <a href="{{ route('admin.mailbox.index', ['type' => 'inbox']) }}" class="side-menu__item">
+                            <i class="bi bi-envelope"></i>
+                            <span class="side-menu__label">{{ trans('cruds.mailbox.title') }}</span>
+                        </a>
+                    </li>
+                <!-- End::slide -->
+
                 <!-- Start::slide__category -->
                 <li class="slide__category"><span
                         class="category-name">{{ trans('cruds.beneficiariesManagment.title') }}</span></li>

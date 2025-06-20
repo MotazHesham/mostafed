@@ -321,6 +321,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Tenant\Admi
     // Beneficiary Refused
     Route::delete('beneficiary-refuseds/destroy', 'BeneficiaryRefusedController@massDestroy')->name('beneficiary-refuseds.massDestroy');
     Route::resource('beneficiary-refuseds', 'BeneficiaryRefusedController');
+
+    // Mailbox 
+    Route::post('mailbox/media', 'MailboxController@storeMedia')->name('mailbox.storeMedia');
+    Route::get('mailbox', 'MailboxController@index')->name('mailbox.index');
+    Route::post('mailbox/store', 'MailboxController@store')->name('mailbox.store');
+    Route::post('mailbox/star', 'MailboxController@star')->name('mailbox.star');
+    Route::post('mailbox/important', 'MailboxController@important')->name('mailbox.important');
+    Route::post('mailbox/show', 'MailboxController@show')->name('mailbox.show');
+    Route::delete('mailbox/destroy/{message}', 'MailboxController@destroy')->name('mailbox.destroy');
+    Route::post('mailbox/reply', 'MailboxController@reply')->name('mailbox.reply');
+    Route::post('mailbox/load-more', 'MailboxController@loadMore')->name('mailbox.loadMore');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password

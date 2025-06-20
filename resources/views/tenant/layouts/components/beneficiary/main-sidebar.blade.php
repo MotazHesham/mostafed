@@ -53,6 +53,14 @@
 
                 <!-- Start::slide -->
                 <li class="slide">
+                    <a href="{{ route('beneficiary.beneficiary-orders.create') }}" class="side-menu__item">
+                        <i class="bi bi-plus"></i>
+                        <span class="side-menu__label"> {{ trans('global.add') }} {{ trans('cruds.beneficiaryOrder.extra.title_singular') }}</span>
+                    </a>
+                </li>
+                <!-- End::slide -->
+                <!-- Start::slide -->
+                <li class="slide">
                     <a href="{{ route('beneficiary.beneficiary-orders.index') }}" class="side-menu__item">
                         <i class="bi bi-file-earmark-text"></i>
                         <span class="side-menu__label"> {{ trans('global.list') }} {{ trans('cruds.beneficiaryOrder.extra.title') }}</span>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\GenerativeNumber;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 if (!function_exists('formatFileSize')) {
@@ -164,3 +165,18 @@ if (!function_exists('randomBadgeClass')) {
         return $badgeClass[abs($hash) % count($badgeClass)];
     }
 }
+
+if (!function_exists('getStaffUsers')) {
+    function getStaffUsers()
+    {
+        return User::where('user_type', 'staff')->get();
+    }
+}
+
+if (!function_exists('getBeneficiaryUsers')) {
+    function getBeneficiaryUsers()
+    {
+        return User::where('user_type', 'beneficiary')->get();
+    }
+}
+

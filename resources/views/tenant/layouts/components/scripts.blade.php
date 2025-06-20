@@ -243,11 +243,11 @@
                     });
                }
 
-               function showAjaxOffcanvas(url, data, position = "left") {
-                    $('#ajaxOffcanvas').offcanvas('show'); 
-                    $('#ajaxOffcanvas').html(`
+               function showAjaxOffcanvas(url, data, position = "left" , offCanvasId = 'ajaxOffcanvas') {
+                    $('#' + offCanvasId).offcanvas('show'); 
+                    $('#' + offCanvasId).html(`
                          <div class="offcanvas-header border-bottom border-block-end-dashed">
-                              <h5 class="offcanvas-title" id="ajaxOffcanvasLabel"></h5>
+                              <h5 class="offcanvas-title" id="${offCanvasId}Label"></h5>
                               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                          </div>
                          <div class="offcanvas-body p-0">
@@ -264,10 +264,10 @@
                          type: 'POST',
                          data: {...data, _token: '{{ csrf_token() }}'},
                          success: function(response) {
-                              $('#ajaxOffcanvas').html(response.html);
+                              $('#' + offCanvasId).html(response.html);
                          },
                          error: function(xhr, status, error) {
-                              $('#ajaxOffcanvas').html(`
+                              $('#' + offCanvasId).html(`
                                    <div class="offcanvas-header border-bottom border-block-end-dashed">
                                         <h5 class="offcanvas-title text-danger">Error</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -336,6 +336,10 @@
                               showToast('{{ trans("global.flash.error") }}', 'danger', 'top');
                          }
                     });
+               }
+
+               function initTooltip(el) {
+                    $(el).tooltip('show');
                }
           </script>
 

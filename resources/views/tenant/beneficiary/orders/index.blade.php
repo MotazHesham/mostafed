@@ -1,12 +1,19 @@
 @extends('tenant.layouts.master-beneficiary')
 @section('content')
     @php
+        $breadcrumbs = [
+            ['title' => trans('cruds.beneficiaryOrder.extra.title'), 'url' => '#'],
+            [
+                'title' => trans('global.list') . ' ' . trans('cruds.beneficiaryOrder.extra.title'),
+                'url' => route('beneficiary.beneficiary-orders.index'),
+            ],
+        ];
         $page_title = trans('cruds.beneficiaryOrder.extra.title');
         $buttons = [
             [
                 'title' => trans('global.add') . ' ' . trans('cruds.beneficiaryOrder.extra.title_singular'),
                 'url' => route('beneficiary.beneficiary-orders.create'),
-                'icon' => 'ri-add-line', 
+                'icon' => 'ri-add-line',
             ],
         ];
     @endphp
@@ -22,19 +29,19 @@
                         </th>
                         <th>
                             {{ trans('cruds.beneficiaryOrder.fields.id') }}
-                        </th> 
+                        </th>
                         <th>
                             {{ trans('cruds.beneficiaryOrder.fields.title') }}
                         </th>
                         <th>
                             {{ trans('cruds.beneficiaryOrder.fields.service_type') }}
-                        </th> 
+                        </th>
                         <th>
                             {{ trans('cruds.beneficiaryOrder.fields.accept_status') }}
                         </th>
                         <th>
                             {{ trans('cruds.beneficiaryOrder.fields.status') }}
-                        </th> 
+                        </th>
                         <th>
                             {{ trans('cruds.beneficiaryOrder.fields.specialist') }}
                         </th>
@@ -51,7 +58,7 @@
     @parent
     <script>
         $(function() {
-            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons) 
+            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 
             let dtOverrideGlobals = {
                 buttons: dtButtons,
@@ -59,7 +66,7 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: "{{ route('beneficiary.beneficiary-orders.index') }}", 
+                ajax: "{{ route('beneficiary.beneficiary-orders.index') }}",
                 columns: [{
                         data: 'placeholder',
                         name: 'placeholder'
@@ -67,7 +74,7 @@
                     {
                         data: 'id',
                         name: 'id'
-                    },  
+                    },
                     {
                         data: 'title',
                         name: 'title'
@@ -75,7 +82,7 @@
                     {
                         data: 'service_type',
                         name: 'service_type'
-                    }, 
+                    },
                     {
                         data: 'accept_status',
                         name: 'accept_status'
@@ -83,7 +90,7 @@
                     {
                         data: 'status_name',
                         name: 'status.name'
-                    }, 
+                    },
                     {
                         data: 'specialist_name',
                         name: 'specialist.name'

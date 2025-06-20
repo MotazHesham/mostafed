@@ -337,6 +337,7 @@ return [
     'enter'                          => 'ادخل',
     'select'                         => 'اختر',
     'other'                          => 'أخرى',
+    'me'                             => 'أنا',
     'please_specify'                 => 'يرجى تحديد',
     'save_and_complete'              => 'حفظ وإكمال البيانات',
     'no_data_found'                  => 'لا يوجد بيانات',

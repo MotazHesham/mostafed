@@ -1,5 +1,5 @@
-
-<div class="modal fade" id="archiveModal" tabindex="-1" aria-labelledby="archiveModalLabel" aria-hidden="true">
+<div class="modal fade" id="archiveModal" tabindex="-1"  style="z-index: 1100"
+aria-labelledby="archiveModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <form action="{{ route('admin.archives.store') }}" method="POST">
@@ -21,7 +21,9 @@
                     @include('utilities.form.select', [
                         'name' => 'storage_location_id',
                         'label' => 'cruds.archive.fields.storage_location',
-                        'options' => \App\Models\StorageLocation::pluck('code', 'id')->prepend(trans('global.pleaseSelect'), ''),
+                        'options' => \App\Models\StorageLocation::pluck('code', 'id')->prepend(
+                            trans('global.pleaseSelect'),
+                            ''),
                         'isRequired' => false,
                     ])
 

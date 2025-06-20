@@ -130,3 +130,51 @@ table.dataTable thead .sorting_desc {
 .custom-select.form-control-sm {
     padding: 0.25rem 1.5rem;
 }
+
+/* Mailbox Infinite Scrolling Styles */
+.mail-messages {
+    position: relative;
+}
+
+.mail-messages .loading-indicator {
+    text-align: center;
+    padding: 1rem;
+    color: #6c757d;
+}
+
+.mail-messages .error-message {
+    text-align: center;
+    padding: 1rem;
+    color: #dc3545;
+}
+
+.mail-messages .no-messages {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6c757d;
+}
+
+.mail-messages .no-messages i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.mail-messages .no-messages h6 {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.mail-messages .no-messages p {
+    font-size: 0.875rem;
+    margin-bottom: 0;
+}
+
+/* Smooth transition for new messages */
+.mail-messages-container li {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.mail-messages-container li.loading {
+    opacity: 0.6;
+}
